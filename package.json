@@ -1,0 +1,72 @@
+{
+  "name": "layout-editor",
+  "version": "0.1.0",
+  "description": "super efficient html / css editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "publish": "electron-builder --win -p always"
+  },
+  "build": {
+    "appId": "com.layouteditor.app",
+    "productName": "Layout Editor",
+    "npmArgs": "--production",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "freuwoert",
+          "repo": "layout-editor"
+        }
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": false,
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "fileAssociations": [
+    {
+      "name": "Layout Editor LEF",
+      "description": "Layout Editor File",
+      "ext": [
+        "lef"
+      ]
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freuwoert/layout-editor.git"
+  },
+  "keywords": [
+    "css",
+    "html",
+    "layout-editor"
+  ],
+  "author": "Maurice Freuwört",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/freuwoert/layout-editor/issues"
+  },
+  "homepage": "https://github.com/freuwoert/layout-editor#readme",
+  "dependencies": {
+    "animejs": "^3.1.0",
+    "electron-log": "^4.0.3",
+    "electron-settings": "^3.2.0",
+    "electron-updater": "^4.2.0",
+    "glob": "^7.1.6",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "electron": "^7.1.9",
+    "electron-builder": "^22.2.0"
+  }
+}

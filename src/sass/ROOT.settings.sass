@@ -1,0 +1,94 @@
+.settings-content
+    padding: 10px 0 !important
+    height: calc(100% - 110px) !important
+    width: calc(100% - 300px) !important
+    bottom: 50px !important
+    left: 300px !important
+
+.settings-categories
+    height: calc(100% - 110px)
+    position: absolute
+    left: 0
+    bottom: 50px
+    width: 300px
+    overflow-y: auto
+    user-select: none
+
+    .category
+        background: var(--background)
+        height: 50px
+        line-height: 50px
+        padding: 0 10px
+        margin: 10px 5px
+        margin-bottom: 0
+        text-align: left
+        transition: all 100ms
+        font-size: 17px
+        width: calc(100% - 10px)
+        border-radius: 7px
+        cursor: pointer
+        color: #666
+
+        .icon
+            font-size: 25px
+            font-family: 'Material Icons'
+            vertical-align: top
+            margin-right: 10px
+            margin-left: 6px
+            color: inherit
+
+        &:hover
+            filter: drop-shadow(0 4px 7px rgba(0,0,0,var(--so)))
+
+            .icon
+                color: var(--primary)
+
+        &.active
+            background: var(--primary) !important
+            color: white !important
+
+            .icon
+                color: inherit !important
+
+.settings-divider
+    width: 100%
+    min-height: 50px
+    padding: 10px 20px
+    padding-bottom: 25px
+    text-align: left
+
+    .input
+        max-width: 100%
+
+    .settings-label
+        width: 100%
+        line-height: 26px
+        color: var(--primary)
+        font-size: 15px
+        vertical-align: top
+        text-align: left
+
+        .icon
+            font-size: 24px
+            vertical-align: middle
+            font-family: 'Material Icons'
+            margin-right: 5px
+    
+    .info
+        font-size: 16px
+        font-weight: initial
+        color: #333
+
+        .box
+            height: 20px
+            line-height: 20px
+            padding: 0 6px
+            border-radius: 4px
+            font-size: 12px
+            margin: 3px 0px 3px 5px
+            color: white
+            background: var(--primary)
+
+            &.secondary
+                background: #dddddd
+                color: #000000

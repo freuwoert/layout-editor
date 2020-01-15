@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="src/css/ROOT.main.min.css">
+        <link rel="stylesheet" href="src/css/ROOT.settings.min.css">
+        <link rel="stylesheet" href="src/css/ROOT.VIEW.start.min.css">
+        <link rel="stylesheet" href="src/css/FONT__MASTER.min.css">
+        <script>
+            const $ = require('jquery')
+            const fs = require('fs')
+            const anime = require('animejs')
+            const settings = require('electron-settings')
+            const { ipcRenderer } = require('electron')
+        </script>
+    </head>
+    <body>
+        <div id="app">
+
+            <header class="titlebar">
+                <div class="drag-area">
+                    <div class="window-title">
+                        <div class="window-icon"></div>
+                        Layout Editor - {{info.versionName}}
+                    </div>
+                    <div class="window-controls">
+                        <div class="tb-button" id="min-button">
+                            <div class="icon">&#62324;</div>
+                        </div>
+                        <div class="tb-button" id="max-button">
+                            <div class="icon">&#61745;</div>
+                        </div>
+                        <div class="tb-button" id="restore-button">
+                            <div class="icon">&#61751;</div>
+                        </div>
+                        <div class="tb-button" id="close-button">
+                            <div class="icon">&#61782;</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="preloader">
+                <svg class="spinner" viewBox="0 0 50 50">
+                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+                </svg>
+                <span class="preload-text"><b>Layout Editor</b></span>
+            </div>
+
+            <div class="view active">
+
+                <div class="start-open-settings" @click="UI.settings = true">
+                    <div class="icon">&#62611;</div>
+                </div>
+            </div>
+
+
+
+
+            <div class="popup-bg settings-bg no-select" :class="{'active' : UI.settings}">
+                <div class="popup-holder settings-holder">
+                    <div class="popup-header settings-header">
+                        Settings
+                        <div class="close-ui" @click="UI.settings = false">&#61782;</div>
+                    </div>
+                    <div class="settings-categories">
+                        <div class="category" :class="{'active' : UI.activeSetting == 'INFO'}" @click="UI.activeSetting = 'INFO'"><div class="icon">&#62205;</div> Info</div>
+                    </div>
+
+
+
+                    <div class="popup-content settings-content" v-show="UI.activeSetting == 'INFO'">
+
+                        <!-- INFO -->
+                        <div class="settings-divider">
+                            <div class="info">
+                                <h3>About this Software</h3><br>
+                                Version: <div class="box">{{info.version}}</div><div class="box secondary">{{info.versionName}}</div><br>
+                                API-Version: <div class="box">{{info.apiVersion}}</div><br>
+                                Node-Version: <div class="box">{{info.nodeVersion}}</div><br>
+                                Electron-Version: <div class="box">{{info.electronVersion}}</div><br><br>
+
+                                Release Notes: <div class="button" @click="UI.releaseNote = true">Open</div><br><br>
+                                <h3>About the developer</h3><br>
+                                Developed by <i>Maurice Freuwört Software and Design</i>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="popup-footer settings-footer">
+                        <div class="button ghost-button" onclick="resetSettings()">Zurücksetzen</div>
+                        <div class="button" onclick="applySettings()">Übernehmen</div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+            <div class="popup-bg release-note-bg no-select" :class="{'active' : UI.releaseNote}">
+                <div class="popup-holder release-note-holder">
+                    <div class="release-image">
+                        <span class="title">
+                            {{info.versionName}}
+                            <span class="version">{{info.version}}</span>
+                        </span>
+                    </div>
+                    <span class="headline">Das ist neu:</span>
+                    <div class="release-note-container">
+                        • Druckproblem wurde gelöst<br>
+                        • Der Druck wird nun als kräftiges <b>Schwarz</b> dargestellt<br>
+                    </div>
+                    <div class="close-release-note" @click="UI.releaseNote = false">Los geht's!</div>
+                </div>
+            </div>
+
+
+            <div class="full-window-popup" :class="{'active' : UI.login}">
+                <div class="popup-background"></div>
+                <div class="popup-center">
+                    <form onsubmit="ipPassNext(event)">
+                        <input type="text" class="input" id="pass-ip-value" placeholder="Passwort eingeben">
+                        <button type="submit" class="button">Einloggen</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- HOLDER FOR ALL TOAST NOTIFICATIONS -->
+            <div class="toast-holder"></div>
+
+        </div>
+    </body>
+
+    <script src="src/js/toast.js"></script>
+    
+    <script>
+        
+        const EventFunctions = require('./src/js/eventFunctions.js')
+        const Vue = require('./src/js/vue.min.js')
+        
+    </script>
+    
+    <script src="src/js/INIT.js"></script>
+</html>
