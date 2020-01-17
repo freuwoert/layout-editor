@@ -47,13 +47,6 @@ app.on('ready', function(){
                     accelerator: 'CmdOrCtrl+O',
                     click (){toRenderer(['open'])}
                 },
-                {type: 'separator'},
-                {
-                    label:'Home',
-                    accelerator: 'CmdOrCtrl+Shift+H',
-                    click (){toRenderer(['home'])}
-                },
-                {type: 'separator'},
                 {
                     label:'Save',
                     accelerator: 'CmdOrCtrl+S',
@@ -63,19 +56,10 @@ app.on('ready', function(){
                     accelerator: 'CmdOrCtrl+Shift+S',
                     click (){toRenderer(['saveas'])}
                 },
-                {type: 'separator'},
-                {
-                    label:'Close',
-                    click(){toRenderer(['close'])}
-                }
             ]
         },{
             label:'Edit',
             submenu:[
-                {label: 'Copy', role: 'copy'},
-                {label: 'Paste', role: 'paste'},
-                {label: 'Cut', role: 'cut'},
-                {type: 'separator'},
                 {
                     label: 'Settings',
                     accelerator: 'CmdOrCtrl+Shift+E',

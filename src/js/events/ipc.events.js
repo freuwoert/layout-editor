@@ -7,7 +7,7 @@ require('electron').ipcRenderer.on('msgFromMain', function(event, args) {
         home:           (args)=>{ homescreenIfSignedIn() },
         //startupOpen:    (args)=>{ file.openOnStart(args[1]) },
         open:           (args)=>{ openFileIfSignedIn() },
-        openSettings:   (args)=>{ openSettings() },
+        openSettings:   (args)=>{ app.GENERAL_UI.settings = true },
 
         update_checking:        (args)=>{ sendAToast('info','Suche nach Updates...', 4000) },
         update_available:       (args)=>{ sendAToast('info','Update gefunden: <b>Gencestor '+ JSON.parse(args[1]).version +'</b>', 3000) },

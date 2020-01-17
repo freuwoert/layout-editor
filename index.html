@@ -2,26 +2,41 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="src/css/FONT__MASTER.min.css">
         <link rel="stylesheet" href="src/css/ROOT.main.min.css">
         <link rel="stylesheet" href="src/css/ROOT.settings.min.css">
+        <link rel="stylesheet" href="src/css/ROOT.VIEW.edit.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.start.min.css">
-        <link rel="stylesheet" href="src/css/FONT__MASTER.min.css">
         <script>
             const $ = require('jquery')
+            const _ = require('lodash')
             const fs = require('fs')
+            const Vue = require('vue/dist/vue.min')
             const anime = require('animejs')
+            const Toast = require('./src/js/modules/toast.js')
             const settings = require('electron-settings')
+            const Mousetrap = require('mousetrap')
+            const remote = require('electron').remote
             const { ipcRenderer } = require('electron')
         </script>
     </head>
     <body>
         <div id="app">
 
+
+
+
             <header class="titlebar">
                 <div class="drag-area">
                     <div class="window-title">
-                        <div class="window-icon"></div>
-                        Layout Editor - {{info.versionName}}
+                        <div class="tab-container">
+                            <div class="tab" v-for="(tab, id) in TAB" :class="{'active' : id == A}">
+                                <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
+                                <span class="title" @click="A = id">{{tab.NAME}}</span>
+                                <div class="close">&#61782;</div>
+                            </div>
+                            <div class="create">&#62485;</div>
+                        </div>
                     </div>
                     <div class="window-controls">
                         <div class="tb-button" id="min-button">
@@ -47,29 +62,118 @@
                 <span class="preload-text"><b>Layout Editor</b></span>
             </div>
 
-            <div class="view active">
 
-                <div class="start-open-settings" @click="UI.settings = true">
+
+
+            <div class="view" id="start-view" v-show="TAB[A].VIEW == 'START'">
+                <div class="start-open-settings" @click="GENERAL_UI.settings = true">
                     <div class="icon">&#62611;</div>
+                </div>
+            </div>
+
+            <div class="view" id="edit-view" v-show="TAB[A].VIEW == 'EDIT'">
+                <div class="structure-panel">
+                    <div class="tree-container">
+                        <structure-tree v-for="(child, id) in TAB[A].DOCUMENT.HTML" :focus="TAB[A].FOCUSED_HTML" :trace="id" :attributes="child.attributes" :type="child.type" :children="child.children"></structure-tree>
+                    </div>
+                    <div class="button-container">
+                        <div class="btn">
+                            <div class="icon">&#63974;</div>
+                        </div>
+                        <div class="btn">
+                            <div class="icon">&#64658;</div>
+                        </div>
+                        <div class="btn" onclick="openStructureAdd('END')">
+                            <div class="icon">&#62485;</div>
+                        </div>
+                        <div class="btn filler">
+                            <div class="icon">&#62474;</div>
+                            <div class="label">Generate Code</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option-panel">
+                    <div class="focus-indicator" :class="{'switched' : TAB[A].FOCUSED_PANEL == 'STYLE'}" v-show="true"></div>
+                </div>
+                <div class="workspace"></div>
+                <div class="status-panel"></div>
+                <div class="styling-panel"></div>
+            </div>
+
+
+
+            <div class="structure-add-panel" :class="{'active' : TAB[A].UI.structureAdd}">
+                <div class="container">
+                    <div class="close" onclick="closeStructureAdd()">
+                        <div class="icon">&#61782;</div>
+                        <div class="key">esc</div>
+                    </div>
+                    <label class="search">
+                        <input  class="input mousetrap"
+                                type="text"
+                                ref="structureSearch"
+                                placeholder="Search tags or presets"
+                                v-model="TAB[A].UI_DATA.structureAddSearch"
+                                onfocus="focusStructureAddSearch()"
+                                onblur="blurStructureAddSearch()"
+                                onkeyup="updateStructureAddSearch()">
+
+                        <div class="info">
+                            <div class="icon">&#62225;</div>
+                            <div class="key">enter</div>
+                        </div>
+                    </label>
+                    <div class="autocomplete" v-show="TAB[A].UI_DATA.structureAddSearch != ''">
+                        <div class="item" v-for="structure in TAB[A].UI_DATA.structureAddTags">
+                            <div class="type">{{structure.type}}:</div>
+                            <div class="label">{{structure.name}}</div>
+                        </div>
+                    </div>
+                    <div class="suggestions" v-show="TAB[A].UI_DATA.structureAddSearch == ''">
+                        <div class="box">
+                            <div class="tag">DIV</div>
+                            <div class="icon">&#49;</div>
+                        </div>
+                        <div class="box">
+                            <div class="tag">SPAN</div>
+                            <div class="icon">&#50;</div>
+                        </div>
+                        <div class="box">
+                            <div class="tag">A</div>
+                            <div class="icon">&#51;</div>
+                        </div>
+                        <div class="box">
+                            <div class="tag">INPUT</div>
+                            <div class="icon">&#52;</div>
+                        </div>
+                        <div class="box">
+                            <div class="tag">B</div>
+                            <div class="icon">&#53;</div>
+                        </div>
+                        <div class="box">
+                            <div class="tag">HTML*</div>
+                            <div class="icon">&#54;</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
 
 
 
-            <div class="popup-bg settings-bg no-select" :class="{'active' : UI.settings}">
+            <div class="popup-bg settings-bg" :class="{'active' : GENERAL_UI.settings}">
                 <div class="popup-holder settings-holder">
                     <div class="popup-header settings-header">
                         Settings
-                        <div class="close-ui" @click="UI.settings = false">&#61782;</div>
+                        <div class="close-ui" @click="GENERAL_UI.settings = false">&#61782;</div>
                     </div>
                     <div class="settings-categories">
-                        <div class="category" :class="{'active' : UI.activeSetting == 'INFO'}" @click="UI.activeSetting = 'INFO'"><div class="icon">&#62205;</div> Info</div>
+                        <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'INFO'}" @click="GENERAL_UI.activeSetting = 'INFO'"><div class="icon">&#62205;</div> Info</div>
                     </div>
 
 
 
-                    <div class="popup-content settings-content" v-show="UI.activeSetting == 'INFO'">
+                    <div class="popup-content settings-content" v-show="GENERAL_UI.activeSetting == 'INFO'">
 
                         <!-- INFO -->
                         <div class="settings-divider">
@@ -80,7 +184,7 @@
                                 Node-Version: <div class="box">{{info.nodeVersion}}</div><br>
                                 Electron-Version: <div class="box">{{info.electronVersion}}</div><br><br>
 
-                                Release Notes: <div class="button" @click="UI.releaseNote = true">Open</div><br><br>
+                                Release Notes: <div class="button" @click="GENERAL_UI.releaseNote = true">Open</div><br><br>
                                 <h3>About the developer</h3><br>
                                 Developed by <i>Maurice Freuwört Software and Design</i>
                             </div>
@@ -100,7 +204,7 @@
 
 
 
-            <div class="popup-bg release-note-bg no-select" :class="{'active' : UI.releaseNote}">
+            <div class="popup-bg release-note-bg no-select" :class="{'active' : GENERAL_UI.releaseNote}">
                 <div class="popup-holder release-note-holder">
                     <div class="release-image">
                         <span class="title">
@@ -113,12 +217,14 @@
                         • Druckproblem wurde gelöst<br>
                         • Der Druck wird nun als kräftiges <b>Schwarz</b> dargestellt<br>
                     </div>
-                    <div class="close-release-note" @click="UI.releaseNote = false">Los geht's!</div>
+                    <div class="close-release-note" @click="GENERAL_UI.releaseNote = false">Los geht's!</div>
                 </div>
             </div>
 
 
-            <div class="full-window-popup" :class="{'active' : UI.login}">
+
+
+            <div class="full-window-popup" :class="{'active' : GENERAL_UI.login}">
                 <div class="popup-background"></div>
                 <div class="popup-center">
                     <form onsubmit="ipPassNext(event)">
@@ -128,20 +234,23 @@
                 </div>
             </div>
 
+
+
+
             <!-- HOLDER FOR ALL TOAST NOTIFICATIONS -->
             <div class="toast-holder"></div>
 
         </div>
     </body>
-
-    <script src="src/js/toast.js"></script>
     
     <script>
-        
-        const EventFunctions = require('./src/js/eventFunctions.js')
-        const Vue = require('./src/js/vue.min.js')
-        
+        require('./src/js/events/ipc.events.js')
+        require('./src/js/events/keybind.events.js')
+
+        require('./src/js/helper/keybind.helper.js')
+        require('./src/js/helper/misc.helper.js')
     </script>
-    
+    <script src="src/js/components/structure-tree.js"></script>
     <script src="src/js/INIT.js"></script>
+    <script> ipcRenderer.send('loaded') </script>
 </html>
