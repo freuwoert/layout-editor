@@ -24,13 +24,13 @@ Mousetrap.bind(['ctrl+down', 'command+down'], function(){
     }
 })
 
-Mousetrap.bind(['shift+right'], function(){
+Mousetrap.bind(['ctrl+right','command+right'], function(){
     switch (PANEL()){
         case 'STRUCTURE': navigateSECTION('RIGHT'); break
     }
 })
 
-Mousetrap.bind(['shift+left'], function(){
+Mousetrap.bind(['ctrl+left','command+left'], function(){
     switch (PANEL()){
         case 'STYLE': navigateSECTION('LEFT'); break
     }
@@ -49,6 +49,12 @@ Mousetrap.bind(['del'], function(){
     }
 })
 
+Mousetrap.bind(['backspace'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE': removeStructureRemove(TAB().FOCUSED_HTML); break
+    }
+})
+
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
         case 'STRUCTURE': editHTML('CURRENT'); break
@@ -59,7 +65,7 @@ Mousetrap.bind(['enter'], function(){
 
 Mousetrap.bind(['plus'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'BELOW'); break
+        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
     }
 })
 
@@ -71,6 +77,42 @@ Mousetrap.bind(['shift+plus'], function(){
 
 Mousetrap.bind(['ctrl+plus','command+plus'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
+        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'BELOW'); break
+    }
+})
+
+Mousetrap.bind(['1'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('1'); break
+    }
+})
+
+Mousetrap.bind(['2'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('2'); break
+    }
+})
+
+Mousetrap.bind(['3'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('3'); break
+    }
+})
+
+Mousetrap.bind(['4'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('4'); break
+    }
+})
+
+Mousetrap.bind(['5'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('5'); break
+    }
+})
+
+Mousetrap.bind(['6'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('6'); break
     }
 })

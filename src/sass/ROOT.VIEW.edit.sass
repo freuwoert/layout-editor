@@ -9,23 +9,55 @@
         background: var(--background)
         position: relative
 
-        .focus-indicator
-            width: 400px
-            height: 2px
-            border-radius: 4px 4px 0 0
+        .account
             position: absolute
-            bottom: 0
-            left: 0
-            background: var(--blue)
-            transition: all 120ms cubic-bezier(0.65, 0.05, 0.36, 1)
+            top: 0
+            right: 0
+            height: 100%
+            line-height: 40px
+            padding: 3px 10px
+            user-select: none
 
-            &.switched
-                left: calc(100% - 400px)
+            .sign-in, .online
+                height: 34px
+                border-radius: 40px
+                background: var(--dark-background)
+                cursor: pointer
+
+            .text
+                color: white
+                height: 28px
+                line-height: 28px
+                font-size: 12px
+                padding: 3px 8px 3px 15px
+                letter-spacing: 1px
+                vertical-align: top
+
+            .image
+                height: 30px
+                width: 30px
+                margin: 2px
+                border-radius: 40px
+                background: var(--background)
+                overflow: hidden
+                vertical-align: top
+
+                .icon
+                    height: 100%
+                    width: 100%
+                    line-height: 30px
+                    text-align: center
+                    font-family: 'Material Icons'
+                    font-size: 22px
+                    color: var(--primary)
+
+                img
+                    height: 100%
+                    width: 100%
 
     .structure-panel
         grid-area: structure_panel
         background: var(--background)
-        border-bottom: 5px solid var(--dark-background)
         border-top: 5px solid var(--dark-background)
         position: relative
 
@@ -40,17 +72,18 @@
 
         .tree-container
             height: calc(100% - 95px)
-            width: 100%
+            width: calc(100% - 10px)
             position: absolute
             top: 25px
-            left: 0
+            left: 5px
             overflow-y: auto
 
         .button-container
-            height: 60px
+            height: 65px
             width: 100%
             padding-left: 4px
             border-top: 5px solid var(--dark-background)
+            border-bottom: 5px solid var(--dark-background)
             background: var(--dark-background)
             position: absolute
             bottom: 0
@@ -73,10 +106,12 @@
                     margin: 5px 0 5px 5px
                     background: var(--blue)
                     color: white
+                    transition: all 100ms
                     width: calc(100% - 55px * 3 - 5px)
 
                 &:hover
-                    background: rgba(255, 255, 255, 0.1)
+                    background: rgba(255, 255, 255, 0.05)
+                    color: white
 
                 &.filler:hover
                     background: #3742fa
@@ -112,6 +147,14 @@
             padding: 6px
             text-align: left
 
+        .tree-container
+            height: calc(100% - 35px)
+            width: calc(100% - 10px)
+            position: absolute
+            top: 25px
+            left: 5px
+            overflow-y: auto
+
     .status-panel
         grid-area: status_panel
         background: var(--background)
@@ -131,6 +174,7 @@
             padding: 10px 5px
             border-radius: 0 0 10px 10px
             background: var(--background)
+            user-select: none
 
             &:before
                 content: ''
@@ -171,6 +215,10 @@
                 &:hover
                     background: rgba(255, 255, 255, 0.05)
                     color: white
+
+                &.active
+                    background: var(--dark-background)
+                    color: var(--primary)
 
             .control-input
                 position: relative
@@ -220,6 +268,38 @@
             padding-top: 50px
             text-align: center
 
+            .decoupled-viewport
+                position: absolute
+                top: calc(50%)
+                left: 0
+                width: 100%
+                height: 140px
+                transform: translateY(-50%)
+
+                .icon
+                    height: 140px
+                    width: 140px
+                    border-radius: 100%
+                    line-height: 140px
+                    text-align: center
+                    margin-right: 20px
+                    color: var(--dark-background)
+                    background: rgba(255,255,255, 0.05)
+                    font-size: 90px
+                    font-family: 'Material Icons'
+                    vertical-align: middle
+
+                .text
+                    color: rgba(255,255,255, 0.2)
+                    font-size: 17px
+                    letter-spacing: 1px
+                    line-height: 22px
+                    text-align: left
+                    vertical-align: middle
+
+                    strong
+                        font-weight: 800
+
             .viewport-container
                 display: inline-grid
                 overflow: hidden
@@ -235,6 +315,9 @@
                     background: white
                     overflow: hidden
                     border-radius: 2px
+                    min-width: 40px
+                    min-height: 40px
+                    transition: all 100ms
 
                 .horizontal-handle, .vertical-handle, .diagonal-handle
                     position: relative

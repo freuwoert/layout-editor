@@ -117,6 +117,10 @@ window.closeStructureAdd = () => {
     TAB().UI.structureAdd = false
 }
 
+window.selectStructureAddSuggestion = (suggestion) => {
+    new Toast('INFO', suggestion)
+}
+
 window.focusStructureAddSearch = () => {
     TAB().FOCUSED_PANEL = 'STRUCTURE_ADD_SEARCH'
     app.$refs.structureSearch.focus()
@@ -188,25 +192,30 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
 
     if( valid )
     {
+        ///////////////////////////////////////////////////////////////////////////////////////
+        //   The number of times that this JSON-Hack is necessary for the app's survival     //
+        //   is equal to the number off elements this recursion would cause without it.      //
+        ///////////////////////////////////////////////////////////////////////////////////////
+        let layout = JSON.parse(JSON.stringify(structure.layout))
 
         trace = trace.split('-')
         
         if( direction == 'INTO' )
         {
-            getChildrenFromTrace(trace).unshift(...structure.layout)
+            getChildrenFromTrace(trace).unshift(...layout)
         }
         else if( direction == 'ABOVE' )
         {
             let insertPos = parseInt(trace.pop())
-            getChildrenFromTrace(trace).splice(insertPos, 0, ...structure.layout)
+            getChildrenFromTrace(trace).splice(insertPos, 0, ...layout)
         }
         else if( direction == 'BELOW' )
         {
             let insertPos = parseInt(trace.pop()) + 1
-            getChildrenFromTrace(trace).splice(insertPos, 0, ...structure.layout)
+            getChildrenFromTrace(trace).splice(insertPos, 0, ...layout)
         }
     
-        new Toast('INFO', 'ADDED ELEMENT')
+        new Toast('SUCCESS', 'ADDED ELEMENT')
     
         updateStructureOL()
         closeStructureAdd()

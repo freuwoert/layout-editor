@@ -86,7 +86,11 @@ window.flattenObject = (ob, k = '', ret = []) => {
 
 
 window.updateStructureOL = () => {
-    TAB().HTML_OL = flattenObject(TAB().DOCUMENT.HTML)
+    try {
+        TAB().HTML_OL = flattenObject(TAB().DOCUMENT.HTML)
+    } catch (error) {
+        
+    }
 }
 
 

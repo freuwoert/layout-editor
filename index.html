@@ -8,10 +8,16 @@
         <link rel="stylesheet" href="src/css/ROOT.VIEW.edit.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.start.min.css">
         <script>
+            // STORAGE / DEFAULTS
+            const HTML_ROOT_STRUCTURES = require('./src/templates/html.structures.json')
+            const CSS_ROOT_STYLES = require('./src/templates/css.styles.json')
+
+            // GLOBAL REQUIREMENTS
             const $ = require('jquery')
             const _ = require('lodash')
             const fs = require('fs')
             const Vue = require('vue/dist/vue.min')
+            const Vuex = require('vuex')
             const Fuse = require('fuse.js')
             const anime = require('animejs')
             const Toast = require('./src/js/modules/toast.js')
@@ -66,13 +72,20 @@
 
 
 
+
+
+
+
             <div class="view" id="start-view" v-show="TAB[A].VIEW == 'START'">
                 <div class="start-open-settings" @click="GENERAL_UI.settings = true">
                     <div class="icon">&#62611;</div>
                 </div>
             </div>
 
+
+
             <div class="view" id="edit-view" v-show="TAB[A].VIEW == 'EDIT'">
+
                 <div class="structure-panel">
                     <div class="indication-container">
                         <div class="focus-indicator" :class="{'active' : TAB[A].FOCUSED_PANEL == 'STRUCTURE'}"></div>
@@ -82,10 +95,10 @@
                     </div>
                     <div class="button-container">
                         <div class="btn">
-                            <div class="icon">&#63974;</div>
+                            <div class="icon">&#64121;</div>
                         </div>
                         <div class="btn">
-                            <div class="icon">&#64658;</div>
+                            <div class="icon">&#62443;</div>
                         </div>
                         <div class="btn" onclick="openStructureAdd(TAB().FOCUSED_HTML, 'INTO')">
                             <div class="icon">&#62485;</div>
@@ -96,7 +109,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="option-panel"></div>
+
+                <div class="option-panel">
+                    <div class="account">
+                        <div class="sign-in" v-show="!USER.online">
+                            <div class="text">Sign In</div>
+                            <div class="image">
+                                <div class="icon">&#64305;</div>
+                            </div>
+                        </div>
+                        <div class="online" v-show="USER.online">
+                            <div class="text">{{USER.displayName}}</div>    
+                            <div class="image">
+                                <img :src="USER.displayImage" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="workspace">
                     <div class="controls">
                         <div class="control-input">
@@ -107,11 +137,17 @@
                             <div class="icon">&#63566;</div>
                             <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB[A].VIEWPORT.Y">
                         </div>
-                        <div class="control-icon-btn">&#62581;</div>
-                        <div class="control-icon-btn">&#62805;</div>
+                        <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
+                        <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : TAB[A].VIEWPORT.DECOUPLED}">&#61516;</div>
                     </div>
                     <div class="center">
-                        <div class="viewport-container">
+                        <div class="decoupled-viewport" v-show="TAB[A].VIEWPORT.DECOUPLED">
+                            <div class="icon">&#63880;</div>
+                            <div class="text">
+                                The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
+                            </div>
+                        </div>
+                        <div class="viewport-container" v-show="!TAB[A].VIEWPORT.DECOUPLED">
                             <div class="viewport" :style="'width: '+TAB[A].VIEWPORT.X+'px; height:'+TAB[A].VIEWPORT.Y+'px;'"></div>
                             <div class="horizontal-handle">
                                 <div class="icon">&#61917;</div>
@@ -124,13 +160,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sizer"></div>
                 </div>
+
                 <div class="styling-panel">
                     <div class="indication-container">
                         <div class="focus-indicator" :class="{'active' : TAB[A].FOCUSED_PANEL == 'STYLE'}"></div>
                     </div>
+                    <div class="tree-container">
+                        <structure-tree v-for="(child, id) in TAB[A].DOCUMENT.HTML" :focus="TAB[A].FOCUSED_HTML" :trace="id" :attributes="child.attributes" :type="child.type" :children="child.children"></structure-tree>
+                    </div>
                 </div>
+
                 <div class="status-panel"></div>
             </div>
 
@@ -286,10 +326,11 @@
         require('./src/js/events/ipc.events.js')
         require('./src/js/events/keybind.events.js')
 
-        require('./src/js/helper/keybind.helper.js')
+        require('./src/js/helper/ui.helper.js')
         require('./src/js/helper/misc.helper.js')
+        require('./src/js/helper/keybind.helper.js')
     </script>
     <script src="src/js/components/structure-tree.js"></script>
-    <script src="src/js/INIT.js"></script>
+    <script src="src/js/app.js"></script>
     <script> ipcRenderer.send('loaded') </script>
 </html>
