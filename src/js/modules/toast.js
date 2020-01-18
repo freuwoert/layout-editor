@@ -7,7 +7,7 @@ class toast {
     
             let TOASTPARENT_ = $('.toast-holder')
     
-            let arr = {'ERROR':'&#62934;','WARNING':'&#61482;','SUCCESS':'&#61748;','INFO':'&#62205;'}
+            let arr = {'ERROR':'&#62934;','WARNING':'&#61482;','SUCCESS':'&#62945;','INFO':'&#62205;'}
     
             TOASTPARENT_.append(
                 `<div class="toast toast-${type}" id="${id}">`+

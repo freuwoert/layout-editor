@@ -15,35 +15,40 @@ app = new Vue({
             activeSetting: 'INFO',
         },
         AVAILABLE_STRUCTURES: [
-            {name: 'button', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'strong', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'input', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'form', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'html', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'body', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'span', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'img', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'br', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'a', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'b', type: 'tag', structure: [], origin: 'ROOT'},
-            {name: 'i', type: 'tag', structure: [], origin: 'ROOT'},
+            {id: 'ROOT:00001', type: 'tag', origin: 'ROOT', name: 'button', layout: []},
+            {id: 'ROOT:00002', type: 'tag', origin: 'ROOT', name: 'strong', layout: []},
+            {id: 'ROOT:00003', type: 'tag', origin: 'ROOT', name: 'input', layout: []},
+            {id: 'ROOT:00004', type: 'tag', origin: 'ROOT', name: 'form', layout: []},
+            {id: 'ROOT:00005', type: 'tag', origin: 'ROOT', name: 'html', layout: []},
+            {id: 'ROOT:00006', type: 'tag', origin: 'ROOT', name: 'head', layout: []},
+            {id: 'ROOT:00007', type: 'tag', origin: 'ROOT', name: 'body', layout: []},
+            {id: 'ROOT:00008', type: 'tag', origin: 'ROOT', name: 'span', layout: []},
+            {id: 'ROOT:00009', type: 'tag', origin: 'ROOT', name: 'img', layout: []},
+            {id: 'ROOT:00010', type: 'tag', origin: 'ROOT', name: 'br', layout: []},
+            {id: 'ROOT:00011', type: 'tag', origin: 'ROOT', name: 'a', layout: []},
+            {id: 'ROOT:00012', type: 'tag', origin: 'ROOT', name: 'b', layout: []},
+            {id: 'ROOT:00013', type: 'tag', origin: 'ROOT', name: 'i', layout: []},
+            {id: 'ROOT:00014', type: 'tag', origin: 'ROOT', name: 'div', layout: [{type: 'div', attributes: {class: ['numero-uno']}, children: []}, {type: 'div', attributes: {class: ['numero-dos']}, children: []}]},
         ],
+        AVAILABLE_STYLES: [],
         A: 0,
         TAB: [
             {
                 UI: {
                     structureAdd: false,
+                    styleAdd: false,
                 },
                 UI_DATA: {
                     structureAddTrace: '',
+                    structureAddDirection: '',
                     structureAddSearch: '',
-                    structureAddTags: []
+                    structureAddSearchSelected: 0,
+                    structureAddSearchItems: []
                 },
                 VIEW: 'EDIT',
                 NAME: 'Unnamed Layout',
                 DOCUMENT: {
                     HTML: [
-                        {type: 'doctype', attributes: {}, children: []},
                         {
                             type: 'html',
                             attributes: {},
@@ -53,30 +58,27 @@ app = new Vue({
                                     attributes: {},
                                     children: [
                                         {type: 'span', attributes: {}, children: []},
-                                        {type: 'div', attributes: {}, children: [
-                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
-                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
-                                        ]},
-                                        {type: 'b', attributes: {}, children: []},
                                         {type: 'span', attributes: {}, children: []},
-                                        {type: 'div', attributes: {}, children: [
-                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
-                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
-                                        ]},
-                                        {type: 'b', attributes: {}, children: []},
                                         {type: 'span', attributes: {}, children: []},
-                                        {type: 'div', attributes: {}, children: [
-                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
-                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
-                                        ]},
-                                        {type: 'b', attributes: {}, children: []},
                                         {type: 'span', attributes: {}, children: []},
-                                        {type: 'div', attributes: {}, children: [
-                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
-                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
-                                        ]},
-                                        {type: 'b', attributes: {}, children: []},
                                         {type: 'span', attributes: {}, children: []},
+                                        {type: 'div', attributes: {}, children: []},
+                                        {type: 'div', attributes: {}, children: [
+                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
+                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
+                                        ]},
+                                        {type: 'div', attributes: {}, children: [
+                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
+                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
+                                        ]},
+                                        {type: 'div', attributes: {}, children: [
+                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
+                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
+                                        ]},
+                                        {type: 'div', attributes: {}, children: [
+                                            {type: 'div', attributes: {id: ['TEST']}, children: []},
+                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
+                                        ]},
                                         {type: 'div', attributes: {}, children: [
                                             {type: 'div', attributes: {id: ['TEST']}, children: []},
                                             {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
@@ -97,16 +99,19 @@ app = new Vue({
                                             {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
                                             {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
                                             {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
-                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2']}, children: []},
+                                            {type: 'div', attributes: {class: ['test0', 'test1', 'test2', 'test2', 'test2', 'test2', 'test2', 'test2']}, children: []},
                                         ]},
-                                        {type: 'b', attributes: {}, children: []},
                                     ]
                                 },
-                                {type: 'script', attributes: {}, children: []},
                             ]
                         }
                     ],
                     CSS: {},
+                },
+                VIEWPORT: {
+                    X: 300,
+                    Y: 600,
+                    SCALE: 1,
                 },
                 FOCUSED_PANEL: 'STRUCTURE',
                 FOCUSED_HTML: '0',

@@ -2,8 +2,16 @@ window.TAB = () => {
     return app.TAB[app.A]
 }
 
-window.PANEL = (comparePanel) => {
-    return TAB().FOCUSED_PANEL == comparePanel
+window.TAB$ = (comparison) => {
+    return app.TAB[app.A] == comparison
+}
+
+window.PANEL = () => {
+    return TAB().FOCUSED_PANEL
+}
+
+window.PANEL$ = (comparison) => {
+    return TAB().FOCUSED_PANEL == comparison
 }
 
 
@@ -15,17 +23,47 @@ window.isValidHtmlTrace = (trace) => {
         trace = trace.split('-')
     }
 
-    let query = 'app.TAB[app.A].DOCUMENT.HTML['
+    let query = 'app.TAB[app.A].DOCUMENT.HTML'
 
     for ( let i = 0; i < trace.length; i++ ) {
-        query += trace[i] + ']'
-
-        if( (i+1) < trace.length ){
-            query += '.children['
+        if( trace[i] )
+        {
+            query += '[' + trace[i] + ']'
+    
+            if( (i+1) < trace.length ){
+                query += '.children'
+            }
         }
     }
 
-    return (typeof eval(query) == 'object') ? true : false
+    return typeof eval(query) == 'object'
+}
+
+
+
+window.getChildrenFromTrace = (trace) => {
+
+    if( typeof trace == 'string' )
+    {
+        trace = trace.split('-')
+    }
+
+    let query = 'app.TAB[app.A].DOCUMENT.HTML'
+
+    for ( let i = 0; i < trace.length; i++ ) {
+        query += '[' + trace[i] + ']'
+
+        if( (i+1) < trace.length ){
+            query += '.children'
+        }
+    }
+
+    if(trace.length > 0)
+    {
+        query += '.children'
+    }
+
+    return (typeof eval(query) == 'object') ? eval(query) : null
 }
 
 
@@ -43,4 +81,18 @@ window.flattenObject = (ob, k = '', ret = []) => {
     }
     
     return ret
+}
+
+
+
+window.updateStructureOL = () => {
+    TAB().HTML_OL = flattenObject(TAB().DOCUMENT.HTML)
+}
+
+
+
+window.disableInputArrowKeys = (event) => {
+    if(event.keyCode == 40 || event.keyCode == 38){
+        event.preventDefault()
+    }
 }

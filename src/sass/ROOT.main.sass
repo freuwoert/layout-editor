@@ -12,7 +12,7 @@
 
 
 ::-webkit-scrollbar-thumb 
-    background: #323742
+    background: var(--light-background)
     border: 2px solid var(--background)
     border-radius: 10px
 
@@ -29,6 +29,7 @@ html
 
     --background: #282C34
     --dark-background: #21252B
+    --light-background: #323742
 
     --so: 0.4
 
@@ -413,7 +414,7 @@ h1,h2,h3,h4,h5,h6
     max-width: 500px
     padding: 10px
     padding-bottom: 0
-    z-index: 5000
+    z-index: 100000
 
 
 .toast
@@ -452,6 +453,7 @@ h1,h2,h3,h4,h5,h6
 .toast-msg
     vertical-align: middle
     max-width: calc(100% - 55px)
+    padding: 5px 0
 
 .toast-icon
     height: 30px
@@ -725,9 +727,10 @@ h1,h2,h3,h4,h5,h6
         border: 1px solid transparent
 
         &:hover
-            background: rgba(0,0,0,0.2)
+            background: var(--dark-background)
 
             .btn-container
+                background: var(--dark-background)
                 display: block !important
 
         &.selected

@@ -3,12 +3,10 @@ Vue.component('structure-tree', {
     template: `
         <div class="structure-tree" :trace="trace">
             <div class="property-container" :trace="trace" :class="{'selected' : focus == trace}">
-                <span class="deco"><</span>
                 <span class="type">{{type}}</span>
                 <span class="attr" v-for="(value, prop) in attributes">
                     &nbsp;{{prop}}<span class="deco">=</span><span class="string">"{{value.join(' ')}}"</span>
                 </span>
-                <span class="deco">></span>
 
                 <div class="btn-container">
                     <div class="btn">&#61773;</div>

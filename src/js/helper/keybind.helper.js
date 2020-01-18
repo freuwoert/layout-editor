@@ -59,9 +59,11 @@ window.navigateHTML = (direction = 'UP', isShift = false) => {
             }
         }
     }
+    else
+    {
+        TAB().FOCUSED_HTML = '0'
+    }
 }
-
-
 
 window.editHTML = (element = 'CURRENT') => {
     let trace = null
@@ -78,32 +80,42 @@ window.editHTML = (element = 'CURRENT') => {
     // Proceed with valid trace
     if( trace )
     {
-        new Toast('INFO', trace, 6000)
+        // Do Something
     }
 }
 
 
 
-window.addHTML = (element = 'CURRENT') => {
-    let trace = null
-
-    if( element == 'CURRENT' && isValidHtmlTrace(TAB().FOCUSED_HTML) )
+window.openStructureAdd = (trace, direction = 'INTO') => {
+    
+    if( isValidHtmlTrace(trace) )
     {
-        trace = TAB().FOCUSED_HTML
+        if( direction == 'INTO' || direction == 'ABOVE' || direction == 'BELOW' )
+        {
+            TAB().FOCUSED_PANEL = 'STRUCTURE_ADD'
+            TAB().UI_DATA.structureAddTrace = trace
+            TAB().UI_DATA.structureAddDirection = direction
+            TAB().UI_DATA.structureAddSearch = ''
+            TAB().UI.structureAdd = true
+        }
+        else
+        {
+            new Toast('ERROR','Could not add element due to an invalid direction!', 4000)
+        }
     }
-    else if( isValidHtmlTrace(element) )
+    else
     {
-        trace = element
-    }
-
-    // Proceed with valid trace
-    if( trace )
-    {
-        openStructureAdd(trace)
+        new Toast('WARNING','No entry point! Please select an element.', 4000)
     }
 }
 
-
+window.closeStructureAdd = () => {
+    app.$refs.structureSearch.blur()
+    TAB().FOCUSED_PANEL = 'STRUCTURE'
+    TAB().UI_DATA.structureAddTrace = ''
+    TAB().UI_DATA.structureAddSearch = ''
+    TAB().UI.structureAdd = false
+}
 
 window.focusStructureAddSearch = () => {
     TAB().FOCUSED_PANEL = 'STRUCTURE_ADD_SEARCH'
@@ -117,28 +129,102 @@ window.blurStructureAddSearch = () => {
 
 window.updateStructureAddSearch = () => {
 
-    let result = []
+    let list = app.AVAILABLE_STRUCTURES
     let query = TAB().UI_DATA.structureAddSearch
 
-    for (const structure of app.AVAILABLE_STRUCTURES) {
-        if(structure.name.includes(query)){
-            result.push(structure)
-        }
+    let options = {
+        shouldSort: true,
+        threshold: 0.6,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        keys: [
+            "name",
+            "type"
+        ]
     }
 
-    TAB().UI_DATA.structureAddTags = [...result]
+    let fuse = new Fuse(list, options)
+    let result = fuse.search(query)
+
+    TAB().UI_DATA.structureAddSearchItems = [...result]
 }
 
-window.openStructureAdd = (trace = 'END') => {
-    TAB().FOCUSED_PANEL = 'STRUCTURE_ADD'
-    TAB().UI_DATA.structureAddTrace = trace
-    TAB().UI_DATA.structureAddSearch = ''
-    TAB().UI.structureAdd = true
+window.navigateStructureAddSearch = (direction = 'UP') => {
+
+    let id = TAB().UI_DATA.structureAddSearchSelected
+    let itemLength = TAB().UI_DATA.structureAddSearchItems.length
+
+    if(direction == 'UP')
+    {
+        id = (id > 0) ? id-1 : 0
+    }
+
+    if(direction == 'DOWN')
+    {
+        id = (id < itemLength - 1) ? id+1 : itemLength-1
+    }
+
+    TAB().UI_DATA.structureAddSearchSelected = id
 }
 
-window.closeStructureAdd = () => {
-    TAB().FOCUSED_PANEL = 'STRUCTURE'
-    TAB().UI_DATA.structureAddTrace = ''
-    TAB().UI_DATA.structureAddSearch = ''
-    TAB().UI.structureAdd = false
+window.getAbsoluteStructureID = (relativeID, panel) => {
+    if(panel == 'STRUCTURE_ADD_SEARCH')
+    {
+        let absoluteID = TAB().UI_DATA.structureAddSearchItems[relativeID]
+        return (absoluteID && absoluteID.hasOwnProperty('id')) ? absoluteID.id : null
+    }
+}
+
+window.addStructureAdd = (absoluteID, trace, direction) => {
+
+    let valid = true
+    let structure = app.AVAILABLE_STRUCTURES.find(element => element.id == absoluteID)
+
+    if(!structure) valid = false
+    if(!isValidHtmlTrace(trace)) valid = false
+    if(direction != 'INTO' && direction != 'ABOVE' && direction != 'BELOW') valid = false
+
+    if( valid )
+    {
+
+        trace = trace.split('-')
+        
+        if( direction == 'INTO' )
+        {
+            getChildrenFromTrace(trace).unshift(...structure.layout)
+        }
+        else if( direction == 'ABOVE' )
+        {
+            let insertPos = parseInt(trace.pop())
+            getChildrenFromTrace(trace).splice(insertPos, 0, ...structure.layout)
+        }
+        else if( direction == 'BELOW' )
+        {
+            let insertPos = parseInt(trace.pop()) + 1
+            getChildrenFromTrace(trace).splice(insertPos, 0, ...structure.layout)
+        }
+    
+        new Toast('INFO', 'ADDED ELEMENT')
+    
+        updateStructureOL()
+        closeStructureAdd()
+    }
+}
+
+
+
+window.removeStructureRemove = (trace) => {
+    if( isValidHtmlTrace(trace) )
+    {
+        trace = trace.split('-')
+        let cutPos = trace.pop()
+        getChildrenFromTrace(trace).splice(cutPos, 1)
+        updateStructureOL()
+
+        if( isValidHtmlTrace(TAB().FOCUSED_HTML) ) TAB().FOCUSED_HTML = '0'
+
+        new Toast('SUCCESS','Removed Element')
+    }
 }

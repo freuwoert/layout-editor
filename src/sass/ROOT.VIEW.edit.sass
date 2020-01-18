@@ -1,17 +1,16 @@
 #edit-view
     display: grid
-    grid-template-columns: 450px auto 350px
+    grid-template-columns: 400px auto 400px
     grid-template-rows: 40px auto 30px
     grid-template-areas: "option_panel option_panel option_panel" "structure_panel workspace styling_panel" "status_panel status_panel status_panel"
 
     .option-panel
         grid-area: option_panel
         background: var(--background)
-        border-bottom: 4px solid var(--dark-background)
         position: relative
 
         .focus-indicator
-            width: 450px
+            width: 400px
             height: 2px
             border-radius: 4px 4px 0 0
             position: absolute
@@ -21,27 +20,37 @@
             transition: all 120ms cubic-bezier(0.65, 0.05, 0.36, 1)
 
             &.switched
-                left: calc(100% - 350px)
-                width: 350px
+                left: calc(100% - 400px)
 
     .structure-panel
         grid-area: structure_panel
         background: var(--background)
+        border-bottom: 5px solid var(--dark-background)
+        border-top: 5px solid var(--dark-background)
         position: relative
 
-        .tree-container
-            height: calc(100% - 79px)
+        .indication-container
+            height: 20px
             width: 100%
             position: absolute
-            top: 10px
+            top: 0
+            left: 0
+            padding: 6px
+            text-align: left
+
+        .tree-container
+            height: calc(100% - 95px)
+            width: 100%
+            position: absolute
+            top: 25px
             left: 0
             overflow-y: auto
 
         .button-container
-            height: 59px
+            height: 60px
             width: 100%
             padding-left: 4px
-            border-top: 4px solid var(--dark-background)
+            border-top: 5px solid var(--dark-background)
             background: var(--dark-background)
             position: absolute
             bottom: 0
@@ -90,15 +99,187 @@
     .styling-panel
         grid-area: styling_panel
         background: var(--background)
+        border-bottom: 5px solid var(--dark-background)
+        border-top: 5px solid var(--dark-background)
+        position: relative
+
+        .indication-container
+            height: 20px
+            width: 100%
+            position: absolute
+            top: 0
+            left: 0
+            padding: 6px
+            text-align: left
 
     .status-panel
         grid-area: status_panel
         background: var(--background)
-        border-top: 4px solid var(--dark-background)
 
     .workspace
         grid-area: workspace
         background: var(--dark-background)
+        overflow: hidden
+        position: relative
+
+        .controls
+            position: absolute
+            top: 0
+            left: 50%
+            transform: translateX(-50%)
+            height: 50px
+            padding: 10px 5px
+            border-radius: 0 0 10px 10px
+            background: var(--background)
+
+            &:before
+                content: ''
+                height: 100%
+                width: 10px
+                border-radius: 0 10px 0 0
+                background: var(--dark-background)
+                position: absolute
+                top: 0
+                left: -10px
+                box-shadow: 0 -10px var(--background)
+
+            &:after
+                content: ''
+                height: 100%
+                width: 10px
+                border-radius: 10px 0 0 0
+                background: var(--dark-background)
+                position: absolute
+                top: 0
+                right: -10px
+                box-shadow: 0 -10px var(--background)
+
+            .control-icon-btn
+                height: 30px
+                width: 30px
+                line-height: 30px
+                border-radius: 3px
+                overflow: hidden
+                margin: 0 5px
+                color: rgba(255, 255, 255, 0.7)
+                font-size: 21px
+                font-family: 'Material Icons'
+                vertical-align: top
+                text-align: center
+                cursor: pointer
+
+                &:hover
+                    background: rgba(255, 255, 255, 0.05)
+                    color: white
+
+            .control-input
+                position: relative
+                background: rgba(0,0,0,0.3)
+                text-align: left
+                height: 30px
+                width: 70px
+                border-radius: 3px
+                cursor: text
+                overflow: hidden
+                margin: 0 5px
+
+                .icon
+                    width: 28px
+                    text-align: center
+                    line-height: 30px
+                    color: rgba(255, 255, 255, 0.7)
+                    font-size: 17px
+                    font-family: 'Material Icons'
+                    vertical-align: top
+
+                .input
+                    border: none
+                    height: 30px
+                    width: calc(100% - 28px)
+                    position: absolute
+                    top: 0
+                    left: 30px
+                    padding-right: 8px
+                    background: transparent
+                    color: rgba(255, 255, 255, 0.7)
+                    font-family: 'SCP'
+                    font-size: 12px
+                    text-align: right
+                    letter-spacing: 0.5px
+
+                    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+                        -webkit-appearance: none
+                        margin: 0
+
+        .center
+            position: absolute
+            top: 50px
+            left: 0
+            width: 100%
+            height: calc(100% - 50px)
+            padding-top: 50px
+            text-align: center
+
+            .viewport-container
+                display: inline-grid
+                overflow: hidden
+                border-radius: 2px
+                background: var(--background)
+                grid-template-columns: auto 20px
+                grid-template-rows: auto 20px
+                grid-template-areas: "viewport horizontal-handle" "vertical-handle diagonal-handle"
+                filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
+
+                .viewport
+                    grid-area: viewport
+                    background: white
+                    overflow: hidden
+                    border-radius: 2px
+
+                .horizontal-handle, .vertical-handle, .diagonal-handle
+                    position: relative
+                    background: var(--background)
+                    user-select: none
+                    border-radius: 2px
+
+                    &:hover
+                        background: var(--light-background)
+
+                .horizontal-handle
+                    grid-area: horizontal-handle
+                    cursor: e-resize
+
+                .vertical-handle
+                    grid-area: vertical-handle
+                    cursor: s-resize
+
+                .diagonal-handle
+                    grid-area: diagonal-handle
+                    cursor: se-resize
+
+                .icon
+                    position: absolute
+                    top: calc(50% - 10px)
+                    left: calc(50% - 10px)
+                    width: 20px
+                    height: 20px
+                    line-height: 20px
+                    text-align: center
+                    color: rgba(255,255,255, 0.7)
+                    font-size: 20px
+                    font-family: 'Material Icons'
+                    vertical-align: top
+    
+    .focus-indicator
+        height: 8px
+        width: 8px
+        border: 1.5px solid rgba(255,255,255, 0.2)
+        border-radius: 8px
+        pointer-events: none
+        transition: all 100ms
+
+        &.active
+            border: 4px solid var(--green)
 
 
 
@@ -169,9 +350,33 @@
                 position: absolute
                 top: 20px
                 left: 0
+        
+        .direction-indicator
+            height: 22px
+            width: 22px
+            position: absolute
+            top: 32px
+            right: 30px
+            border: 3px solid rgba(255, 255, 255, 0.05)
+            border-radius: 6px
+
+            .dot
+                height: 6px
+                width: 6px
+                margin: 5px
+                border-radius: 1px
+                background: rgba(255, 255, 255, 0.05)
+
+            &.ABOVE
+                border-top-color: white
+            &.INTO
+                .dot
+                    background: white
+            &.BELOW
+                border-bottom-color: white
 
         .search
-            width: calc(100% - 60px)
+            width: calc(100% - 92px)
             position: absolute
             top: 30px
             left: 30px
@@ -180,6 +385,7 @@
             height: 26px
             border-radius: 3px
             cursor: text
+            overflow: hidden
 
             .input
                 border: none
@@ -203,6 +409,13 @@
                 width: 64px
                 white-space: nowrap
                 pointer-events: none
+                transform: scale(1.3)
+                opacity: 0
+                transition: transform 80ms cubic-bezier(0.46, 0.03, 0.52, 0.96), opacity 70ms
+
+                &.active
+                    transform: scale(1)
+                    opacity: 1
 
                 .icon
                     width: 16px
@@ -222,48 +435,6 @@
                     vertical-align: top
                     letter-spacing: 1px
                     width: 48px
-
-        .suggestions
-            width: calc(100% - 40px)
-            max-height: calc(100% - 116px)
-            position: absolute
-            top: 86px
-            left: 20px
-            display: flex
-            flex-direction: row
-            flex-wrap: wrap
-            justify-content: flex-start
-            padding-left: 10px
-
-            .box
-                height: 40px
-                border-radius: 5px
-                background: rgba(255, 255, 255, 0.05)
-                margin-right: 10px
-                margin-bottom: 10px
-                min-width: 90px
-                flex: 1
-
-                .icon
-                    width: 40px
-                    text-align: center
-                    line-height: 40px
-                    color: rgba(255, 255, 255, 0.7)
-                    font-size: 32px
-                    font-weight: lighter
-                    font-family: 'Material Icons'
-                    vertical-align: top
-
-                .tag
-                    width: calc(100% - 40px)
-                    line-height: 40px
-                    color: white
-                    text-align: left
-                    padding: 0 10px
-                    font-size: 13px
-                    font-weight: 900
-                    vertical-align: top
-                    letter-spacing: 1px
 
         .autocomplete
             width: calc(100% - 60px)
@@ -286,9 +457,19 @@
 
 
             &::-webkit-scrollbar-thumb 
-                background: #323742
+                background: var(--light-background)
                 border-radius: 2px
                 border: none
+
+            .empty
+                width: 100%
+                height: 24px
+                line-height: 24px
+                font-family: 'SCP'
+                font-size: 12px
+                text-align: center
+                color: rgba(255, 255, 255, 0.2)
+                letter-spacing: 1px
 
             .item
                 width: 100%
@@ -300,7 +481,7 @@
                 font-family: 'SCP'
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05)
 
-                &:last-child
+                &:last-of-type
                     border: none
                     height: 24px
 
@@ -317,4 +498,56 @@
                 .label
                     font-size: 12px
                     color: rgba(255, 255, 255, 0.7)
+                    letter-spacing: 1px
+
+        .suggestions
+            width: calc(100% - 40px)
+            max-height: calc(100% - 116px)
+            position: absolute
+            top: 86px
+            left: 20px
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            justify-content: flex-start
+            padding-left: 10px
+            user-select: none
+
+            .box
+                height: 40px
+                border-radius: 5px
+                background: rgba(255, 255, 255, 0.05)
+                margin-right: 10px
+                margin-bottom: 10px
+                min-width: 90px
+                flex: 1
+                cursor: pointer
+
+                &:hover
+                    background: var(--primary)
+
+                    .icon
+                        color: rgba(255, 255, 255, 0.7)
+                    .tag
+                        color: white
+
+                .icon
+                    width: 40px
+                    text-align: center
+                    line-height: 40px
+                    color: rgba(255, 255, 255, 0.2)
+                    font-size: 32px
+                    font-weight: lighter
+                    font-family: 'Material Icons'
+                    vertical-align: top
+
+                .tag
+                    width: calc(100% - 40px)
+                    line-height: 40px
+                    color: rgba(255, 255, 255, 0.7)
+                    text-align: left
+                    padding: 0 10px
+                    font-size: 13px
+                    font-weight: 900
+                    vertical-align: top
                     letter-spacing: 1px
