@@ -12,7 +12,7 @@ app = new Vue({
             displayImage: 'src/images/icon/layout_editor_logo.png',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
-            online: false,
+            online: true,
             JWT: null,
         },
         GENERAL_UI: {
@@ -23,8 +23,115 @@ app = new Vue({
         },
         AVAILABLE_STRUCTURES: [],
         AVAILABLE_STYLES: [],
-        A: 0,
-        TAB: [
+        ACTIVE_TAB: 0,
+        TAB: {
+            UI: {
+                structureAdd: false,
+                styleAdd: false,
+            },
+            UI_DATA: {
+                structureAddTrace: '',
+                structureAddDirection: '',
+                structureAddSearch: '',
+                structureAddSearchSelected: 0,
+                structureAddSearchItems: []
+            },
+            VIEW: 'EDIT',
+            NAME: 'Unnamed Layout',
+            DOCUMENT: {
+                HTML: [
+                    {
+                        label: 'html',
+                        attributes: [],
+                        children: [
+                            {
+                                label: 'head',
+                                attributes: [],
+                                children: []
+                            },
+                            {
+                                label: 'body',
+                                attributes: [],
+                                children: [
+                                    {
+                                        label: 'div',
+                                        attributes: [
+                                            {
+                                                label: 'class',
+                                                value: ['container']
+                                            }
+                                        ],
+                                        children: [
+                                            {
+                                                label: 'div',
+                                                attributes: [
+                                                    {
+                                                        label: 'class',
+                                                        value: ['headline']
+                                                    }
+                                                ],
+                                                children: []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: 'div',
+                                        attributes: [
+                                            {
+                                                label: 'class',
+                                                value: ['divider']
+                                            }
+                                        ],
+                                        children: []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                CSS: [
+                    {
+                        label: '.container',
+                        properties: [],
+                        children: [
+                            {
+                                label: '.headline',
+                                properties: [
+                                    {
+                                        label: 'font-size',
+                                        value: '16px'
+                                    },
+                                    {
+                                        label: 'color',
+                                        value: '#676767'
+                                    }
+                                ],
+                                children: []
+                            }
+                        ]
+                    },
+                    {
+                        label: '.divider',
+                        properties: [],
+                        children: []
+                    }
+                ],
+            },
+            VIEWPORT: {
+                X: 300,
+                Y: 600,
+                SCALE: 1,
+                DECOUPLED: false,
+            },
+            FOCUSED_PANEL: 'STRUCTURE',
+            FOCUSED_HTML: '0',
+            FOCUSED_CSS: '0',
+            HTML_OL: [],
+            CSS_OL: [],
+            SAVE_PATH: '',
+            CHANGED: false,
+        },
+        TABS: [
             {
                 UI: {
                     structureAdd: false,
@@ -40,11 +147,20 @@ app = new Vue({
                 VIEW: 'EDIT',
                 NAME: 'Unnamed Layout',
                 DOCUMENT: {
-                    HTML: [{ type: 'html', attributes: {}, children: [
-                        {type: 'head', attributes: {}, children: [] },
-                        {type: 'body', attributes: {}, children: [] },
-                    ]}],
-                    CSS: {},
+                    HTML: [
+                        {
+                            label: 'html',
+                            attributes: [],
+                            children: []
+                        }
+                    ],
+                    CSS: [
+                        {
+                            label: '.test-class-1',
+                            properties: [],
+                            children: []
+                        }
+                    ],
                 },
                 VIEWPORT: {
                     X: 300,
@@ -69,7 +185,7 @@ app = new Vue({
     watch: {
     },
     mounted() {
-        this.TAB[this.A].HTML_OL = flattenObject(this.TAB[this.A].DOCUMENT.HTML)
+        this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML)
         this.AVAILABLE_STRUCTURES.push(...HTML_ROOT_STRUCTURES)
     }
 })
@@ -106,6 +222,7 @@ document.onreadystatechange = () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('loaded')
         }, 0)
+
     }
 }
 

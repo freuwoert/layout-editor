@@ -712,7 +712,7 @@ h1,h2,h3,h4,h5,h6
     user-select: none
     font-family: 'SCP'
 
-    .property-container
+    .attribute-container
         text-align: left
         display: block
         box-sizing: border-box
@@ -756,7 +756,7 @@ h1,h2,h3,h4,h5,h6
                 cursor: pointer
                 font-weight: normal !important
 
-        .type
+        .label
             display: inline-block
             line-height: 18px
             color: var(--red)
@@ -766,12 +766,12 @@ h1,h2,h3,h4,h5,h6
         .attr
             display: inline-block
             line-height: 18px
-            color: #ffcd6e
+            color: #d19a66
             text-transform: lowercase
             font-size: 12px
 
             .string
-                color: #98C379
+                color: #89ca78
                 display: inline
                 font-size: 12px
 
@@ -785,3 +785,147 @@ h1,h2,h3,h4,h5,h6
         padding: 3px 0 3px 5px
         margin: 0 0 5px 10px
         border-left: 1px solid rgba(255, 255, 255, 0.2)
+
+
+
+
+
+.style-tree
+    width: 100%
+    user-select: none
+    font-family: 'SCP'
+
+    .selector-container
+        text-align: left
+        display: block
+        box-sizing: border-box
+        height: 20px
+        border-radius: 5px
+        padding-left: 5px
+        font-size: 0
+        font-weight: 600
+        position: relative
+        white-space: nowrap
+        overflow: hidden
+        border: 1px solid transparent
+
+        &:hover
+            background: var(--dark-background)
+
+            .btn-container
+                background: var(--dark-background)
+                display: block !important
+
+        &.selected
+            border-color: rgba(255, 255, 255, 0.2)
+
+        .btn-container
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            line-height: 20px
+            display: none
+
+            .btn
+                height: 100%
+                width: 20px
+                line-height: 20px
+                font-size: 15px
+                font-family: 'Material Icons'
+                vertical-align: top
+                text-align: center
+                color: white
+                cursor: pointer
+                font-weight: normal !important
+
+        .label
+            display: inline-block
+            line-height: 18px
+            color: #d19a66
+            font-size: 12px
+
+        .deco
+            color: rgba(255, 255, 255, 0.7)
+            display: inline
+            font-size: 12px
+
+    .property-container
+        display: block
+        padding: 0 0 0 5px
+        margin: 0 0 0 10px
+        border-left: 1px solid rgba(255, 255, 255, 0.2)
+
+    .children-container
+        display: block
+        padding: 3px 0 0 5px
+        margin: 0 0 5px 10px
+        border-left: 1px solid rgba(255, 255, 255, 0.2)
+
+
+
+.style-property
+    width: 100%
+    user-select: none
+    font-family: 'SCP'
+
+    .container
+        text-align: left
+        display: block
+        box-sizing: border-box
+        height: 20px
+        border-radius: 5px
+        padding-left: 5px
+        font-size: 0
+        font-weight: 600
+        position: relative
+        white-space: nowrap
+        overflow: hidden
+        border: 1px solid transparent
+
+        &:hover
+            background: var(--dark-background)
+
+            .btn-container
+                background: var(--dark-background)
+                display: block !important
+
+        &.selected
+            border-color: rgba(255, 255, 255, 0.2)
+
+        .btn-container
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            line-height: 20px
+            display: none
+
+            .btn
+                height: 100%
+                width: 20px
+                line-height: 20px
+                font-size: 15px
+                font-family: 'Material Icons'
+                vertical-align: top
+                text-align: center
+                color: white
+                cursor: pointer
+                font-weight: normal !important
+
+        .label
+            display: inline-block
+            line-height: 18px
+            color: rgba(255, 255, 255, 0.7)
+            font-size: 12px
+
+        .value
+            display: inline-block
+            line-height: 18px
+            color: #d19a66
+            font-size: 12px
+
+        .deco
+            color: rgba(255, 255, 255, 0.7)
+            display: inline
+            font-size: 12px

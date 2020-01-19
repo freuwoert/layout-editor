@@ -9,3 +9,11 @@ window.rotateCoupledViewport = () => {
 window.decoupleViewport = () => {
     TAB().VIEWPORT.DECOUPLED = !TAB().VIEWPORT.DECOUPLED
 }
+
+
+
+window.updateCoupledViewport = (html) => {
+    app.$refs.coupledViewport.contentWindow.document.open()
+    app.$refs.coupledViewport.contentWindow.document.write(html)
+    app.$refs.coupledViewport.contentWindow.document.close()
+}

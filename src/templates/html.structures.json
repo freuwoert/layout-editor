@@ -1,116 +1,65 @@
 [
     {"id": "HTML:STR:00001", "type": "tag", "origin": "ROOT", "name": "button", "layout": [
-        {"type": "button", "attributes": {"class": [], "type": []}, "children": []}
+        {"label": "button", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00002", "type": "tag", "origin": "ROOT", "name": "strong", "layout": [
-        {"type": "strong", "attributes": {}, "children": []}
+        {"label": "strong", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00003", "type": "tag", "origin": "ROOT", "name": "input", "layout": [
-        {"type": "input", "attributes": {"class": [], "type": []}, "children": []}
+        {"label": "input", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00004", "type": "tag", "origin": "ROOT", "name": "form", "layout": [
-        {"type": "form", "attributes": {"method": ["POST"], "action": [], "class": []}, "children": []}
+        {"label": "form", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00005", "type": "tag", "origin": "ROOT", "name": "html", "layout": [
-        {"type": "html", "attributes": {}, "children": []}
+        {"label": "html", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00006", "type": "tag", "origin": "ROOT", "name": "head", "layout": [
-        {"type": "head", "attributes": {}, "children": []}
+        {"label": "head", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00007", "type": "tag", "origin": "ROOT", "name": "body", "layout": [
-        {"type": "body", "attributes": {}, "children": []}
+        {"label": "body", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00008", "type": "tag", "origin": "ROOT", "name": "span", "layout": [
-        {"type": "span", "attributes": {}, "children": []}
+        {"label": "span", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00009", "type": "tag", "origin": "ROOT", "name": "img", "layout": [
-        {"type": "img", "attributes": {"src": []}, "children": []}
+        {"label": "img", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00010", "type": "tag", "origin": "ROOT", "name": "br", "layout": [
-        {"type": "br", "attributes": {}, "children": []}
+        {"label": "br", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00011", "type": "tag", "origin": "ROOT", "name": "a", "layout": [
-        {"type": "a", "attributes": {"href": [], "class": []}, "children": []}
+        {"label": "a", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00012", "type": "tag", "origin": "ROOT", "name": "b", "layout": [
-        {"type": "b", "attributes": {}, "children": []}
+        {"label": "b", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00013", "type": "tag", "origin": "ROOT", "name": "i", "layout": [
-        {"type": "i", "attributes": {}, "children": []}
+        {"label": "i", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00014", "type": "tag", "origin": "ROOT", "name": "div", "layout": [
-        {"type": "div", "attributes": {"class": []}, "children": []}
+        {"label": "div", "attributes": [{"label": "class", "value": []}], "children": []}
     ]},
 
     {"id": "HTML:STR:00015", "type": "tag", "origin": "ROOT", "name": "meta", "layout": [
-        {"type": "meta", "attributes": {"content": []}, "children": []}
+        {"label": "meta", "attributes": [], "children": []}
     ]},
     
     {"id": "HTML:STR:00016", "type": "tag", "origin": "ROOT", "name": "link", "layout": [
-        {"type": "link", "attributes": {"rel": [], "href": []}, "children": []}
-    ]},
-
-    {"id": "HTML:STR:00017", "type": "tag", "origin": "ROOT", "name": "bloat", "layout": [
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []},
-        {"type": "br", "attributes": {}, "children": []}
+        {"label": "link", "attributes": [], "children": []}
     ]}
 ]

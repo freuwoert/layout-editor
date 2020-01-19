@@ -1,5 +1,5 @@
 window.TAB = () => {
-    return app.TAB[app.A]
+    return app.TAB
 }
 
 window.TAB$ = (comparison) => {
@@ -23,7 +23,7 @@ window.isValidHtmlTrace = (trace) => {
         trace = trace.split('-')
     }
 
-    let query = 'app.TAB[app.A].DOCUMENT.HTML'
+    let query = 'app.TAB.DOCUMENT.HTML'
 
     for ( let i = 0; i < trace.length; i++ ) {
         if( trace[i] )
@@ -48,7 +48,7 @@ window.getChildrenFromTrace = (trace) => {
         trace = trace.split('-')
     }
 
-    let query = 'app.TAB[app.A].DOCUMENT.HTML'
+    let query = 'app.TAB.DOCUMENT.HTML'
 
     for ( let i = 0; i < trace.length; i++ ) {
         query += '[' + trace[i] + ']'

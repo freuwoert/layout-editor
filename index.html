@@ -37,9 +37,9 @@
                 <div class="drag-area">
                     <div class="window-title">
                         <div class="tab-container">
-                            <div class="tab" v-for="(tab, id) in TAB" :class="{'active' : id == A}">
+                            <div class="tab" v-for="(tab, id) in TABS" :class="{'active' : id == ACTIVE_TAB}">
                                 <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
-                                <span class="title" @click="A = id">{{tab.NAME}}</span>
+                                <span class="title" @click="">{{tab.NAME}}</span>
                                 <div class="close">&#61782;</div>
                             </div>
                             <div class="create">&#62485;</div>
@@ -76,7 +76,7 @@
 
 
 
-            <div class="view" id="start-view" v-show="TAB[A].VIEW == 'START'">
+            <div class="view" id="start-view" v-show="TAB.VIEW == 'START'">
                 <div class="start-open-settings" @click="GENERAL_UI.settings = true">
                     <div class="icon">&#62611;</div>
                 </div>
@@ -84,31 +84,7 @@
 
 
 
-            <div class="view" id="edit-view" v-show="TAB[A].VIEW == 'EDIT'">
-
-                <div class="structure-panel">
-                    <div class="indication-container">
-                        <div class="focus-indicator" :class="{'active' : TAB[A].FOCUSED_PANEL == 'STRUCTURE'}"></div>
-                    </div>
-                    <div class="tree-container">
-                        <structure-tree v-for="(child, id) in TAB[A].DOCUMENT.HTML" :focus="TAB[A].FOCUSED_HTML" :trace="id" :attributes="child.attributes" :type="child.type" :children="child.children"></structure-tree>
-                    </div>
-                    <div class="button-container">
-                        <div class="btn">
-                            <div class="icon">&#64121;</div>
-                        </div>
-                        <div class="btn">
-                            <div class="icon">&#62443;</div>
-                        </div>
-                        <div class="btn" onclick="openStructureAdd(TAB().FOCUSED_HTML, 'INTO')">
-                            <div class="icon">&#62485;</div>
-                        </div>
-                        <div class="btn filler">
-                            <div class="icon">&#62474;</div>
-                            <div class="label">Generate Code</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
 
                 <div class="option-panel">
                     <div class="account">
@@ -127,28 +103,63 @@
                     </div>
                 </div>
 
+                <div class="structure-panel">
+                    <div class="indication-container">
+                        <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE'}"></div>
+                    </div>
+                    <div class="tree-container">
+                        <structure-tree v-for="(child, id) in TAB.DOCUMENT.HTML" :focus="TAB.FOCUSED_HTML" :trace="id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
+                    </div>
+                    <div class="button-container">
+                        <div class="btn">
+                            <div class="icon">&#64121;</div>
+                        </div>
+                        <div class="btn">
+                            <div class="icon">&#62443;</div>
+                        </div>
+                        <div class="btn" onclick="openStructureAdd(TAB().FOCUSED_HTML, 'INTO')">
+                            <div class="icon">&#62485;</div>
+                        </div>
+                        <div class="btn filler">
+                            <div class="icon">&#62474;</div>
+                            <div class="label">Generate Code</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="styling-panel">
+                    <div class="indication-container">
+                        <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE'}"></div>
+                    </div>
+                    <div class="tree-container">
+                        <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
+                    </div>
+                </div>
+
                 <div class="workspace">
                     <div class="controls">
                         <div class="control-input">
                             <div class="icon">&#63565;</div>
-                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB[A].VIEWPORT.X">
+                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.X">
                         </div>
                         <div class="control-input">
                             <div class="icon">&#63566;</div>
-                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB[A].VIEWPORT.Y">
+                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.Y">
                         </div>
                         <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
-                        <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : TAB[A].VIEWPORT.DECOUPLED}">&#61516;</div>
+                        <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : TAB.VIEWPORT.DECOUPLED}">&#61516;</div>
                     </div>
+
                     <div class="center">
-                        <div class="decoupled-viewport" v-show="TAB[A].VIEWPORT.DECOUPLED">
+                        <div class="decoupled-viewport" v-show="TAB.VIEWPORT.DECOUPLED">
                             <div class="icon">&#63880;</div>
                             <div class="text">
                                 The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
                             </div>
                         </div>
-                        <div class="viewport-container" v-show="!TAB[A].VIEWPORT.DECOUPLED">
-                            <div class="viewport" :style="'width: '+TAB[A].VIEWPORT.X+'px; height:'+TAB[A].VIEWPORT.Y+'px;'"></div>
+
+                        <div class="viewport-container" v-show="!TAB.VIEWPORT.DECOUPLED">
+                            <iframe ref="coupledViewport" class="viewport" :style="'width: '+TAB.VIEWPORT.X+'px; height:'+TAB.VIEWPORT.Y+'px;'"></iframe>
                             <div class="horizontal-handle">
                                 <div class="icon">&#61917;</div>
                             </div>
@@ -162,27 +173,18 @@
                     </div>
                 </div>
 
-                <div class="styling-panel">
-                    <div class="indication-container">
-                        <div class="focus-indicator" :class="{'active' : TAB[A].FOCUSED_PANEL == 'STYLE'}"></div>
-                    </div>
-                    <div class="tree-container">
-                        <structure-tree v-for="(child, id) in TAB[A].DOCUMENT.HTML" :focus="TAB[A].FOCUSED_HTML" :trace="id" :attributes="child.attributes" :type="child.type" :children="child.children"></structure-tree>
-                    </div>
-                </div>
-
                 <div class="status-panel"></div>
             </div>
 
 
 
-            <div class="structure-add-panel" :class="{'active' : TAB[A].UI.structureAdd}">
+            <div class="structure-add-panel" :class="{'active' : TAB.UI.structureAdd}">
                 <div class="container">
                     <div class="close" onclick="closeStructureAdd()">
                         <div class="icon">&#61782;</div>
                         <div class="key">esc</div>
                     </div>
-                    <div class="direction-indicator" :class="TAB[A].UI_DATA.structureAddDirection">
+                    <div class="direction-indicator" :class="TAB.UI_DATA.structureAddDirection">
                         <div class="dot"></div>
                     </div>
                     <label class="search">
@@ -190,25 +192,25 @@
                                 type="text"
                                 ref="structureSearch"
                                 placeholder="Search tags or presets"
-                                v-model="TAB[A].UI_DATA.structureAddSearch"
+                                v-model="TAB.UI_DATA.structureAddSearch"
                                 onfocus="focusStructureAddSearch()"
                                 onblur="blurStructureAddSearch()"
                                 onkeyup="updateStructureAddSearch()"
                                 onkeydown="disableInputArrowKeys(event)">
 
-                        <div class="info" :class="{'active' : TAB[A].FOCUSED_PANEL == 'STRUCTURE_ADD'}">
+                        <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE_ADD'}">
                             <div class="icon">&#62225;</div>
                             <div class="key">enter</div>
                         </div>
                     </label>
-                    <div class="autocomplete" v-show="TAB[A].UI_DATA.structureAddSearch != ''">
-                        <div class="empty" v-show="TAB[A].UI_DATA.structureAddSearchItems.length == 0">No matches found</div>
-                        <div class="item" v-for="(structure, id) in TAB[A].UI_DATA.structureAddSearchItems" :class="{'selected' : id == TAB[A].UI_DATA.structureAddSearchSelected}">
+                    <div class="autocomplete" v-show="TAB.UI_DATA.structureAddSearch != ''">
+                        <div class="empty" v-show="TAB.UI_DATA.structureAddSearchItems.length == 0">No matches found</div>
+                        <div class="item" v-for="(structure, id) in TAB.UI_DATA.structureAddSearchItems" :class="{'selected' : id == TAB.UI_DATA.structureAddSearchSelected}">
                             <div class="type">{{structure.type}}:</div>
                             <div class="label">{{structure.name}}</div>
                         </div>
                     </div>
-                    <div class="suggestions" v-show="TAB[A].UI_DATA.structureAddSearch == ''">
+                    <div class="suggestions" v-show="TAB.UI_DATA.structureAddSearch == ''">
                         <div class="box">
                             <div class="tag">DIV</div>
                             <div class="icon">&#49;</div>
@@ -330,7 +332,11 @@
         require('./src/js/helper/misc.helper.js')
         require('./src/js/helper/keybind.helper.js')
     </script>
+    <script src="src/js/components/drag-number-input.js"></script>
+    <script src="src/js/components/style-property.js"></script>
     <script src="src/js/components/structure-tree.js"></script>
+    <script src="src/js/components/colorpicker.js"></script>
+    <script src="src/js/components/style-tree.js"></script>
     <script src="src/js/app.js"></script>
     <script> ipcRenderer.send('loaded') </script>
 </html>

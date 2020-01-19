@@ -1,11 +1,11 @@
 Vue.component('structure-tree', {
-    props: ['type', 'trace', 'attributes', 'children', 'focus'],
+    props: ['label', 'trace', 'attributes', 'children', 'focus'],
     template: `
         <div class="structure-tree" :trace="trace">
-            <div class="property-container" :trace="trace" :class="{'selected' : focus == trace}">
-                <span class="type">{{type}}</span>
-                <span class="attr" v-for="(value, prop) in attributes">
-                    &nbsp;{{prop}}<span class="deco">=</span><span class="string">"{{value.join(' ')}}"</span>
+            <div class="attribute-container" :trace="trace" :class="{'selected' : focus == trace}">
+                <span class="label">{{label}}</span>
+                <span class="attr" v-for="attribute in attributes">
+                    &nbsp;{{attribute.label}}<span class="deco">=</span><span class="string">"{{attribute.value.join(' ')}}"</span>
                 </span>
 
                 <div class="btn-container">
@@ -14,7 +14,7 @@ Vue.component('structure-tree', {
                 </div>
             </div>
             <div class="children-container" v-show="children.length > 0">
-                <structure-tree v-for="(child, id) in children" :focus="focus" :trace="trace+'-'+id" :attributes="child.attributes" :type="child.type" :children="child.children"></structure-tree>
+                <structure-tree v-for="(child, id) in children" :focus="focus" :trace="trace+'-'+id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
             </div>
         </div>
     `
