@@ -929,3 +929,102 @@ h1,h2,h3,h4,h5,h6
             color: rgba(255, 255, 255, 0.7)
             display: inline
             font-size: 12px
+
+
+
+.colorpicker
+    height: 400px
+    width: 340px
+    border-radius: 7px
+    background: var(--background)
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
+    position: fixed
+    top: 40%
+    right: 40%
+    z-index: 10000
+    text-align: left
+
+    &:before
+        content: ''
+        position: absolute
+        right: -20px
+        top: calc(50% - 20px)
+        height: 0
+        width: 0
+        border: 10px solid transparent
+        border-top-width: 20px
+        border-bottom-width: 20px
+        border-left-color: var(--background)
+
+    .picker-container
+        height: 240px
+        width: 100%
+        padding: 20px
+
+        .handle
+            height: 15px
+            width: 15px
+            border: 2px solid white
+            border-radius: 30px
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4))
+            position: absolute
+            top: 0
+            left: 0
+            transform: translateY(-50%)
+
+        .main-picker
+            height: 200px
+            width: 230px
+            margin-right: 20px
+            border-radius: 3px
+            overflow: hidden
+            position: relative
+
+            &:before
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                height: 100%
+                width: 100%
+                background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)
+
+            &:after
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                height: 100%
+                width: 100%
+                background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)
+
+            .handle
+                transform: translate(-50%, -50%)
+
+        .hue-picker
+            height: 200px
+            width: 15px
+            border-radius: 3px
+            overflow: hidden
+            margin-right: 20px
+            position: relative
+            background: linear-gradient(to bottom, red 0%, #ff0 17%, lime 33%, cyan 50%, blue 66%, #f0f 83%, red 100%)
+
+        .alpha-picker
+            height: 200px
+            width: 15px
+            border-radius: 3px
+            overflow: hidden
+            background-image: url('../images/ui-images/grid.svg')
+            background-size: 15px
+            background-position: top center
+            background-color: white
+            position: relative
+
+            .gradient
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                height: 100%
+                width: 100%

@@ -12,7 +12,7 @@ app = new Vue({
             displayImage: 'src/images/icon/layout_editor_logo.png',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
-            online: true,
+            online: false,
             JWT: null,
         },
         GENERAL_UI: {
@@ -37,7 +37,7 @@ app = new Vue({
                 structureAddSearchItems: []
             },
             VIEW: 'EDIT',
-            NAME: 'Unnamed Layout',
+            NAME: 'Freuwörts Layout Editor',
             DOCUMENT: {
                 HTML: [
                     {
@@ -145,7 +145,7 @@ app = new Vue({
                     structureAddSearchItems: []
                 },
                 VIEW: 'EDIT',
-                NAME: 'Unnamed Layout',
+                NAME: 'Freuwörts Layout Editor',
                 DOCUMENT: {
                     HTML: [
                         {
@@ -222,6 +222,10 @@ document.onreadystatechange = () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('loaded')
         }, 0)
+
+
+
+        updateCoupledViewport(`<br><h1 style="color: #0057ff; text-align: center; font-family: 'product sans'">Hello World!</h1>`)
 
     }
 }
