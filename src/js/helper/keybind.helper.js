@@ -14,12 +14,33 @@ window.navigateSECTION = (direction = 'RIGHT') => {
 
 
 
-window.navigateHTML = (direction = 'UP', isShift = false) => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////
+/////////////////////// STRUCTURE /////////////////////////
+///////////////////////////////////////////////////////////
+
+window.navigateSTRUCTURE = (direction = 'UP', isShift = false) => {
 
     let trace = TAB().FOCUSED_HTML.split('-')
 
     // Validate current trace
-    if(isValidHtmlTrace(trace))
+    if(isValidTrace(trace, 'HTML'))
     {
 
         let traceProbe = [...trace]
@@ -29,7 +50,7 @@ window.navigateHTML = (direction = 'UP', isShift = false) => {
         {
             traceProbe[traceProbe.length - 1]--
 
-            if( isValidHtmlTrace(traceProbe) && isShift )
+            if( isValidTrace(traceProbe, 'HTML') && isShift )
             {
                 TAB().FOCUSED_HTML = traceProbe.join('-')
             }
@@ -46,7 +67,7 @@ window.navigateHTML = (direction = 'UP', isShift = false) => {
         {
             traceProbe[traceProbe.length - 1]++
 
-            if( isValidHtmlTrace(traceProbe) && isShift )
+            if( isValidTrace(traceProbe, 'HTML') && isShift )
             {
                 TAB().FOCUSED_HTML = traceProbe.join('-')
             }
@@ -65,14 +86,14 @@ window.navigateHTML = (direction = 'UP', isShift = false) => {
     }
 }
 
-window.editHTML = (element = 'CURRENT') => {
+window.editSTRUCTURE = (element = 'CURRENT') => {
     let trace = null
 
-    if( element == 'CURRENT' && isValidHtmlTrace(TAB().FOCUSED_HTML) )
+    if( element == 'CURRENT' && isValidTrace(TAB().FOCUSED_HTML, 'HTML') )
     {
         trace = TAB().FOCUSED_HTML
     }
-    else if( isValidHtmlTrace(element) )
+    else if( isValidTrace(element, 'HTML') )
     {
         trace = element
     }
@@ -88,7 +109,7 @@ window.editHTML = (element = 'CURRENT') => {
 
 window.openStructureAdd = (trace, direction = 'INTO') => {
     
-    if( isValidHtmlTrace(trace) )
+    if( isValidTrace(trace, 'HTML') )
     {
         if( direction == 'INTO' || direction == 'ABOVE' || direction == 'BELOW' )
         {
@@ -187,7 +208,7 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
     let structure = app.AVAILABLE_STRUCTURES.find(element => element.id == absoluteID)
 
     if(!structure) valid = false
-    if(!isValidHtmlTrace(trace)) valid = false
+    if(!isValidTrace(trace, 'HTML')) valid = false
     if(direction != 'INTO' && direction != 'ABOVE' && direction != 'BELOW') valid = false
 
     if( valid )
@@ -202,17 +223,17 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
         
         if( direction == 'INTO' )
         {
-            getChildrenFromTrace(trace).unshift(...layout)
+            getChildrenFromTrace(trace, 'HTML').unshift(...layout)
         }
         else if( direction == 'ABOVE' )
         {
             let insertPos = parseInt(trace.pop())
-            getChildrenFromTrace(trace).splice(insertPos, 0, ...layout)
+            getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
         }
         else if( direction == 'BELOW' )
         {
             let insertPos = parseInt(trace.pop()) + 1
-            getChildrenFromTrace(trace).splice(insertPos, 0, ...layout)
+            getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
         }
     
         new Toast('SUCCESS', 'ADDED ELEMENT')
@@ -225,15 +246,96 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
 
 
 window.removeStructureRemove = (trace) => {
-    if( isValidHtmlTrace(trace) )
+    if( isValidTrace(trace, 'HTML') )
     {
         trace = trace.split('-')
         let cutPos = trace.pop()
-        getChildrenFromTrace(trace).splice(cutPos, 1)
+        getChildrenFromTrace(trace, 'HTML').splice(cutPos, 1)
         updateStructureOL()
 
-        if( isValidHtmlTrace(TAB().FOCUSED_HTML) ) TAB().FOCUSED_HTML = '0'
+        if( isValidTrace(TAB().FOCUSED_HTML, 'HTML') ) TAB().FOCUSED_HTML = '0'
 
         new Toast('SUCCESS','Removed Element')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////
+///////////////////////// STYLE ///////////////////////////
+///////////////////////////////////////////////////////////
+
+window.navigateSTYLE = (direction = 'UP', isShift = false) => {
+
+    let trace = TAB().FOCUSED_CSS.split('-')
+
+    // Validate current trace
+    if(isValidTrace(trace, 'CSS'))
+    {
+        
+        console.log(trace)
+
+        let traceProbe = []
+        let traceIndex = TAB().CSS_OL.indexOf(trace.join('-'))
+        
+        
+        
+        if(direction == 'UP')
+        {
+            traceProbe[traceProbe.length - 1]--
+
+            if( isValidTrace(traceProbe, 'CSS') && isShift )
+            {
+                TAB().FOCUSED_CSS = traceProbe.join('-')
+            }
+            else
+            {
+                if( traceIndex > 0 )
+                {
+                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex - 1 ]
+                }
+            }
+        }
+
+        if(direction == 'DOWN')
+        {
+            //traceProbe[traceProbe.length - 1]++
+
+            if( isValidTrace(traceProbe, 'CSS') && isShift )
+            {
+                TAB().FOCUSED_CSS = traceProbe.join('-')
+            }
+            else
+            {
+                if( traceIndex < TAB().CSS_OL.length - 1 )
+                {
+                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex + 1 ]
+                }
+            }
+        }
+    }
+    else
+    {
+        TAB().FOCUSED_CSS = '0'
     }
 }

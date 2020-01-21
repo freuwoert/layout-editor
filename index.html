@@ -108,7 +108,7 @@
                         <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE'}"></div>
                     </div>
                     <div class="tree-container">
-                        <structure-tree v-for="(child, id) in TAB.DOCUMENT.HTML" :focus="TAB.FOCUSED_HTML" :trace="id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
+                        <structure-tree v-for="(child, id) in TAB.DOCUMENT.HTML.children" :focus="TAB.FOCUSED_HTML" :trace="id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
                     </div>
                     <div class="button-container">
                         <div class="btn">
@@ -132,7 +132,7 @@
                         <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE'}"></div>
                     </div>
                     <div class="tree-container">
-                        <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
+                        <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS.children" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
                     </div>
                 </div>
 
@@ -333,6 +333,7 @@
         require('./src/js/helper/ui.helper.js')
         require('./src/js/helper/misc.helper.js')
         require('./src/js/helper/keybind.helper.js')
+        require('./src/js/helper/document.helper.js')
     </script>
     <script src="src/js/components/drag-number-input.js"></script>
     <script src="src/js/components/style-property.js"></script>
@@ -341,4 +342,9 @@
     <script src="src/js/components/style-tree.js"></script>
     <script src="src/js/app.js"></script>
     <script> ipcRenderer.send('loaded') </script>
+
+    <script src="tests/unit/functioncall.js"></script>
+    <script>
+        test_validateTrace()
+    </script>
 </html>

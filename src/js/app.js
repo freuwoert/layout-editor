@@ -39,7 +39,7 @@ app = new Vue({
             VIEW: 'EDIT',
             NAME: 'Freuwörts Layout Editor',
             DOCUMENT: {
-                HTML: [
+                HTML: { children: [
                     {
                         label: 'html',
                         attributes: [],
@@ -88,11 +88,16 @@ app = new Vue({
                             }
                         ]
                     }
-                ],
-                CSS: [
+                ]},
+                CSS: { children: [
                     {
                         label: '.container',
-                        properties: [],
+                        properties: [
+                            {
+                                label: 'width',
+                                value: '100%'
+                            },
+                        ],
                         children: [
                             {
                                 label: '.headline',
@@ -115,7 +120,7 @@ app = new Vue({
                         properties: [],
                         children: []
                     }
-                ],
+                ]},
             },
             VIEWPORT: {
                 X: 300,
@@ -185,7 +190,9 @@ app = new Vue({
     watch: {
     },
     mounted() {
-        this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML)
+        this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
+        this.TAB.CSS_OL = flattenObject(this.TAB.DOCUMENT.CSS.children)
+
         this.AVAILABLE_STRUCTURES.push(...HTML_ROOT_STRUCTURES)
     }
 })

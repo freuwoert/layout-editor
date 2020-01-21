@@ -1,26 +1,30 @@
 Mousetrap.bind(['up'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': navigateHTML('UP', false); break
+        case 'STRUCTURE': navigateSTRUCTURE('UP', false); break
         case 'STRUCTURE_ADD_SEARCH': navigateStructureAddSearch('UP'); break
+        case 'STYLE': navigateSTYLE('UP', false); break
     }
 })
 
 Mousetrap.bind(['down'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': navigateHTML('DOWN', false); break
+        case 'STRUCTURE': navigateSTRUCTURE('DOWN', false); break
         case 'STRUCTURE_ADD_SEARCH': navigateStructureAddSearch('DOWN'); break
+        case 'STYLE': navigateSTYLE('DOWN', false); break
     }
 })
 
 Mousetrap.bind(['ctrl+up', 'command+up'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': navigateHTML('UP', true); break
+        case 'STRUCTURE': navigateSTRUCTURE('UP', true); break
+        case 'STYLE': navigateSTYLE('UP', true); break
     }
 })
 
 Mousetrap.bind(['ctrl+down', 'command+down'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': navigateHTML('DOWN', true); break
+        case 'STRUCTURE': navigateSTRUCTURE('DOWN', true); break
+        case 'STYLE': navigateSTYLE('DOWN', true); break
     }
 })
 
@@ -57,7 +61,7 @@ Mousetrap.bind(['backspace'], function(){
 
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': editHTML('CURRENT'); break
+        case 'STRUCTURE': editSTRUCTURE('CURRENT'); break
         case 'STRUCTURE_ADD': focusStructureAddSearch(); break
         case 'STRUCTURE_ADD_SEARCH': addStructureAdd( getAbsoluteStructureID(TAB().UI_DATA.structureAddSearchSelected, 'STRUCTURE_ADD_SEARCH'), TAB().UI_DATA.structureAddTrace, TAB().UI_DATA.structureAddDirection ); break
     } 
