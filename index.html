@@ -80,7 +80,23 @@
                 <div class="start-open-settings" @click="GENERAL_UI.settings = true">
                     <div class="icon">&#62611;</div>
                 </div>
+                <div class="header">
+                    <div class="view-selector" @click="TAB.VIEW = 'EDIT'">
+                        <div class="image-container">
+                            <div class="image create"></div>
+                        </div>
+                        <div class="label">Create New</div>
+                    </div>
+                    <div class="view-selector" @click="TAB.VIEW = 'STORE'">
+                        <div class="image-container">
+                            <div class="image store"></div>
+                        </div>
+                        <div class="label">Open Market</div>
+                    </div>
+                </div>
             </div>
+
+
 
 
 
@@ -295,12 +311,11 @@
                             <span class="version">{{info.version}}</span>
                         </span>
                     </div>
-                    <span class="headline">Das ist neu:</span>
+                    <span class="headline">Welcome to Layout Editor!</span>
                     <div class="release-note-container">
-                        • Druckproblem wurde gelöst<br>
-                        • Der Druck wird nun als kräftiges <b>Schwarz</b> dargestellt<br>
+                        • Add and remove elements<br>
                     </div>
-                    <div class="close-release-note" @click="GENERAL_UI.releaseNote = false">Los geht's!</div>
+                    <div class="close-release-note" @click="GENERAL_UI.releaseNote = false">Let's go!</div>
                 </div>
             </div>
 
@@ -345,6 +360,6 @@
 
     <script src="tests/unit/functioncall.js"></script>
     <script>
-        test_validateTrace()
+        //test_validateTrace()
     </script>
 </html>

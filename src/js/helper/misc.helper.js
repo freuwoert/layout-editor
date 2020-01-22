@@ -62,6 +62,9 @@ window.isValidTrace = (trace, panel = 'HTML') => {
 
 window.getChildrenFromTrace = (trace, panel = 'HTML') => {
 
+    trace = JSON.parse(JSON.stringify(trace))
+    let isProp = false
+
     if( typeof trace == 'string' )
     {
         trace = trace.split('-')
@@ -69,7 +72,9 @@ window.getChildrenFromTrace = (trace, panel = 'HTML') => {
 
     if(trace[trace.length-1] == 'prop')
     {
-        return null
+        isProp = true
+        trace.pop()
+        if( panel == 'HTML' ) return null
     }
 
     let query = (panel == 'HTML') ? 'app.TAB.DOCUMENT.HTML' : 'app.TAB.DOCUMENT.CSS'
@@ -81,10 +86,7 @@ window.getChildrenFromTrace = (trace, panel = 'HTML') => {
         }
     }
 
-    if(trace.length > 0)
-    {
-        query += '.children'
-    }
+    query = (isProp) ? query + '.properties' : query + '.children'
 
     return (typeof eval(query) == 'object') ? eval(query) : null
 }

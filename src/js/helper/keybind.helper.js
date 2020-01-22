@@ -254,8 +254,6 @@ window.removeStructureRemove = (trace) => {
         updateStructureOL()
 
         if( isValidTrace(TAB().FOCUSED_HTML, 'HTML') ) TAB().FOCUSED_HTML = '0'
-
-        new Toast('SUCCESS','Removed Element')
     }
 }
 
@@ -293,20 +291,29 @@ window.navigateSTYLE = (direction = 'UP', isShift = false) => {
     if(isValidTrace(trace, 'CSS'))
     {
         
-        console.log(trace)
-
-        let traceProbe = []
-        let traceIndex = TAB().CSS_OL.indexOf(trace.join('-'))
-        
-        
+        let traceIndex = TAB().CSS_OL.indexOf( trace.join('-') )
         
         if(direction == 'UP')
         {
-            traceProbe[traceProbe.length - 1]--
 
-            if( isValidTrace(traceProbe, 'CSS') && isShift )
+            if( isShift )
             {
-                TAB().FOCUSED_CSS = traceProbe.join('-')
+                let foundNearestTrace = false
+
+                while ( !foundNearestTrace )
+                {
+                    if(traceIndex > 0)
+                    {
+                        traceIndex = traceIndex - 1
+                    }
+
+                    if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
+                    {
+                        TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
+                        foundNearestTrace = true
+                    }
+                }
+
             }
             else
             {
@@ -319,11 +326,24 @@ window.navigateSTYLE = (direction = 'UP', isShift = false) => {
 
         if(direction == 'DOWN')
         {
-            //traceProbe[traceProbe.length - 1]++
 
-            if( isValidTrace(traceProbe, 'CSS') && isShift )
+            if( isShift )
             {
-                TAB().FOCUSED_CSS = traceProbe.join('-')
+                let foundNearestTrace = false
+
+                while ( !foundNearestTrace )
+                {
+                    if(traceIndex < TAB().CSS_OL.length - 1)
+                    {
+                        traceIndex++
+                    }
+
+                    if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
+                    {
+                        TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
+                        foundNearestTrace = true
+                    }
+                }
             }
             else
             {
@@ -337,5 +357,32 @@ window.navigateSTYLE = (direction = 'UP', isShift = false) => {
     else
     {
         TAB().FOCUSED_CSS = '0'
+    }
+}
+
+
+
+window.removeStyleRemove = (trace) => {
+    if( isValidTrace(trace, 'CSS') )
+    {
+        trace = trace.split('-')
+
+        let cutPos = null
+
+        if( trace[trace.length - 1] == 'prop' )
+        {
+            trace.pop()
+            cutPos = trace.pop()
+            trace.push('prop')
+        }
+        else
+        {
+            cutPos = trace.pop()
+        }
+        
+        getChildrenFromTrace(trace, 'CSS').splice(cutPos, 1)
+        updateStyleOL()
+
+        if( isValidTrace(TAB().FOCUSED_CSS, 'CSS') ) TAB().FOCUSED_CSS = '0'
     }
 }

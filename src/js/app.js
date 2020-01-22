@@ -24,7 +24,10 @@ app = new Vue({
         AVAILABLE_STRUCTURES: [],
         AVAILABLE_STYLES: [],
         ACTIVE_TAB: 0,
-        TAB: {
+        TAB: {},
+        TABS: [],
+        TAB_TEMPLATE: {
+            IS_DUMMY: false,
             UI: {
                 structureAdd: false,
                 styleAdd: false,
@@ -36,91 +39,17 @@ app = new Vue({
                 structureAddSearchSelected: 0,
                 structureAddSearchItems: []
             },
-            VIEW: 'EDIT',
-            NAME: 'Freuwörts Layout Editor',
+            VIEW: 'START',
+            NAME: 'New Layout Editor',
             DOCUMENT: {
                 HTML: { children: [
                     {
-                        label: 'html',
+                        label: 'head',
                         attributes: [],
-                        children: [
-                            {
-                                label: 'head',
-                                attributes: [],
-                                children: []
-                            },
-                            {
-                                label: 'body',
-                                attributes: [],
-                                children: [
-                                    {
-                                        label: 'div',
-                                        attributes: [
-                                            {
-                                                label: 'class',
-                                                value: ['container']
-                                            }
-                                        ],
-                                        children: [
-                                            {
-                                                label: 'div',
-                                                attributes: [
-                                                    {
-                                                        label: 'class',
-                                                        value: ['headline']
-                                                    }
-                                                ],
-                                                children: []
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        label: 'div',
-                                        attributes: [
-                                            {
-                                                label: 'class',
-                                                value: ['divider']
-                                            }
-                                        ],
-                                        children: []
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]},
-                CSS: { children: [
-                    {
-                        label: '.container',
-                        properties: [
-                            {
-                                label: 'width',
-                                value: '100%'
-                            },
-                        ],
-                        children: [
-                            {
-                                label: '.headline',
-                                properties: [
-                                    {
-                                        label: 'font-size',
-                                        value: '16px'
-                                    },
-                                    {
-                                        label: 'color',
-                                        value: '#676767'
-                                    }
-                                ],
-                                children: []
-                            }
-                        ]
-                    },
-                    {
-                        label: '.divider',
-                        properties: [],
                         children: []
                     }
                 ]},
+                CSS: { children: []},
             },
             VIEWPORT: {
                 X: 300,
@@ -136,56 +65,12 @@ app = new Vue({
             SAVE_PATH: '',
             CHANGED: false,
         },
-        TABS: [
-            {
-                UI: {
-                    structureAdd: false,
-                    styleAdd: false,
-                },
-                UI_DATA: {
-                    structureAddTrace: '',
-                    structureAddDirection: '',
-                    structureAddSearch: '',
-                    structureAddSearchSelected: 0,
-                    structureAddSearchItems: []
-                },
-                VIEW: 'EDIT',
-                NAME: 'Freuwörts Layout Editor',
-                DOCUMENT: {
-                    HTML: [
-                        {
-                            label: 'html',
-                            attributes: [],
-                            children: []
-                        }
-                    ],
-                    CSS: [
-                        {
-                            label: '.test-class-1',
-                            properties: [],
-                            children: []
-                        }
-                    ],
-                },
-                VIEWPORT: {
-                    X: 300,
-                    Y: 600,
-                    SCALE: 1,
-                    DECOUPLED: false,
-                },
-                FOCUSED_PANEL: 'STRUCTURE',
-                FOCUSED_HTML: '0',
-                FOCUSED_CSS: '0',
-                HTML_OL: [],
-                CSS_OL: [],
-                SAVE_PATH: '',
-                CHANGED: false,
-            },
-        ],
     },
     methods: {
     },
     created(){
+        if( this.TABS.length == 0 ) this.TABS.push( JSON.parse(JSON.stringify(this.TAB_TEMPLATE)) )
+        if( Object.keys(this.TAB).length == 0 ) this.TAB = this.TABS[this.ACTIVE_TAB]
     },
     watch: {
     },

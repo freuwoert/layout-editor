@@ -50,6 +50,7 @@ Mousetrap.bind(['esc'], function(){
 Mousetrap.bind(['del'], function(){
     switch (PANEL()){
         case 'STRUCTURE': removeStructureRemove(TAB().FOCUSED_HTML); break
+        case 'STYLE': removeStyleRemove(TAB().FOCUSED_CSS); break
     }
 })
 
