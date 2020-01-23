@@ -24,24 +24,30 @@
 
             &:hover
                 .image
-                    transform: scale(1.1) rotate(2deg) !important
+                    filter: grayscale(100%) blur(7px) !important
+
+                .label
+                    background: var(--dark-background) !important
 
             .label
-                height: 50px
+                height: 40px
                 width: 100%
-                line-height: 50px
-                padding: 0 20px
+                line-height: 40px
+                padding: 0 15px
                 color: white
-                font-size: 15px
+                font-size: 14px
                 text-transform: uppercase
                 letter-spacing: 1px
                 font-weight: 900
+                background: rgba(0,0,0,0)
+                transition: all 80ms ease-in-out
                 position: absolute
                 bottom: 0
                 left: 0
+                z-index: 10
 
             .image-container
-                height: calc(100% - 50px)
+                height: calc(100% - 0px)
                 width: calc(100% - 0px)
                 position: absolute
                 top: 0px
@@ -54,7 +60,9 @@
                     background-size: cover
                     background-position: center
                     background-repeat: no-repeat
-                    transform: scale(1)
+                    transform-origin: center center
+                    transform: scale(1.06)
+                    filter: grayscale(0%)
                     transition: all 80ms ease-in-out
 
                     &.create
