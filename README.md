@@ -21,4 +21,4 @@ Layout Editor is a software development tool written in Node.js (Electron.js) sp
 This list also states the roadmap or rather the upcoming updates for this project (although this list is not set in stone and ideas are very much appreciated).
 
 ### Disclaimer
-This idea came form my desire for this type of tool. I'm not working fulltime on this nor am I capible of financially supporting this project more than I do now. I simply cannot guarantee for a 100% cloud uptime or set list of features before I decide to make this into a commercial product. I will however do my absolute best to keep the promises listed above.
+This idea came from my desire for this tool. I'm not working fulltime on nor am I capible of financially supporting this project more than I do now. I simply cannot guarantee for a set list of features before I decide to make this into a commercial product. I will however do my absolute best to keep the promises listed above.
