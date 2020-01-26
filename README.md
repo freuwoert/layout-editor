@@ -9,8 +9,8 @@ Layout Editor is a software development tool written in Node.js (Electron.js) sp
 * Autocompletion including favorised assets
 * A sophisticated marketplace for intricate user generated assets
 * Live preview with custom viewport size support
-* Quick project launch - meaning automated setup for custom folder structures and git initialisation
-* Cloud saving for assets, files and settings
+* Quick project launch - meaning one-click setusp for custom folder structures + git initialisation
+* Cloud saving assets, files and settings
 * Export options:
     * File export ( .html, .css, .sass )
     * Text export ( copy-paste the parts you need )
@@ -18,7 +18,7 @@ Layout Editor is a software development tool written in Node.js (Electron.js) sp
 * Embedded icon picker
 * ... and more
 
-This list also states the roadmap or rather the upcoming updates for this project (although this list is not set in stone and ideas are very much appreciated).
+This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
 ### Disclaimer
 This idea came from my desire for this tool. I'm not working fulltime on nor am I capible of financially supporting this project more than I do now. I simply cannot guarantee for a set list of features before I decide to make this into a commercial product. I will however do my absolute best to keep the promises listed above.
