@@ -81,11 +81,17 @@
                     <div class="icon">&#62611;</div>
                 </div>
                 <div class="header">
+                    <div class="view-selector" @click="TAB.VIEW = 'ASSET'">
+                        <div class="image-container">
+                            <div class="image asset"></div>
+                        </div>
+                        <div class="label">Start Project</div>
+                    </div>
                     <div class="view-selector" @click="TAB.VIEW = 'EDIT'">
                         <div class="image-container">
                             <div class="image create"></div>
                         </div>
-                        <div class="label">Create New</div>
+                        <div class="label">Create Layout</div>
                     </div>
                     <div class="view-selector" @click="TAB.VIEW = 'STORE'">
                         <div class="image-container">
