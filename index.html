@@ -23,6 +23,7 @@
             const Toast = require('./src/js/modules/toast.js')
             const settings = require('electron-settings')
             const Mousetrap = require('mousetrap')
+            const colorConvert = require('color-convert')
             const remote = require('electron').remote
             const { ipcRenderer } = require('electron')
         </script>
@@ -353,6 +354,7 @@
 
         require('./src/js/helper/ui.helper.js')
         require('./src/js/helper/misc.helper.js')
+        require('./src/js/helper/file.helper.js')
         require('./src/js/helper/keybind.helper.js')
         require('./src/js/helper/document.helper.js')
     </script>
