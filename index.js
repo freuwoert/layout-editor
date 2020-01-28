@@ -3,13 +3,10 @@ const { autoUpdater } = require('electron-updater')
 const { ipcMain } = require('electron')
 const electron = require('electron')
 const log = require('electron-log')
-const Menu = electron.Menu
 
 
 
-let quit = false
 let mainWindow = null
-
 const gotTheLock = app.requestSingleInstanceLock()
 
 
@@ -34,56 +31,15 @@ else
 
 
     app.on('ready', () => {
-
         createWindow()
-    
-        const template = [
-            {
-                label:'Edit',
-                submenu:[
-                    {
-                        label: 'Settings',
-                        accelerator: 'CmdOrCtrl+Shift+E',
-                        click (){toRenderer(['openSettings'])}
-                    }
-                ]
-            },{
-                label:'Fenster',
-                submenu:[
-                    {label: 'Open Dev Tools', role: 'toggledevtools'},
-                ]
-            }
-        ]
-    
-        mainWindow.setMenu(Menu.buildFromTemplate(template))
-        //mainWindow.setMenu(null)
-    
-        mainWindow.on('close', (e) => {
-            let choice = require('electron').dialog.showMessageBoxSync(this,{
-                type: 'warning',
-                buttons: ['Close', 'Cancel'],
-                title: 'Close program?',
-                message: 'Are you sure you want to close the program?\n Unsaved progress will be lost.'
-            })
-            
-            if(choice == 1){
-                quit = false
-                e.preventDefault()
-            } else {
-                quit = true
-            }
-    
-        })
-    
     })
     
-    // Quit when all windows are closed.
     app.on('window-all-closed', () => {
-        if (process.platform !== 'darwin') app.quit()
+        if( process.platform !== 'darwin' ) app.quit()
     })
     
     app.on('activate', () => {
-        if (mainWindow === null) createWindow()
+        if( mainWindow === null ) createWindow()
     })
 }
 
@@ -101,22 +57,20 @@ let createWindow = () => {
     mainWindow.loadFile('index.html')
     mainWindow.maximize()
     mainWindow.setTitle(`Layout Editor ${app.getVersion()}`)
-    mainWindow.on('closed', function () { mainWindow = null })
-    //mainWindow.webContents.openDevTools()
+    mainWindow.on('closed', () => { mainWindow = null })
 
-    globalShortcut.register('f5', function() {
+    globalShortcut.register('f5', () => {
 		mainWindow.reload()
 	})
 }
 
 
-///////////////////////////////////////////////////////////////
-////////////////////////Request Methods////////////////////////
-///////////////////////////////////////////////////////////////
 
 let toRenderer = (arg) => {
     mainWindow.webContents.send('mainCommand', arg)
 }
+
+
 
 ipcMain.on('loaded', (event) => {
 

@@ -42,13 +42,7 @@ app = new Vue({
             VIEW: 'START',
             NAME: 'New Layout Editor',
             DOCUMENT: {
-                HTML: { children: [
-                    {
-                        label: 'head',
-                        attributes: [],
-                        children: []
-                    }
-                ]},
+                HTML: { children: []},
                 CSS: { children: []},
             },
             VIEWPORT: {

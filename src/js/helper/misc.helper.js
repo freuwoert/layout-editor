@@ -14,42 +14,80 @@ window.PANEL$ = (comparison) => {
     return TAB().FOCUSED_PANEL == comparison
 }
 
+window.VIEW = () => {
+    return TAB().VIEW
+}
+
+window.VIEW$ = (comparison) => {
+    return TAB().VIEW == comparison
+}
+
 
 
 window.isValidTrace = (trace, panel = 'HTML') => {
 
-    trace = JSON.parse(JSON.stringify(trace))
+    if( !trace || typeof trace == 'null')
+    {
+        return false
+    }
+    else
+    {
+        trace = JSON.parse(JSON.stringify(trace))
+    }
 
     let isProp = false
 
-    if( typeof trace == 'string' )
+
+
+    if( trace && typeof trace == 'string' )
     {
-        trace = trace.split('-')
+        try {
+            trace = trace.split('-')
+        } catch (error) {
+            return false
+        }
     }
 
-    if(trace[trace.length-1] == 'prop')
+
+
+    if( trace && trace[trace.length-1] == 'prop' )
     {
-        isProp = true
-        trace.pop()
+        try {
+            isProp = true
+            trace.pop()
+        } catch (error) {
+            return false
+        }
 
         if( panel == 'HTML' ) return false
     }
 
+
+
     let query = (panel == 'HTML') ? 'app.TAB.DOCUMENT.HTML' : 'app.TAB.DOCUMENT.CSS'
 
-    for ( let i = 0; i < trace.length; i++ ) {
-        if( trace[i] )
-        {
-            if( i >= trace.length - 1 && isProp){
-                query += '.properties'
+    if( trace )
+    {
+        try {
+            for ( let i = 0; i < trace.length; i++ ) {
+                if( trace[i] )
+                {
+                    if( i >= trace.length - 1 && isProp){
+                        query += '.properties'
+                    }
+                    else
+                    {
+                        query += '.children'
+                    }
+                    query += '[' + trace[i] + ']'
+                }
             }
-            else
-            {
-                query += '.children'
-            }
-            query += '[' + trace[i] + ']'
+        } catch (error) {
+            return false
         }
     }
+
+
 
     try {
         return typeof eval(query) == 'object'

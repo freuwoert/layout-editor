@@ -107,6 +107,22 @@
 
 
 
+            <div class="view" id="asset-view" v-show="TAB.VIEW == 'ASSET'">
+                
+            </div>
+
+
+
+
+
+            <div class="view" id="store-view" v-show="TAB.VIEW == 'STORE'">
+                
+            </div>
+
+
+
+
+
             <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
 
                 <div class="option-panel">
@@ -357,6 +373,9 @@
         require('./src/js/helper/file.helper.js')
         require('./src/js/helper/keybind.helper.js')
         require('./src/js/helper/document.helper.js')
+        require('./src/js/helper/edit_navigation.helper.js')
+        require('./src/js/helper/edit_structure.helper.js')
+        require('./src/js/helper/edit_style.helper.js')
     </script>
     <script src="src/js/components/drag-number-input.js"></script>
     <script src="src/js/components/style-property.js"></script>

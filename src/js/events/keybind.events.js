@@ -121,3 +121,23 @@ Mousetrap.bind(['6'], function(){
         case 'STRUCTURE_ADD': selectStructureAddSuggestion('6'); break
     }
 })
+
+
+
+// CONTEXT FREE
+
+Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
+    remote.getCurrentWindow().toggleDevTools()
+})
+
+Mousetrap.bind(['ctrl+s','command+s'], function(){
+    switch (VIEW()){
+        case 'EDIT': new Toast('INFO', 'SAVED in EDIT-VIEW'); break
+    }
+})
+
+Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
+    switch (VIEW()){
+        case 'EDIT': new Toast('INFO', 'SAVED in EDIT-VIEW AS'); break
+    }
+})
