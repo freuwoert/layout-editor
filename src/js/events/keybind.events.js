@@ -64,6 +64,7 @@ Mousetrap.bind(['backspace'], function(){
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
         case 'STYLE': console.log('STYLE:ADD:PROP'); break
+        case 'STYLE_ADD': console.log('STYLE:ADD:PROP'); break
         case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
         case 'STRUCTURE_ADD': focusStructureAddSearch(); break
         case 'STRUCTURE_ADD_SEARCH': addStructureAdd( getAbsoluteStructureID(TAB().UI_DATA.structureAddSearchSelected, 'STRUCTURE_ADD_SEARCH'), TAB().UI_DATA.structureAddTrace, TAB().UI_DATA.structureAddDirection ); break
@@ -98,20 +99,32 @@ Mousetrap.bind(['ctrl+plus','command+plus'], function(){
 })
 
 Mousetrap.bind(['1'], function(){
-    switch (PANEL()){
-        case 'STRUCTURE_ADD': selectStructureAddSuggestion('1'); break
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'ASSET'
+    } else {
+        switch (PANEL()){
+            case 'STRUCTURE_ADD': selectStructureAddSuggestion('1'); break
+        }
     }
 })
 
 Mousetrap.bind(['2'], function(){
-    switch (PANEL()){
-        case 'STRUCTURE_ADD': selectStructureAddSuggestion('2'); break
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'EDIT'
+    } else {
+        switch (PANEL()){
+            case 'STRUCTURE_ADD': selectStructureAddSuggestion('2'); break
+        }
     }
 })
 
 Mousetrap.bind(['3'], function(){
-    switch (PANEL()){
-        case 'STRUCTURE_ADD': selectStructureAddSuggestion('3'); break
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'STORE'
+    } else {
+        switch (PANEL()){
+            case 'STRUCTURE_ADD': selectStructureAddSuggestion('3'); break
+        }
     }
 })
 

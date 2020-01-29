@@ -4,6 +4,9 @@ window.openStyleAdd = (trace, direction = 'INTO') => {
     
     if( direction == 'INTO' || direction == 'ABOVE' || direction == 'BELOW' )
     {
+        // sloppy solution but it works
+        setTimeout(() => { app.$refs.styleName.focus() }, 1)
+
         TAB().FOCUSED_PANEL = 'STYLE_ADD'
         TAB().UI_DATA.styleAddTrace = isValidTrace(trace, 'CSS') ? trace : null
         TAB().UI_DATA.styleAddDirection = isValidTrace(trace, 'CSS') ? direction : 'BELOW' 
@@ -23,6 +26,52 @@ window.closeStyleAdd = () => {
     TAB().UI_DATA.styleAddName = ''
     TAB().UI.styleAdd = false
 }
+
+
+
+window.addStyleAdd = (name, trace, direction) => {
+
+    let valid = true
+
+    if(!name) valid = false
+    if(direction != 'INTO' && direction != 'ABOVE' && direction != 'BELOW') valid = false
+
+    if( valid )
+    {
+
+
+        
+        if(isValidTrace(trace, 'CSS'))
+        {
+            trace = trace.split('-')
+        
+            if( direction == 'INTO' )
+            {
+                getChildrenFromTrace(trace, 'HTML').unshift(...layout)
+            }
+            else if( direction == 'ABOVE' )
+            {
+                let insertPos = parseInt(trace.pop())
+                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+            }
+            else if( direction == 'BELOW' )
+            {
+                let insertPos = parseInt(trace.pop()) + 1
+                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+            }
+        }
+        else
+        {
+            getChildrenFromTrace([], 'HTML').unshift(...layout)
+        }
+    
+        new Toast('SUCCESS', 'ADDED ELEMENT')
+    
+        updateStructureOL()
+        closeStructureAdd()
+    }
+}
+
 
 
 
