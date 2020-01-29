@@ -42,6 +42,7 @@ Mousetrap.bind(['ctrl+left','command+left'], function(){
 
 Mousetrap.bind(['esc'], function(){
     switch (PANEL()){
+        case 'STYLE_ADD': closeStyleAdd(); break
         case 'STRUCTURE_ADD': closeStructureAdd(); break
         case 'STRUCTURE_ADD_SEARCH': blurStructureAddSearch(); break
     }
@@ -62,27 +63,37 @@ Mousetrap.bind(['backspace'], function(){
 
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': editSTRUCTURE('CURRENT'); break
+        case 'STYLE': console.log('STYLE:ADD:PROP'); break
+        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
         case 'STRUCTURE_ADD': focusStructureAddSearch(); break
         case 'STRUCTURE_ADD_SEARCH': addStructureAdd( getAbsoluteStructureID(TAB().UI_DATA.structureAddSearchSelected, 'STRUCTURE_ADD_SEARCH'), TAB().UI_DATA.structureAddTrace, TAB().UI_DATA.structureAddDirection ); break
     } 
 })
 
+Mousetrap.bind(['ctrl+enter','command+enter'], function(){
+    switch (PANEL()){
+        case 'STRUCTURE': editSTRUCTURE('CURRENT'); break
+        case 'STYLE': console.log('STYLE:EDIT:PROP_OR_NAME'); break
+    }
+})
+
 Mousetrap.bind(['plus'], function(){
     switch (PANEL()){
-        case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
+        case 'STYLE': openStyleAdd(TAB().FOCUSED_CSS, 'INTO'); break
     }
 })
 
 Mousetrap.bind(['shift+plus'], function(){
     switch (PANEL()){
         case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'ABOVE'); break
+        case 'STYLE': console.log('STYLE:ADD:NAME:ABOVE'); break
     }
 })
 
 Mousetrap.bind(['ctrl+plus','command+plus'], function(){
     switch (PANEL()){
         case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'BELOW'); break
+        case 'STYLE': console.log('STYLE:ADD:NAME:BELOW'); break
     }
 })
 

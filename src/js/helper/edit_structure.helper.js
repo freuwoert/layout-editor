@@ -13,7 +13,7 @@ window.editSTRUCTURE = (element = 'CURRENT') => {
     // Proceed with valid trace
     if( trace )
     {
-        // Do Something
+        new Toast('INFO','EDIT:STRUCTURE')
     }
 }
 

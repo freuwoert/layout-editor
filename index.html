@@ -278,6 +278,45 @@
                 </div>
             </div>
 
+
+
+            <div class="style-add-panel" :class="{'active' : TAB.UI.styleAdd}">
+                <div class="container">
+                    <div class="close" onclick="closeStyleAdd()">
+                        <div class="icon">&#61782;</div>
+                        <div class="key">esc</div>
+                    </div>
+                    <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
+                        <div class="dot"></div>
+                    </div>
+                    <label class="search">
+                        <input  class="input mousetrap"
+                                type="text"
+                                ref="styleName"
+                                placeholder="css selector"
+                                v-model="TAB.UI_DATA.styleAddName"
+                                onfocus="focusStructureAddSearch()"
+                                onblur="blurStructureAddSearch()"
+                                onkeyup="updateStructureAddSearch()"
+                                onkeydown="disableInputArrowKeys(event)">
+
+                        <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">
+                            <div class="icon">&#62225;</div>
+                            <div class="key">enter</div>
+                        </div>
+                    </label>
+                    <div class="autocomplete" v-show="TAB.UI_DATA.structureAddSearch != ''">
+                        <div class="empty" v-show="TAB.UI_DATA.structureAddSearchItems.length == 0">No matches found</div>
+                        <div class="item" v-for="(structure, id) in TAB.UI_DATA.structureAddSearchItems" :class="{'selected' : id == TAB.UI_DATA.structureAddSearchSelected}">
+                            <div class="type">{{structure.type}}:</div>
+                            <div class="label">{{structure.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <colorpicker v-show="false"></colorpicker>
 
 

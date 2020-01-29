@@ -37,7 +37,10 @@ app = new Vue({
                 structureAddDirection: '',
                 structureAddSearch: '',
                 structureAddSearchSelected: 0,
-                structureAddSearchItems: []
+                structureAddSearchItems: [],
+                styleAddTrace: '',
+                styleAddDirection: '',
+                styleAddName: '',
             },
             VIEW: 'START',
             NAME: 'New Layout Editor',
