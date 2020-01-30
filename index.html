@@ -38,12 +38,12 @@
                 <div class="drag-area">
                     <div class="window-title">
                         <div class="tab-container">
-                            <div class="tab" v-for="(tab, id) in TABS" :class="{'active' : id == ACTIVE_TAB}">
-                                <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
-                                <span class="title" @click="">{{tab.NAME}}</span>
+                            <div class="tab" v-for="(taab, id) in TABS" :class="{'active' : id == ACTIVE_TAB}">
+                                <div class="change-dot" :class="{'active' : taab.CHANGED}"></div>
+                                <span class="title" :onclick="'selectTab('+id+')'">{{taab.NAME}}</span>
                                 <div class="close">&#61782;</div>
                             </div>
-                            <div class="create">&#62485;</div>
+                            <div class="create" onclick="newTab()">&#62485;</div>
                         </div>
                     </div>
                     <div class="window-controls">
@@ -197,18 +197,7 @@
                             </div>
                         </div>
 
-                        <div class="viewport-container" v-show="!TAB.VIEWPORT.DECOUPLED">
-                            <iframe ref="coupledViewport" class="viewport" :style="'width: '+TAB.VIEWPORT.X+'px; height:'+TAB.VIEWPORT.Y+'px;'"></iframe>
-                            <div class="horizontal-handle">
-                                <div class="icon">&#61917;</div>
-                            </div>
-                            <div class="vertical-handle">
-                                <div class="icon">&#61916;</div>
-                            </div>
-                            <div class="diagonal-handle">
-                                <div class="icon">&#62557;</div>
-                            </div>
-                        </div>
+                        <viewport :x="TAB.VIEWPORT.X" :y="TAB.VIEWPORT.Y" @update:x="TAB.VIEWPORT.X = $event" @update:y="TAB.VIEWPORT.Y = $event" v-show="!TAB.VIEWPORT.DECOUPLED"></viewport>
                     </div>
                 </div>
 
@@ -398,19 +387,21 @@
         require('./src/js/events/keybind.events.js')
 
         require('./src/js/helper/ui.helper.js')
+        require('./src/js/helper/tab.helper.js')
         require('./src/js/helper/misc.helper.js')
         require('./src/js/helper/file.helper.js')
         require('./src/js/helper/keybind.helper.js')
         require('./src/js/helper/document.helper.js')
-        require('./src/js/helper/edit_navigation.helper.js')
-        require('./src/js/helper/edit_structure.helper.js')
         require('./src/js/helper/edit_style.helper.js')
+        require('./src/js/helper/edit_structure.helper.js')
+        require('./src/js/helper/edit_navigation.helper.js')
     </script>
     <script src="src/js/components/drag-number-input.js"></script>
     <script src="src/js/components/style-property.js"></script>
     <script src="src/js/components/structure-tree.js"></script>
     <script src="src/js/components/colorpicker.js"></script>
     <script src="src/js/components/style-tree.js"></script>
+    <script src="src/js/components/viewport.js"></script>
     <script src="src/js/app.js"></script>
     <script> ipcRenderer.send('loaded') </script>
 

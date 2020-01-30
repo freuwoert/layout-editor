@@ -1,5 +1,5 @@
 Vue.component('colorpicker', {
-    props: ['value', 'icon'],
+    props: ['value'],
     data: () => {
         return {
             output: {

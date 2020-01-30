@@ -43,7 +43,7 @@ app = new Vue({
                 styleAddName: '',
             },
             VIEW: 'START',
-            NAME: 'New Layout Editor',
+            NAME: 'New Tab',
             DOCUMENT: {
                 HTML: { children: []},
                 CSS: { children: []},
@@ -66,7 +66,14 @@ app = new Vue({
     methods: {
     },
     created(){
-        if( this.TABS.length == 0 ) this.TABS.push( JSON.parse(JSON.stringify(this.TAB_TEMPLATE)) )
+        if( this.TABS.length == 0 )
+        {
+            let blank = JSON.parse(JSON.stringify(this.TAB_TEMPLATE))
+
+            blank.NAME = 'Welcome'
+
+            this.TABS.push( blank )
+        }
         if( Object.keys(this.TAB).length == 0 ) this.TAB = this.TABS[this.ACTIVE_TAB]
     },
     watch: {
@@ -114,7 +121,7 @@ document.onreadystatechange = () => {
 
 
 
-        updateCoupledViewport(`<br><h1 style="color: #0057ff; text-align: center; font-family: 'product sans'">Hello World!</h1>`)
+        //updateCoupledViewport(`<br><h1 style="color: #0057ff; text-align: center; font-family: 'product sans'">Hello World!</h1>`)
 
     }
 }

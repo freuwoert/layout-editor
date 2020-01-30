@@ -29,46 +29,52 @@ window.closeStyleAdd = () => {
 
 
 
-window.addStyleAdd = (name, trace, direction) => {
+window.addStyleAdd = (item, trace, direction) => {
+    
+    if( !item ) return
 
+    layout = (typeof item == 'object') ? item : [{label: item, properties:[], children: [] }]
+    
     let valid = true
 
-    if(!name) valid = false
+    if( !layout ) valid = false
     if(direction != 'INTO' && direction != 'ABOVE' && direction != 'BELOW') valid = false
 
     if( valid )
     {
-
-
-        
         if(isValidTrace(trace, 'CSS'))
         {
             trace = trace.split('-')
+
+            if(trace[trace.length-1] == 'prop'){
+                trace.pop()
+                trace.pop()
+            }
         
             if( direction == 'INTO' )
             {
-                getChildrenFromTrace(trace, 'HTML').unshift(...layout)
+                getChildrenFromTrace(trace, 'CSS').unshift(...layout)
             }
             else if( direction == 'ABOVE' )
             {
                 let insertPos = parseInt(trace.pop())
-                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+                getChildrenFromTrace(trace, 'CSS').splice(insertPos, 0, ...layout)
             }
             else if( direction == 'BELOW' )
             {
                 let insertPos = parseInt(trace.pop()) + 1
-                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+                getChildrenFromTrace(trace, 'CSS').splice(insertPos, 0, ...layout)
             }
         }
         else
         {
-            getChildrenFromTrace([], 'HTML').unshift(...layout)
+            getChildrenFromTrace([], 'CSS').unshift(...layout)
         }
     
         new Toast('SUCCESS', 'ADDED ELEMENT')
     
-        updateStructureOL()
-        closeStructureAdd()
+        updateStyleOL()
+        closeStyleAdd()
     }
 }
 
