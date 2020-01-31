@@ -73,9 +73,22 @@ app = new Vue({
 
             this.TABS.push( blank )
         }
-        if( Object.keys(this.TAB).length == 0 ) this.TAB = this.TABS[this.ACTIVE_TAB]
+        
+        if( Object.keys(this.TAB).length == 0 )
+        {
+            this.TAB = JSON.parse(JSON.stringify(this.TABS[this.ACTIVE_TAB]))
+        }
     },
     watch: {
+        TAB: {
+            deep: true,
+            handler(){
+                if(this.ACTIVE_TAB < this.TABS.length)
+                {
+                    this.TABS[this.ACTIVE_TAB] = JSON.parse(JSON.stringify(this.TAB))
+                }
+            }
+          }
     },
     mounted() {
         this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)

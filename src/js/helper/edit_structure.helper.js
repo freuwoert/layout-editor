@@ -132,10 +132,9 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
             getChildrenFromTrace([], 'HTML').unshift(...layout)
         }
     
-        new Toast('SUCCESS', 'ADDED ELEMENT')
-    
         updateStructureOL()
         closeStructureAdd()
+        activeTabChanged()
     }
 }
 
@@ -148,6 +147,7 @@ window.removeStructureRemove = (trace) => {
         let cutPos = trace.pop()
         getChildrenFromTrace(trace, 'HTML').splice(cutPos, 1)
         updateStructureOL()
+        activeTabChanged()
 
         if( isValidTrace(TAB().FOCUSED_HTML, 'HTML') ) TAB().FOCUSED_HTML = '0'
     }

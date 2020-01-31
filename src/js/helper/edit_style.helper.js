@@ -71,10 +71,9 @@ window.addStyleAdd = (item, trace, direction) => {
             getChildrenFromTrace([], 'CSS').unshift(...layout)
         }
     
-        new Toast('SUCCESS', 'ADDED ELEMENT')
-    
         updateStyleOL()
         closeStyleAdd()
+        activeTabChanged()
     }
 }
 
@@ -102,6 +101,7 @@ window.removeStyleRemove = (trace) => {
         
         getChildrenFromTrace(trace, 'CSS').splice(cutPos, 1)
         updateStyleOL()
+        activeTabChanged()
 
         if( isValidTrace(TAB().FOCUSED_CSS, 'CSS') ) TAB().FOCUSED_CSS = '0'
     }

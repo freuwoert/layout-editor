@@ -160,12 +160,12 @@ Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
 
 Mousetrap.bind(['ctrl+s','command+s'], function(){
     switch (VIEW()){
-        case 'EDIT': openLayoutSaveDialog(app.ACTIVE_TAB, false, (path) => { saveLayoutTabTo(app.TAB, path, () => {}) }); break
+        case 'EDIT': saveLayout({tab: app.TAB, force: false}, (tab)=>{ app.TAB = JSON.parse(JSON.stringify(tab))}); break
     }
 })
 
 Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
     switch (VIEW()){
-        case 'EDIT': openLayoutSaveDialog(app.ACTIVE_TAB, true, (path) => { console.log(path) }); break
+        case 'EDIT': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = JSON.parse(JSON.stringify(tab))}); break
     }
 })

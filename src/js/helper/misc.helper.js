@@ -177,6 +177,10 @@ window.updateStyleOL = () => {
     }
 }
 
+window.activeTabChanged = () => {
+    TAB().CHANGED = true
+}
+
 
 
 window.disableInputArrowKeys = (event) => {
