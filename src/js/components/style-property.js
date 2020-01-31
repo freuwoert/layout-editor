@@ -5,11 +5,6 @@ Vue.component('style-property', {
             <div class="container" :trace="trace" :class="{'selected' : focus == trace}">
                 <span class="label">{{property.label}}:&nbsp;</span>
                 <span class="value">{{property.value}}</span>
-
-                <div class="btn-container">
-                    <div class="btn">&#61773;</div>
-                    <div class="btn">&#61913;</div>
-                </div>
             </div>
         </div>
     `

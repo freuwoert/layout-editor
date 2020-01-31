@@ -4,11 +4,6 @@ Vue.component('style-tree', {
         <div class="style-tree" :trace="trace">
             <div class="selector-container" :trace="trace" :class="{'selected' : focus == trace}">
                 <span class="label">{{label}}</span>
-
-                <div class="btn-container">
-                    <div class="btn">&#61773;</div>
-                    <div class="btn">&#61913;</div>
-                </div>
             </div>
             <div class="property-container" v-show="properties.length > 0">
                 <style-property v-for="(property, id) in properties" :focus="focus" :trace="trace+'-'+id+'-prop'" :property="property"></structure-property>

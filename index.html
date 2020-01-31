@@ -20,11 +20,13 @@
             const Vuex = require('vuex')
             const Fuse = require('fuse.js')
             const anime = require('animejs')
+            const pretty = require('pretty')
             const Toast = require('./src/js/modules/toast.js')
             const settings = require('electron-settings')
             const Mousetrap = require('mousetrap')
             const colorConvert = require('color-convert')
             const remote = require('electron').remote
+            const { dialog } = require('electron').remote
             const { ipcRenderer } = require('electron')
         </script>
     </head>
@@ -41,7 +43,7 @@
                             <div class="tab" v-for="(taab, id) in TABS" :class="{'active' : id == ACTIVE_TAB}">
                                 <div class="change-dot" :class="{'active' : taab.CHANGED}"></div>
                                 <span class="title" :onclick="'selectTab('+id+')'">{{taab.NAME}}</span>
-                                <div class="close">&#61782;</div>
+                                <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
                             </div>
                             <div class="create" onclick="newTab()">&#62485;</div>
                         </div>
@@ -126,6 +128,10 @@
             <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
 
                 <div class="option-panel">
+                    <div class="button generate-btn" onclick="renderHTML(TAB().DOCUMENT.HTML.children)">
+                        <div class="icon">&#62474;</div>
+                        Generate Code
+                    </div>
                     <div class="account">
                         <div class="sign-in" v-show="!USER.online">
                             <div class="text">Sign In</div>
@@ -152,16 +158,15 @@
                     <div class="button-container">
                         <div class="btn">
                             <div class="icon">&#64121;</div>
+                            <div class="key">del</div>
                         </div>
                         <div class="btn">
                             <div class="icon">&#62443;</div>
+                            <div class="key">ctrl + enter</div>
                         </div>
                         <div class="btn" onclick="openStructureAdd(TAB().FOCUSED_HTML, 'INTO')">
                             <div class="icon">&#62485;</div>
-                        </div>
-                        <div class="btn filler">
-                            <div class="icon">&#62474;</div>
-                            <div class="label">Generate Code</div>
+                            <div class="key">enter</div>
                         </div>
                     </div>
                 </div>
@@ -173,17 +178,31 @@
                     <div class="tree-container">
                         <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS.children" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
                     </div>
+                    <div class="button-container">
+                        <div class="btn">
+                            <div class="icon">&#64121;</div>
+                            <div class="key">del</div>
+                        </div>
+                        <div class="btn">
+                            <div class="icon">&#62443;</div>
+                            <div class="key">ctrl + enter</div>
+                        </div>
+                        <div class="btn" onclick="openStyleAdd(TAB().FOCUSED_CSS, 'INTO')">
+                            <div class="icon">&#62485;</div>
+                            <div class="key">plus</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="workspace">
                     <div class="controls">
                         <div class="control-input">
                             <div class="icon">&#63565;</div>
-                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.X">
+                            <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.X">
                         </div>
                         <div class="control-input">
                             <div class="icon">&#63566;</div>
-                            <input class="input" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.Y">
+                            <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.Y">
                         </div>
                         <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
                         <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : TAB.VIEWPORT.DECOUPLED}">&#61516;</div>
@@ -219,6 +238,7 @@
                         <input  class="input mousetrap"
                                 type="text"
                                 ref="structureSearch"
+                                tabindex="-1"
                                 placeholder="Search tags or presets"
                                 v-model="TAB.UI_DATA.structureAddSearch"
                                 onfocus="focusStructureAddSearch()"
@@ -282,6 +302,7 @@
                         <input  class="input mousetrap"
                                 type="text"
                                 ref="styleName"
+                                tabindex="-1"
                                 placeholder="css selector"
                                 v-model="TAB.UI_DATA.styleAddName"
                                 onkeydown="disableInputArrowKeys(event)">
@@ -308,6 +329,7 @@
                         <div class="close-ui" @click="GENERAL_UI.settings = false">&#61782;</div>
                     </div>
                     <div class="settings-categories">
+                        <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'ACCOUNT'}" @click="GENERAL_UI.activeSetting = 'ACCOUNT'"><div class="icon">&#62930;</div> Account</div>
                         <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'INFO'}" @click="GENERAL_UI.activeSetting = 'INFO'"><div class="icon">&#62205;</div> Info</div>
                     </div>
 
@@ -324,7 +346,11 @@
                                 Node-Version: <div class="box">{{info.nodeVersion}}</div><br>
                                 Electron-Version: <div class="box">{{info.electronVersion}}</div><br><br>
 
-                                Release Notes: <div class="button" @click="GENERAL_UI.releaseNote = true">Open</div><br><br>
+                                Release Notes:
+                                <div class="button" @click="GENERAL_UI.releaseNote = true">
+                                    <div class="icon">&#61635;</div>
+                                    Open
+                                </div><br><br>
                                 <h3>About the developer</h3><br>
                                 Developed by <i>Maurice Freuwört Software and Design</i>
                             </div>
@@ -363,19 +389,6 @@
 
 
 
-            <div class="full-window-popup" :class="{'active' : GENERAL_UI.login}">
-                <div class="popup-background"></div>
-                <div class="popup-center">
-                    <form onsubmit="ipPassNext(event)">
-                        <input type="text" class="input" id="pass-ip-value" placeholder="Passwort eingeben">
-                        <button type="submit" class="button">Einloggen</button>
-                    </form>
-                </div>
-            </div>
-
-
-
-
             <!-- HOLDER FOR ALL TOAST NOTIFICATIONS -->
             <div class="toast-holder"></div>
 
@@ -390,6 +403,7 @@
         require('./src/js/helper/tab.helper.js')
         require('./src/js/helper/misc.helper.js')
         require('./src/js/helper/file.helper.js')
+        require('./src/js/helper/render.helper.js')
         require('./src/js/helper/keybind.helper.js')
         require('./src/js/helper/document.helper.js')
         require('./src/js/helper/edit_style.helper.js')
@@ -400,6 +414,7 @@
     <script src="src/js/components/style-property.js"></script>
     <script src="src/js/components/structure-tree.js"></script>
     <script src="src/js/components/colorpicker.js"></script>
+    <script src="src/js/components/iconpicker.js"></script>
     <script src="src/js/components/style-tree.js"></script>
     <script src="src/js/components/viewport.js"></script>
     <script src="src/js/app.js"></script>

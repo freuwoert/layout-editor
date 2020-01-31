@@ -16,7 +16,6 @@ app = new Vue({
             JWT: null,
         },
         GENERAL_UI: {
-            login: false,
             settings: false,
             releaseNote: false,
             activeSetting: 'INFO',
@@ -59,7 +58,7 @@ app = new Vue({
             FOCUSED_CSS: '0',
             HTML_OL: [],
             CSS_OL: [],
-            SAVE_PATH: '',
+            SAVE_PATH: null,
             CHANGED: false,
         },
     },

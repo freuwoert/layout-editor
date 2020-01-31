@@ -9,6 +9,17 @@
         background: var(--background)
         position: relative
 
+        .generate-btn
+            position: absolute
+            left: 7px
+            top: 7px
+            background: transparent
+            color: rgba(255, 255, 255, 0.7)
+
+            &:hover
+                background: rgba(255, 255, 255, 0.05)
+                color: white
+
         .account
             position: absolute
             top: 0
@@ -59,6 +70,7 @@
         grid-area: structure_panel
         background: var(--background)
         border-top: 5px solid var(--dark-background)
+        border-bottom: 5px solid var(--dark-background)
         position: relative
 
         .indication-container
@@ -71,7 +83,7 @@
             text-align: left
 
         .tree-container
-            height: calc(100% - 95px)
+            height: calc(100% - 90px)
             width: calc(100% - 10px)
             position: absolute
             top: 25px
@@ -79,57 +91,59 @@
             overflow-y: auto
 
         .button-container
-            height: 65px
+            height: 55px
             width: 100%
-            padding-left: 4px
             border-top: 5px solid var(--dark-background)
-            border-bottom: 5px solid var(--dark-background)
-            background: var(--dark-background)
+            background: var(--background)
             position: absolute
             bottom: 0
             left: 0
+            display: flex
 
             .btn
-                height: 45px
-                line-height: 45px
-                padding: 5px
+                height: 50px
+                flex: 1
+                position: relative
                 border-radius: 5px
-                margin: 5px
-                text-align: center
+                background: var(--background)
                 user-select: none
                 cursor: pointer
-                background: var(--background)
-                color: rgba(255, 255, 255, 0.7)
-                vertical-align: top
-
-                &.filler
-                    margin: 5px 0 5px 5px
-                    background: var(--blue)
-                    color: white
-                    transition: all 100ms
-                    width: calc(100% - 55px * 3 - 5px)
 
                 &:hover
                     background: rgba(255, 255, 255, 0.05)
-                    color: white
-
-                &.filler:hover
-                    background: #3742fa
-
+                    .icon
+                        color: white !important
+                
                 .icon
-                    height: 35px
-                    width: 35px
-                    line-height: 35px
+                    position: absolute
+                    top: 0
+                    left: 0
+                    height: 100%
+                    width: 100%
+                    text-align: center
+                    line-height: 37px
+                    color: rgba(255, 255, 255, 0.7)
+                    font-size: 22px
                     font-family: 'Material Icons'
-                    font-size: 26px
-                    vertical-align: top
-                    font-weight: initial
 
-                .label
-                    height: 35px
-                    line-height: 35px
-                    font-size: 16px
-                    vertical-align: top
+                .key
+                    width: 100%
+                    height: 20px
+                    line-height: 20px
+                    color: rgba(255, 255, 255, 0.2)
+                    text-align: center
+                    font-size: 12px
+                    letter-spacing: 1px
+                    position: absolute
+                    top: 29px
+                    left: 0
+
+                    &.small
+                        font-size: 10px
+                        top: 30px
+
+                    span
+                        font-family: 'Material Icons'
 
     .styling-panel
         grid-area: styling_panel
@@ -148,12 +162,67 @@
             text-align: left
 
         .tree-container
-            height: calc(100% - 35px)
+            calc(100% - 90px)
             width: calc(100% - 10px)
             position: absolute
             top: 25px
             left: 5px
             overflow-y: auto
+
+        .button-container
+            height: 55px
+            width: 100%
+            border-top: 5px solid var(--dark-background)
+            background: var(--background)
+            position: absolute
+            bottom: 0
+            left: 0
+            display: flex
+
+            .btn
+                height: 50px
+                flex: 1
+                position: relative
+                border-radius: 5px
+                background: var(--background)
+                user-select: none
+                cursor: pointer
+
+                &:hover
+                    background: rgba(255, 255, 255, 0.05)
+                    .icon
+                        color: white !important
+                
+                .icon
+                    position: absolute
+                    top: 0
+                    left: 0
+                    height: 100%
+                    width: 100%
+                    text-align: center
+                    line-height: 37px
+                    color: rgba(255, 255, 255, 0.7)
+                    font-size: 22px
+                    font-family: 'Material Icons'
+
+                .key
+                    width: 100%
+                    height: 20px
+                    line-height: 20px
+                    color: rgba(255, 255, 255, 0.2)
+                    text-align: center
+                    font-size: 12px
+                    letter-spacing: 1px
+                    position: absolute
+                    top: 29px
+                    left: 0
+
+                    &.small
+                        font-size: 10px
+                        top: 30px
+
+                    span
+                        font-family: 'Material Icons'
 
     .status-panel
         grid-area: status_panel

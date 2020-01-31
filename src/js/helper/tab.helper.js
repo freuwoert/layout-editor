@@ -12,9 +12,11 @@ window.newTab = (name = 'New Tab') => {
     app.TABS[app.ACTIVE_TAB] = JSON.parse(JSON.stringify(app.TAB))
 
     // set new tab
-    app.TAB = app.TABS[newID]
+    app.TAB = JSON.parse(JSON.stringify(app.TABS[newID]))
     app.ACTIVE_TAB = newID
 }
+
+
 
 window.selectTab = (id) => {
 
@@ -24,7 +26,27 @@ window.selectTab = (id) => {
         app.TABS[app.ACTIVE_TAB] = JSON.parse(JSON.stringify(app.TAB))
 
         // set new tab
-        app.TAB = app.TABS[id]
+        app.TAB = JSON.parse(JSON.stringify(app.TABS[id]))
         app.ACTIVE_TAB = id
+    }
+}
+
+
+
+window.closeTab = (id) => {
+    if(id < app.TABS.length && app.TABS.length > 1)
+    {
+        if(!app.TABS[id].CHANGED)
+        {
+            app.TABS.splice(id, 1)
+
+            // get new tab id
+            if(id > 0) id--
+            else if (id < app.TABS.length - 1) id++
+    
+            // set new tab
+            app.TAB = JSON.parse(JSON.stringify(app.TABS[id]))
+            app.ACTIVE_TAB = id
+        }
     }
 }

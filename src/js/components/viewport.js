@@ -22,8 +22,8 @@ Vue.component('viewport', {
             this.direction = direction
             this.startPos.x = e.x
             this.startPos.y = e.y
-            this.startSize.x = JSON.parse(JSON.stringify(this.x))
-            this.startSize.y = JSON.parse(JSON.stringify(this.y))
+            this.startSize.x = parseInt(JSON.parse(JSON.stringify(this.x)))
+            this.startSize.y = parseInt(JSON.parse(JSON.stringify(this.y)))
             this.mouseMove(e)
         },
         mouseUp: function(e){
@@ -33,12 +33,12 @@ Vue.component('viewport', {
 
             if( this.direction == 'HORIZONTAL' || this.direction == 'BOTH' )
             {
-                this.x = this.limit(this.startSize.x + (e.x - this.startPos.x) * 2, 40, 20000)
+                this.x = parseInt(this.limit(this.startSize.x + (e.x - this.startPos.x) * 2, 40, 20000))
             }
 
             if( this.direction == 'VERTICAL' || this.direction == 'BOTH' )
             {
-                this.y = this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000)
+                this.y = parseInt(this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000))
             }
 
             this.$emit('update:x', this.x)
@@ -47,7 +47,7 @@ Vue.component('viewport', {
         limit: function(value, min, max){
             if(value < min) value = min
             if(value > max) value = max
-            return value
+            return parseFloat(value)
         }
     },
     template: `

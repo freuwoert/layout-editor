@@ -150,18 +150,22 @@ Mousetrap.bind(['6'], function(){
 
 // CONTEXT FREE
 
+Mousetrap.bind(['ctrl+shift+e','command+shift+e'], function(){
+    app.GENERAL_UI.settings = true
+})
+
 Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
     remote.getCurrentWindow().toggleDevTools()
 })
 
 Mousetrap.bind(['ctrl+s','command+s'], function(){
     switch (VIEW()){
-        case 'EDIT': new Toast('INFO', 'SAVED in EDIT-VIEW'); break
+        case 'EDIT': openLayoutSaveDialog(app.ACTIVE_TAB, false, (path) => { saveLayoutTabTo(app.TAB, path, () => {}) }); break
     }
 })
 
 Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
     switch (VIEW()){
-        case 'EDIT': new Toast('INFO', 'SAVED in EDIT-VIEW AS'); break
+        case 'EDIT': openLayoutSaveDialog(app.ACTIVE_TAB, true, (path) => { console.log(path) }); break
     }
 })
