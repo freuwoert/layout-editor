@@ -1,3 +1,7 @@
+window.WINDOW = () => {
+    return remote.getCurrentWindow()
+}
+
 window.TAB = () => {
     return app.TAB
 }

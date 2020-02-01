@@ -1,21 +1,32 @@
-window.openLayoutSaveDialog = (tab, force, callback) => {
+window.showLayoutSaveDialog = (tab, force, callback) => {
 
     if( force || tab.SAVE_PATH == null )
     {
         dialog.showSaveDialog({filters:[{ name: 'Layout Editor Files', extensions: ['lef'] }]}).then((data)=>{
-            if( !data.canceled ) callback(data.filePath)
-            else callback(null)
+            if( !data.canceled )
+            {
+                callback(data.filePath)
+                return
+            }
+            else
+            {
+                callback(null)
+                return
+            }
         }).catch((error)=>{
             callback(null)
+            return
         })
     }
     else if(tab.SAVE_PATH != null)
     {
         callback(tab.SAVE_PATH)
+        return
     }
     else
     {
         callback(null)
+        return
     }
 }
 
@@ -28,17 +39,19 @@ window.saveLayoutTabTo = (tab, path = null, callback) => {
         try {
             fs.writeFile(path, content, 'utf8', ()=>{
                 callback('SUCCESS')
+                return
             })
         }
-        catch(e) {
-            console.error(e)
-            new Toast('ERROR', 'Could not save file!')
+        catch(error) {
             callback('ERROR')
+            new Toast('ERROR', 'Could not save file!')
+            return
         }
     }
     else
     {
         callback('ERROR')
+        return
     }
 }
 
@@ -48,7 +61,7 @@ window.saveLayout = (options, callback) => {
     
     if(typeof options.tab != 'undefined' && typeof options.force != 'undefined')
     {
-        openLayoutSaveDialog(options.tab, options.force, (path) => {
+        showLayoutSaveDialog(options.tab, options.force, (path) => {
             saveLayoutTabTo(options.tab, path, (result) => {
 
                 if(result == 'SUCCESS')
@@ -59,6 +72,126 @@ window.saveLayout = (options, callback) => {
                     callback(options.tab)
                 }
             })
+        })
+    }
+}
+
+
+
+window.setSavePath = (tab) => {
+    showLayoutSaveDialog(tab, true, (path) => {
+        tab.SAVE_PATH = path
+    })
+}
+
+
+
+window.showLayoutOpenDialog = (callback) => {
+    dialog.showOpenDialog({filters:[{ name: 'Layout Editor Files', extensions: ['lef'] }]}).then((data)=>{
+        if( !data.canceled )
+        {
+            callback(data.filePaths)
+            return
+        }
+        else
+        {
+            callback(null)
+            return
+        }
+    }).catch((error)=>{
+        callback(null)
+        return
+    })
+}
+
+window.getLayoutTabsFromPath = (paths, callback) => {
+
+    let tabs = []
+    let normPaths
+
+    switch (typeof paths) {
+        case 'object': normPaths = paths; break
+        case 'string': normPaths = [paths]; break
+        default: normPaths = []; break
+    }
+    
+
+
+    if( normPaths != null )
+    {
+
+        for (let i = 0; i < normPaths.length; i++) {
+            let path = normPaths[i]
+
+            let tab, content, rawContent
+            
+            try {
+                rawContent = fs.readFileSync(path, {encoding: 'utf8'})
+                content = JSON.parse(rawContent)
+            } catch (error) {
+                continue
+            }
+
+            tab = {
+                document: content,
+                path: path
+            }
+    
+            tabs.push(tab)
+        }
+    }
+
+
+    callback(tabs)
+    return
+}
+
+
+
+window.openLayout = (options, callback) => {
+    
+    if( !options.paths )
+    {
+        showLayoutOpenDialog((paths) => {
+            getLayoutTabsFromPath(paths, (rawTabs)=>{
+
+                let preparedTabs = []
+
+                rawTabs.forEach(tab => {
+                    let blank = JSON.parse(JSON.stringify(app.TAB_TEMPLATE))
+    
+                    blank.NAME = path.parse(tab.path).name
+                    blank.VIEW = 'EDIT'
+                    blank.SAVE_PATH = tab.path
+                    blank.DOCUMENT = tab.document
+
+                    preparedTabs.push(blank)
+                })
+                
+                app.TABS.push(...preparedTabs)
+                callback(preparedTabs)
+            })
+        })
+    }
+    else
+    {
+        getLayoutTabsFromPath(options.paths, (rawTabs)=>{
+
+            let preparedTabs = []
+
+            rawTabs.forEach(tab => {
+                let blank = JSON.parse(JSON.stringify(app.TAB_TEMPLATE))
+
+                blank.NAME = path.parse(tab.path).name
+                blank.VIEW = 'EDIT'
+                blank.SAVE_PATH = tab.path
+                blank.DOCUMENT = tab.document
+
+                preparedTabs.push(blank)
+            })
+            
+            app.TABS.push(...preparedTabs)
+            callback(preparedTabs)
         })
     }
 }

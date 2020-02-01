@@ -18,6 +18,7 @@
             const fs = require('fs')
             const Vue = require('vue/dist/vue.min')
             const Vuex = require('vuex')
+            const path = require('path')
             const Fuse = require('fuse.js')
             const anime = require('animejs')
             const pretty = require('pretty')
@@ -66,10 +67,10 @@
             </header>
 
             <div id="preloader">
+                <div class="logo"></div>
                 <svg class="spinner" viewBox="0 0 50 50">
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
                 </svg>
-                <span class="preload-text"><b>Layout Editor</b></span>
             </div>
 
 
@@ -220,7 +221,13 @@
                     </div>
                 </div>
 
-                <div class="status-panel"></div>
+                <div class="status-panel">
+                    <div class="savepath" :title="TAB.SAVE_PATH" onclick="setSavePath(TAB())">
+                        <div class="icon">&#63343;</div>
+                        <div class="label" v-show="savePathName">{{savePathName}}</div>
+                        <div class="label" v-show="!savePathName">Set file location</div>
+                    </div>
+                </div>
             </div>
 
 
@@ -328,19 +335,24 @@
                         Settings
                         <div class="close-ui" @click="GENERAL_UI.settings = false">&#61782;</div>
                     </div>
+
                     <div class="settings-categories">
-                        <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'ACCOUNT'}" @click="GENERAL_UI.activeSetting = 'ACCOUNT'"><div class="icon">&#62930;</div> Account</div>
+                        <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'ACCOUNT'}" @click="GENERAL_UI.activeSetting = 'ACCOUNT'"><div class="icon">&#63024;</div> Account</div>
                         <div class="category" :class="{'active' : GENERAL_UI.activeSetting == 'INFO'}" @click="GENERAL_UI.activeSetting = 'INFO'"><div class="icon">&#62205;</div> Info</div>
                     </div>
 
-
-
-                    <div class="popup-content settings-content" v-show="GENERAL_UI.activeSetting == 'INFO'">
-
-                        <!-- INFO -->
+                    <div class="popup-content settings-content" v-show="GENERAL_UI.activeSetting == 'ACCOUNT'">
                         <div class="settings-divider">
                             <div class="info">
-                                <h3>About this Software</h3><br>
+                                <h2>Account Settings</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-content settings-content" v-show="GENERAL_UI.activeSetting == 'INFO'">
+                        <div class="settings-divider">
+                            <div class="info">
+                                <h2>About this Software</h2><br>
                                 Version: <div class="box">{{info.version}}</div><div class="box secondary">{{info.versionName}}</div><br>
                                 API-Version: <div class="box">{{info.apiVersion}}</div><br>
                                 Node-Version: <div class="box">{{info.nodeVersion}}</div><br>
@@ -351,18 +363,14 @@
                                     <div class="icon">&#61635;</div>
                                     Open
                                 </div><br><br>
-                                <h3>About the developer</h3><br>
+                                <h2>About the developer</h2><br>
                                 Developed by <i>Maurice Freuwört Software and Design</i>
                             </div>
                         </div>
-
                     </div>
 
-
-
                     <div class="popup-footer settings-footer">
-                        <div class="button ghost-button" onclick="resetSettings()">Zurücksetzen</div>
-                        <div class="button" onclick="applySettings()">Übernehmen</div>
+                        <div class="button" onclick="applySettings()"><div class="icon">&#61748;</div> Übernehmen</div>
                     </div>
                 </div>
             </div>

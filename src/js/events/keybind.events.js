@@ -169,3 +169,9 @@ Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
         case 'EDIT': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = JSON.parse(JSON.stringify(tab))}); break
     }
 })
+
+Mousetrap.bind(['ctrl+o','command+o'], function(){
+    switch (VIEW()){
+        case 'EDIT': openLayout({paths: null}, ()=>{selectTab(app.TABS.length-1)}); break
+    }
+})

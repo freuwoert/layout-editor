@@ -64,31 +64,49 @@ app = new Vue({
     },
     methods: {
     },
+    computed: {
+        savePathName: function (){
+            return (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).base : null
+        }
+    },
     created(){
         if( this.TABS.length == 0 )
         {
             let blank = JSON.parse(JSON.stringify(this.TAB_TEMPLATE))
 
-            blank.NAME = 'Welcome'
+            blank.NAME = 'Layout Editor'
 
             this.TABS.push( blank )
         }
-        
+
         if( Object.keys(this.TAB).length == 0 )
         {
             this.TAB = JSON.parse(JSON.stringify(this.TABS[this.ACTIVE_TAB]))
         }
     },
     watch: {
-        TAB: {
+        'TAB': {
             deep: true,
             handler(){
                 if(this.ACTIVE_TAB < this.TABS.length)
                 {
+                    if(this.TAB.VIEW == 'EDIT')
+                    {
+                        this.TAB.NAME = (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).name : 'Untitled Layout'
+                    }
+
                     this.TABS[this.ACTIVE_TAB] = JSON.parse(JSON.stringify(this.TAB))
                 }
             }
-          }
+        },
+        'TAB.DOCUMENT': {
+            deep: true,
+            handler(){
+                this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
+                this.TAB.CSS_OL = flattenObject(this.TAB.DOCUMENT.CSS.children)
+                //console.log('CHANGED')
+            }
+        },
     },
     mounted() {
         this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
@@ -131,36 +149,30 @@ document.onreadystatechange = () => {
             document.getElementById('preloader').classList.add('loaded')
         }, 0)
 
-
-
-        //updateCoupledViewport(`<br><h1 style="color: #0057ff; text-align: center; font-family: 'product sans'">Hello World!</h1>`)
-
     }
 }
 
 function handleWindowControls() {
 
-    let win = remote.getCurrentWindow()
-
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener("click", event => {
-        win.minimize()
+        WINDOW().minimize()
     })
 
     document.getElementById('max-button').addEventListener("click", event => {
-        win.maximize()
+        WINDOW().maximize()
     })
 
     document.getElementById('restore-button').addEventListener("click", event => {
-        win.unmaximize()
+        WINDOW().unmaximize()
     })
 
     document.getElementById('close-button').addEventListener("click", event => {
-        win.close()
+        WINDOW().close()
     })
 
     // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
-    if (win.isMaximized())
+    if (WINDOW().isMaximized())
     {
         document.body.classList.add('maximized')
     }
@@ -169,8 +181,8 @@ function handleWindowControls() {
         document.body.classList.remove('maximized')
     }
 
-    win.on('maximize', function() {
-        if (win.isMaximized())
+    WINDOW().on('maximize', function() {
+        if (WINDOW().isMaximized())
         {
             document.body.classList.add('maximized')
         }
@@ -179,8 +191,9 @@ function handleWindowControls() {
             document.body.classList.remove('maximized')
         }
     })
-    win.on('unmaximize', function() {
-        if (win.isMaximized())
+
+    WINDOW().on('unmaximize', function() {
+        if (WINDOW().isMaximized())
         {
             document.body.classList.add('maximized')
         }

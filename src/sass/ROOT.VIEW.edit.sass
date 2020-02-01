@@ -224,10 +224,6 @@
                     span
                         font-family: 'Material Icons'
 
-    .status-panel
-        grid-area: status_panel
-        background: var(--background)
-
     .workspace
         grid-area: workspace
         background: var(--dark-background)
@@ -244,6 +240,7 @@
             border-radius: 0 0 10px 10px
             background: var(--background)
             user-select: none
+            white-space: nowrap
 
             &:before
                 content: ''
@@ -421,6 +418,41 @@
                     font-size: 20px
                     font-family: 'Material Icons'
                     vertical-align: top
+
+    .status-panel
+        grid-area: status_panel
+        background: var(--background)
+        text-align: left
+
+        .savepath
+            height: 30px
+            line-height: 30px
+            color: var(--color-light)
+            user-select: none
+            cursor: pointer
+            border-radius: 4px
+            padding-right: 5px
+
+            &:hover
+                color: var(--color-bright)
+                background: var(--color-dimm)
+
+            .icon
+                height: 28px
+                line-height: 28px
+                width: 28px
+                text-align: center
+                font-size: 18px
+                font-family: 'Material Icons'
+                vertical-align: top
+
+            .label
+                font-size: 12px
+                vertical-align: top
+                line-height: 28px
+                padding-left: 2px
+                padding-right: 5px
+                letter-spacing: 1px
     
     .focus-indicator
         height: 8px

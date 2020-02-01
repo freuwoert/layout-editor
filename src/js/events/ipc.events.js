@@ -1,7 +1,7 @@
 ipcRenderer.on('mainCommand', function(event, args) {
 
     const commandsFromMain = {
-        startupOpen:    (args) => { console.log('DATA: ' + args[1]) },
+        startupOpen:    (args) => { openLayout({paths: [args[1]]}, ()=>{selectTab(app.TABS.length-1)}) },
         openSettings:   (args) => { app.GENERAL_UI.settings = true },
 
         update_checking:        (args) => { new Toast('INFO','Searching for updates...', 4000) },
