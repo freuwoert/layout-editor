@@ -20,13 +20,13 @@ Layout Editor is a software development tool written in Node.js (Electron.js) sp
 
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
-### What does it look like?
+## What does it look like?
 _"Does it look like a bitch?"_  
 
-#### Welcome View:
+### Welcome View:
 <img src="https://i.imgur.com/7BCV1XD.png" width="60%">
 
-#### Editor View:
+### Editor View:
 <img src="https://i.imgur.com/VVEQsIt.png" width="60%">
 
 ### Disclaimer
