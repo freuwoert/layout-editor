@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="src/css/FONT__MASTER.min.css">
         <link rel="stylesheet" href="src/css/ROOT.main.min.css">
         <link rel="stylesheet" href="src/css/ROOT.settings.min.css">
+        <link rel="stylesheet" href="src/css/ROOT.components.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.edit.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.start.min.css">
         <script>
@@ -22,6 +23,8 @@
             const Fuse = require('fuse.js')
             const anime = require('animejs')
             const pretty = require('pretty')
+            const emmet = require('emmet')
+            const html2json = require('html2json').html2json
             const Toast = require('./src/js/modules/toast.js')
             const settings = require('electron-settings')
             const Mousetrap = require('mousetrap')
@@ -89,19 +92,19 @@
                         <div class="image-container">
                             <div class="image asset"></div>
                         </div>
-                        <div class="label">Start Project</div>
+                        <div class="label">Start Project (1)</div>
                     </div>
                     <div class="view-selector" @click="TAB.VIEW = 'EDIT'">
                         <div class="image-container">
                             <div class="image create"></div>
                         </div>
-                        <div class="label">Create Layout</div>
+                        <div class="label">Create Layout (2)</div>
                     </div>
                     <div class="view-selector" @click="TAB.VIEW = 'STORE'">
                         <div class="image-container">
                             <div class="image store"></div>
                         </div>
-                        <div class="label">Open Market</div>
+                        <div class="label">Open Market (3)</div>
                     </div>
                 </div>
             </div>
@@ -129,9 +132,9 @@
             <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
 
                 <div class="option-panel">
-                    <div class="button generate-btn" onclick="renderHTML(TAB().DOCUMENT.HTML.children)">
-                        <div class="icon">&#62474;</div>
-                        Generate Code
+                    <div class="icon-button unimportant" title="Leave to overview" onclick="">&#62828;</div>
+                    <div class="button" onclick="renderHTML(TAB().DOCUMENT.HTML.children)">
+                        <div class="icon">&#64567;</div> Generate Code
                     </div>
                     <div class="account">
                         <div class="sign-in" v-show="!USER.online">
@@ -150,15 +153,90 @@
                 </div>
 
                 <div class="structure-panel">
-                    <div class="indication-container">
-                        <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE'}"></div>
-                    </div>
+                    <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STRUCTURE"></focus-indicator>
+
                     <div class="tree-container">
                         <structure-tree v-for="(child, id) in TAB.DOCUMENT.HTML.children" :focus="TAB.FOCUSED_HTML" :trace="id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
                     </div>
+
+                    <div class="structure-add-panel" :class="{'active' : TAB.UI.structureAdd}">
+                        <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STRUCTURE_ADD|STRUCTURE_ADD_SEARCH"></focus-indicator>
+                        
+                        <div class="close" onclick="closeStructureAdd()">
+                            <div class="key">esc</div>
+                        </div>
+
+                        <div class="direction-indicator" :class="TAB.UI_DATA.structureAddDirection">
+                            <div class="dot"></div>
+                        </div>
+
+                        <label class="search">
+                            <input  class="input mousetrap"
+                                    type="text"
+                                    ref="structureSearch"
+                                    tabindex="-1"
+                                    placeholder="Search tags or presets"
+                                    v-model="TAB.UI_DATA.structureAddSearch"
+                                    onfocus="focusStructureAddSearch()"
+                                    onblur="blurStructureAddSearch()"
+                                    onkeyup="updateStructureAddSearch()"
+                                    onkeydown="disableInputArrowKeys(event)">
+        
+                            <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE_ADD'}">
+                                <div class="icon">&#62225;</div>
+                                <div class="key">enter</div>
+                            </div>
+                        </label>
+                        <div class="autocomplete" v-show="TAB.UI_DATA.structureAddSearch != ''">
+                            <div class="empty" v-show="TAB.UI_DATA.structureAddSearchItems.length == 0">No matches found</div>
+                            <div class="item" v-for="(structure, id) in TAB.UI_DATA.structureAddSearchItems" :class="{'selected' : id == TAB.UI_DATA.structureAddSearchSelected}">
+                                <div class="type">{{structure.type}}:</div>
+                                <div class="label">{{structure.name}}</div>
+                            </div>
+                        </div>
+                        <div class="suggestions" v-show="TAB.UI_DATA.structureAddSearch == ''">
+                            <div class="box">
+                                <div class="icon">&#62372;</div>
+                                <div class="tag">DIV</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62375;</div>
+                                <div class="tag">SPAN</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62378;</div>
+                                <div class="tag">A</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62381;</div>
+                                <div class="tag">INPUT</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62384;</div>
+                                <div class="tag">B</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62387;</div>
+                                <div class="tag">HTML*</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62390;</div>
+                                <div class="tag">INPUT</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62393;</div>
+                                <div class="tag">B</div>
+                            </div>
+                            <div class="box">
+                                <div class="icon">&#62396;</div>
+                                <div class="tag">HTML*</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="button-container">
                         <div class="btn">
-                            <div class="icon">&#64121;</div>
+                            <div class="icon">&#64120;</div>
                             <div class="key">del</div>
                         </div>
                         <div class="btn">
@@ -173,15 +251,47 @@
                 </div>
 
                 <div class="styling-panel">
-                    <div class="indication-container">
-                        <div class="focus-indicator" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE'}"></div>
-                    </div>
+                    <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE"></focus-indicator>
+
                     <div class="tree-container">
                         <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS.children" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
                     </div>
+
+                    <div class="style-add-panel" :class="{'active' : TAB.UI.styleAdd}">
+                        <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE_ADD"></focus-indicator>
+
+                        <div class="close" onclick="closeStyleAdd()">
+                            <div class="key">esc</div>
+                        </div>
+                        <div class="object-container">
+                            <div class="label">{{TAB.UI_DATA.styleAddObject.label}}</div>
+                            <div class="property" v-for="prop in TAB.UI_DATA.styleAddObject.properties">
+                                <div class="name">{{prop.label}}:</div>
+                                <div class="value">{{prop.value}}</div>
+                            </div>
+                        </div>
+                        <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
+                            <div class="dot"></div>
+                        </div>
+                        <label class="search style-name">
+                            <input  class="input mousetrap"
+                                    type="text"
+                                    ref="styleName"
+                                    tabindex="-1"
+                                    placeholder="Selector / Property / Emmet"
+                                    v-model="TAB.UI_DATA.styleAddName"
+                                    onkeydown="disableInputArrowKeys(event)">
+    
+                            <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">
+                                <div class="icon">&#62225;</div>
+                                <div class="key">enter</div>
+                            </div>
+                        </label>
+                    </div>
+                    
                     <div class="button-container">
                         <div class="btn">
-                            <div class="icon">&#64121;</div>
+                            <div class="icon">&#64120;</div>
                             <div class="key">del</div>
                         </div>
                         <div class="btn">
@@ -190,7 +300,7 @@
                         </div>
                         <div class="btn" onclick="openStyleAdd(TAB().FOCUSED_CSS, 'INTO')">
                             <div class="icon">&#62485;</div>
-                            <div class="key">plus</div>
+                            <div class="key">enter</div>
                         </div>
                     </div>
                 </div>
@@ -227,98 +337,6 @@
                         <div class="label" v-show="savePathName">{{savePathName}}</div>
                         <div class="label" v-show="!savePathName">Set file location</div>
                     </div>
-                </div>
-            </div>
-
-
-
-            <div class="structure-add-panel" :class="{'active' : TAB.UI.structureAdd}">
-                <div class="container">
-                    <div class="close" onclick="closeStructureAdd()">
-                        <div class="icon">&#61782;</div>
-                        <div class="key">esc</div>
-                    </div>
-                    <div class="direction-indicator" :class="TAB.UI_DATA.structureAddDirection">
-                        <div class="dot"></div>
-                    </div>
-                    <label class="search">
-                        <input  class="input mousetrap"
-                                type="text"
-                                ref="structureSearch"
-                                tabindex="-1"
-                                placeholder="Search tags or presets"
-                                v-model="TAB.UI_DATA.structureAddSearch"
-                                onfocus="focusStructureAddSearch()"
-                                onblur="blurStructureAddSearch()"
-                                onkeyup="updateStructureAddSearch()"
-                                onkeydown="disableInputArrowKeys(event)">
-
-                        <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STRUCTURE_ADD'}">
-                            <div class="icon">&#62225;</div>
-                            <div class="key">enter</div>
-                        </div>
-                    </label>
-                    <div class="autocomplete" v-show="TAB.UI_DATA.structureAddSearch != ''">
-                        <div class="empty" v-show="TAB.UI_DATA.structureAddSearchItems.length == 0">No matches found</div>
-                        <div class="item" v-for="(structure, id) in TAB.UI_DATA.structureAddSearchItems" :class="{'selected' : id == TAB.UI_DATA.structureAddSearchSelected}">
-                            <div class="type">{{structure.type}}:</div>
-                            <div class="label">{{structure.name}}</div>
-                        </div>
-                    </div>
-                    <div class="suggestions" v-show="TAB.UI_DATA.structureAddSearch == ''">
-                        <div class="box">
-                            <div class="tag">DIV</div>
-                            <div class="icon">&#49;</div>
-                        </div>
-                        <div class="box">
-                            <div class="tag">SPAN</div>
-                            <div class="icon">&#50;</div>
-                        </div>
-                        <div class="box">
-                            <div class="tag">A</div>
-                            <div class="icon">&#51;</div>
-                        </div>
-                        <div class="box">
-                            <div class="tag">INPUT</div>
-                            <div class="icon">&#52;</div>
-                        </div>
-                        <div class="box">
-                            <div class="tag">B</div>
-                            <div class="icon">&#53;</div>
-                        </div>
-                        <div class="box">
-                            <div class="tag">HTML*</div>
-                            <div class="icon">&#54;</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="style-add-panel" :class="{'active' : TAB.UI.styleAdd}">
-                <div class="container">
-                    <div class="close" onclick="closeStyleAdd()">
-                        <div class="icon">&#61782;</div>
-                        <div class="key">esc</div>
-                    </div>
-                    <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
-                        <div class="dot"></div>
-                    </div>
-                    <label class="search">
-                        <input  class="input mousetrap"
-                                type="text"
-                                ref="styleName"
-                                tabindex="-1"
-                                placeholder="css selector"
-                                v-model="TAB.UI_DATA.styleAddName"
-                                onkeydown="disableInputArrowKeys(event)">
-
-                        <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">
-                            <div class="icon">&#62225;</div>
-                            <div class="key">enter</div>
-                        </div>
-                    </label>
                 </div>
             </div>
 
@@ -419,6 +437,7 @@
         require('./src/js/helper/edit_navigation.helper.js')
     </script>
     <script src="src/js/components/drag-number-input.js"></script>
+    <script src="src/js/components/focus-indicator.js"></script>
     <script src="src/js/components/style-property.js"></script>
     <script src="src/js/components/structure-tree.js"></script>
     <script src="src/js/components/colorpicker.js"></script>
@@ -430,6 +449,7 @@
 
     <script src="tests/unit/functioncall.js"></script>
     <script>
+        //console.log(emmet.markupAbbreviation('div.*4', {output: {format: false}}))
         //test_validateTrace()
     </script>
 </html>

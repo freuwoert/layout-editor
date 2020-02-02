@@ -61,5 +61,29 @@
     
     {"id": "HTML:STR:00016", "type": "tag", "origin": "ROOT", "name": "link", "layout": [
         {"label": "link", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00017", "type": "tag", "origin": "ROOT", "name": "h1", "layout": [
+        {"label": "h1", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00018", "type": "tag", "origin": "ROOT", "name": "h2", "layout": [
+        {"label": "h2", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00019", "type": "tag", "origin": "ROOT", "name": "h3", "layout": [
+        {"label": "h3", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00020", "type": "tag", "origin": "ROOT", "name": "h4", "layout": [
+        {"label": "h4", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00021", "type": "tag", "origin": "ROOT", "name": "h5", "layout": [
+        {"label": "h5", "attributes": [], "children": []}
+    ]},
+
+    {"id": "HTML:STR:00022", "type": "tag", "origin": "ROOT", "name": "h6", "layout": [
+        {"label": "h6", "attributes": [], "children": []}
     ]}
 ]

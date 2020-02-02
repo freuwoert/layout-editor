@@ -1,5 +1,3 @@
-
-
 window.openStyleAdd = (trace, direction = 'INTO') => {
     
     if( direction == 'INTO' || direction == 'ABOVE' || direction == 'BELOW' )
@@ -25,6 +23,21 @@ window.closeStyleAdd = () => {
     TAB().UI_DATA.styleAddTrace = ''
     TAB().UI_DATA.styleAddName = ''
     TAB().UI.styleAdd = false
+}
+
+
+
+window.setStyleAddMode = (mode) => {
+    let validModes = ['PROPERTY', 'SELECTOR']
+
+    if(validModes.includes(mode))
+    {
+        TAB().UI.styleAddMode = mode
+    }
+}
+
+window.toggleStyleAddMode = () => {
+    TAB().UI.styleAddMode = (TAB().UI.styleAddMode == 'PROPERTY') ? 'SELECTOR' : 'PROPERTY'
 }
 
 

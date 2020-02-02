@@ -98,6 +98,12 @@ Mousetrap.bind(['ctrl+plus','command+plus'], function(){
     }
 })
 
+// Mousetrap.bind(['tab'], function(){
+//     switch (PANEL()){
+//         case 'STYLE_ADD': toggleStyleAddMode(); break
+//     }
+// })
+
 Mousetrap.bind(['1'], function(){
     if (VIEW() == 'START') {
         TAB().VIEW = 'ASSET'

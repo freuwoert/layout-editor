@@ -1,3 +1,23 @@
+.indication-container
+    height: 20px
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    padding: 6px
+    text-align: left
+
+.focus-indicator
+    height: 8px
+    width: 8px
+    border: 1.5px solid rgba(255,255,255, 0.2)
+    border-radius: 8px
+    pointer-events: none
+    transition: all 100ms
+
+    &.active
+        border: 4px solid var(--green)
+    
 #edit-view
     display: grid
     grid-template-columns: 400px auto 400px
@@ -8,17 +28,20 @@
         grid-area: option_panel
         background: var(--background)
         position: relative
+        text-align: left
 
-        .generate-btn
-            position: absolute
-            left: 7px
-            top: 7px
+        .button, .icon-button
+            margin: 7px
+            margin-right: 0
             background: transparent
-            color: rgba(255, 255, 255, 0.7)
+            color: var(--color)
+
+            &.unimportant
+                color: var(--color-light)
 
             &:hover
-                background: rgba(255, 255, 255, 0.05)
-                color: white
+                background: var(--color-dimm)
+                color: var(--color-bright)
 
         .account
             position: absolute
@@ -34,9 +57,12 @@
                 border-radius: 40px
                 background: var(--dark-background)
                 cursor: pointer
+                color: var(--color)
+
+                &:hover
+                    color: var(--color-bright)
 
             .text
-                color: white
                 height: 28px
                 line-height: 28px
                 font-size: 12px
@@ -60,7 +86,7 @@
                     text-align: center
                     font-family: 'Material Icons'
                     font-size: 22px
-                    color: var(--primary)
+                    color: var(--color-light)
 
                 img
                     height: 100%
@@ -72,15 +98,6 @@
         border-top: 5px solid var(--dark-background)
         border-bottom: 5px solid var(--dark-background)
         position: relative
-
-        .indication-container
-            height: 20px
-            width: 100%
-            position: absolute
-            top: 0
-            left: 0
-            padding: 6px
-            text-align: left
 
         .tree-container
             height: calc(100% - 90px)
@@ -151,15 +168,6 @@
         border-bottom: 5px solid var(--dark-background)
         border-top: 5px solid var(--dark-background)
         position: relative
-
-        .indication-container
-            height: 20px
-            width: 100%
-            position: absolute
-            top: 0
-            left: 0
-            padding: 6px
-            text-align: left
 
         .tree-container
             calc(100% - 90px)
@@ -366,59 +374,6 @@
                     strong
                         font-weight: 800
 
-            .viewport-controls
-                display: inline-grid
-                overflow: hidden
-                border-radius: 2px
-                background: var(--background)
-                grid-template-columns: auto 20px
-                grid-template-rows: auto 20px
-                grid-template-areas: "viewport horizontal-handle" "vertical-handle diagonal-handle"
-                filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
-
-                .viewport
-                    grid-area: viewport
-                    background: white
-                    overflow: hidden
-                    border-radius: 2px
-                    min-width: 40px
-                    min-height: 40px
-                    border: none
-
-                .horizontal-handle, .vertical-handle, .diagonal-handle
-                    position: relative
-                    background: var(--background)
-                    user-select: none
-                    border-radius: 2px
-
-                    &:hover
-                        background: var(--light-background)
-
-                .horizontal-handle
-                    grid-area: horizontal-handle
-                    cursor: e-resize
-
-                .vertical-handle
-                    grid-area: vertical-handle
-                    cursor: s-resize
-
-                .diagonal-handle
-                    grid-area: diagonal-handle
-                    cursor: se-resize
-
-                .icon
-                    position: absolute
-                    top: calc(50% - 10px)
-                    left: calc(50% - 10px)
-                    width: 20px
-                    height: 20px
-                    line-height: 20px
-                    text-align: center
-                    color: rgba(255,255,255, 0.7)
-                    font-size: 20px
-                    font-family: 'Material Icons'
-                    vertical-align: top
-
     .status-panel
         grid-area: status_panel
         background: var(--background)
@@ -427,7 +382,7 @@
         .savepath
             height: 30px
             line-height: 30px
-            color: var(--color-light)
+            color: var(--color)
             user-select: none
             cursor: pointer
             border-radius: 4px
@@ -442,28 +397,17 @@
                 line-height: 28px
                 width: 28px
                 text-align: center
-                font-size: 18px
+                font-size: 16px
                 font-family: 'Material Icons'
                 vertical-align: top
 
             .label
-                font-size: 12px
+                font-size: 10px
                 vertical-align: top
                 line-height: 28px
                 padding-left: 2px
                 padding-right: 5px
-                letter-spacing: 1px
-    
-    .focus-indicator
-        height: 8px
-        width: 8px
-        border: 1.5px solid rgba(255,255,255, 0.2)
-        border-radius: 8px
-        pointer-events: none
-        transition: all 100ms
-
-        &.active
-            border: 4px solid var(--green)
+                letter-spacing: 0.5px
 
 
 
@@ -472,415 +416,392 @@
 
 
 .structure-add-panel
-    position: fixed
-    top: var(--header-height)
-    left: 0
-    z-index: 10000
+    height: 236px
     width: 100%
-    height: calc(100% - var(--header-height))
-    background: rgba(0,0,0,0.4)
-    backdrop-filter: blur(0px)
+    z-index: 10000
+    position: absolute
+    bottom: 60px
+    left: 0
+    background: var(--background)
+    border-top: 5px solid var(--dark-background)
     pointer-events: none
     opacity: 0
-    transition: backdrop-filter 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 100ms
+    transition: opacity 100ms
 
     &.active
         opacity: 1
         pointer-events: all
-        backdrop-filter: blur(5px)
 
-    .container
-        height: 260px
-        width: 400px
+    .close
+        height: 20px
         position: absolute
-        top: calc(50% - 130px)
-        left: calc(50% - 200px)
-        background: var(--dark-background)
-        border-radius: 4px
-        filter: drop-shadow(0 10px 10px rgba(0,0,0,var(--so)))
+        top: 0
+        right: 0
+        border-radius: 5px
+        user-select: none
+        cursor: pointer
+        white-space: nowrap
+        color: var(--color-light)
 
-        .close
-            height: 40px
-            width: 40px
+        &:hover
+            background: var(--color-dimm)
+            color: var(--color-bright)
+
+        .key
+            line-height: 19px
+            text-align: center
+            font-size: 12px
+            letter-spacing: 1px
+            vertical-align: top
+            padding: 0 6px
+    
+    .direction-indicator
+        height: 22px
+        width: 22px
+        position: absolute
+        top: 32px
+        right: 20px
+        border: 3px solid rgba(255, 255, 255, 0.05)
+        border-radius: 6px
+
+        .dot
+            height: 6px
+            width: 6px
+            margin: 5px
+            border-radius: 1px
+            background: rgba(255, 255, 255, 0.05)
+
+        &.ABOVE
+            border-top-color: white
+        &.INTO
+            .dot
+                background: white
+        &.BELOW
+            border-bottom-color: white
+
+    .search
+        width: calc(100% - 72px)
+        position: absolute
+        top: 30px
+        left: 20px
+        background: rgba(0,0,0,0.3)
+        text-align: left
+        height: 26px
+        border-radius: 3px
+        cursor: text
+        overflow: hidden
+
+        .input
+            border: none
+            height: 26px
+            width: calc(100% - 64px)
             position: absolute
-            top: 13px
-            right: -50px
-            border-radius: 5px
-            background: var(--red)
-            user-select: none
-            cursor: pointer
-            filter: drop-shadow(0 3px 3px rgba(0,0,0,var(--so)))
-            
+            top: 0
+            left: 0
+            padding: 0 8px
+            background: transparent
+            color: rgba(255, 255, 255, 0.7)
+            font-family: 'SCP'
+            font-size: 12px
+            letter-spacing: 0.5px
+        
+        .info
+            position: absolute
+            top: 0
+            right: 0
+            height: 26px
+            width: 64px
+            white-space: nowrap
+            pointer-events: none
+            transform: scale(1.3)
+            opacity: 0
+            transition: transform 80ms cubic-bezier(0.46, 0.03, 0.52, 0.96), opacity 70ms
+
+            &.active
+                transform: scale(1)
+                opacity: 1
+
             .icon
-                position: absolute
-                top: 0
-                left: 0
-                height: 100%
-                width: 100%
+                width: 16px
                 text-align: center
-                line-height: 35px
-                color: white
-                font-size: 20px
+                line-height: 29px
+                color: rgba(255, 255, 255, 0.2)
+                font-size: 17px
+                font-weight: lighter
                 font-family: 'Material Icons'
+                vertical-align: top
 
             .key
-                width: 100%
-                height: 20px
-                line-height: 20px
-                color: rgba(255, 255, 255, 0.7)
-                text-align: center
-                font-size: 12px
-                letter-spacing: 1px
-                position: absolute
-                top: 20px
-                left: 0
-        
-        .direction-indicator
-            height: 22px
-            width: 22px
-            position: absolute
-            top: 22px
-            right: 20px
-            border: 3px solid rgba(255, 255, 255, 0.05)
-            border-radius: 6px
-
-            .dot
-                height: 6px
-                width: 6px
-                margin: 5px
-                border-radius: 1px
-                background: rgba(255, 255, 255, 0.05)
-
-            &.ABOVE
-                border-top-color: white
-            &.INTO
-                .dot
-                    background: white
-            &.BELOW
-                border-bottom-color: white
-
-        .search
-            width: calc(100% - 72px)
-            position: absolute
-            top: 20px
-            left: 20px
-            background: rgba(0,0,0,0.3)
-            text-align: left
-            height: 26px
-            border-radius: 3px
-            cursor: text
-            overflow: hidden
-
-            .input
-                border: none
-                height: 26px
-                width: calc(100% - 64px)
-                position: absolute
-                top: 0
-                left: 0
-                padding: 0 8px
-                background: transparent
-                color: rgba(255, 255, 255, 0.7)
-                font-family: 'SCP'
-                font-size: 12px
-                letter-spacing: 0.5px
-            
-            .info
-                position: absolute
-                top: 0
-                right: 0
-                height: 26px
-                width: 64px
-                white-space: nowrap
-                pointer-events: none
-                transform: scale(1.3)
-                opacity: 0
-                transition: transform 80ms cubic-bezier(0.46, 0.03, 0.52, 0.96), opacity 70ms
-
-                &.active
-                    transform: scale(1)
-                    opacity: 1
-
-                .icon
-                    width: 16px
-                    text-align: center
-                    line-height: 29px
-                    color: rgba(255, 255, 255, 0.2)
-                    font-size: 17px
-                    font-weight: lighter
-                    font-family: 'Material Icons'
-                    vertical-align: top
-
-                .key
-                    line-height: 26px
-                    color: rgba(255, 255, 255, 0.2)
-                    text-align: center
-                    font-size: 13px
-                    vertical-align: top
-                    letter-spacing: 1px
-                    width: 48px
-
-        .autocomplete
-            width: calc(100% - 40px)
-            max-height: calc(100% - 86px)
-            position: absolute
-            top: 66px
-            left: 20px
-            background: rgba(0,0,0,0.3)
-            text-align: left
-            border-radius: 3px
-            padding: 5px
-            overflow-y: auto
-
-            &::-webkit-scrollbar
-                width: 4px
-                height: 4px
-                background-color: var(--dark-background)
-                border-radius: 0px
-                border: none
-
-
-            &::-webkit-scrollbar-thumb 
-                background: var(--light-background)
-                border-radius: 2px
-                border: none
-
-            .empty
-                width: 100%
-                height: 24px
-                line-height: 24px
-                font-family: 'SCP'
-                font-size: 12px
-                text-align: center
+                line-height: 26px
                 color: rgba(255, 255, 255, 0.2)
+                text-align: center
+                font-size: 13px
+                vertical-align: top
+                letter-spacing: 1px
+                width: 48px
+
+    .autocomplete
+        width: calc(100% - 40px)
+        max-height: calc(100% - 91px)
+        position: absolute
+        top: 76px
+        left: 20px
+        background: rgba(0,0,0,0.3)
+        text-align: left
+        border-radius: 3px
+        padding: 5px
+        overflow-y: auto
+
+        &::-webkit-scrollbar
+            width: 4px
+            height: 4px
+            background-color: var(--dark-background)
+            border-radius: 0px
+            border: none
+
+
+        &::-webkit-scrollbar-thumb 
+            background: var(--light-background)
+            border-radius: 2px
+            border: none
+
+        .empty
+            width: 100%
+            height: 24px
+            line-height: 24px
+            font-family: 'SCP'
+            font-size: 12px
+            text-align: center
+            color: rgba(255, 255, 255, 0.2)
+            letter-spacing: 1px
+
+        .item
+            width: 100%
+            height: 25px
+            line-height: 24px
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            font-family: 'SCP'
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+
+            &:last-of-type
+                border: none
+                height: 24px
+
+            &.selected
+                background: rgba(255, 255, 255, 0.05)
+                border-radius: 3px
+                border: none
+
+            .type
+                font-size: 12px
+                width: 60px
+                color: rgba(255, 255, 255, 0.2)
+
+            .label
+                font-size: 12px
+                color: rgba(255, 255, 255, 0.7)
                 letter-spacing: 1px
 
-            .item
-                width: 100%
-                height: 25px
-                line-height: 24px
-                white-space: nowrap
-                overflow: hidden
-                text-overflow: ellipsis
-                font-family: 'SCP'
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+    .suggestions
+        width: calc(100% - 20px)
+        max-height: calc(100% - 116px)
+        position: absolute
+        top: 66px
+        left: 10px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: flex-start
+        padding: 5px
+        user-select: none
 
-                &:last-of-type
-                    border: none
-                    height: 24px
+        .box
+            height: 40px
+            border-radius: 5px
+            margin: 5px
+            min-width: 90px
+            flex: 1
+            cursor: pointer
 
-                &.selected
-                    background: rgba(255, 255, 255, 0.05)
-                    border-radius: 3px
-                    border: none
-
-                .type
-                    font-size: 12px
-                    width: 60px
-                    color: rgba(255, 255, 255, 0.2)
-
-                .label
-                    font-size: 12px
-                    color: rgba(255, 255, 255, 0.7)
-                    letter-spacing: 1px
-
-        .suggestions
-            width: calc(100% - 20px)
-            max-height: calc(100% - 116px)
-            position: absolute
-            top: 66px
-            left: 10px
-            display: flex
-            flex-direction: row
-            flex-wrap: wrap
-            justify-content: flex-start
-            padding-left: 10px
-            user-select: none
-
-            .box
-                height: 40px
-                border-radius: 5px
-                background: rgba(255, 255, 255, 0.05)
-                margin-right: 10px
-                margin-bottom: 10px
-                min-width: 90px
-                flex: 1
-                cursor: pointer
-
-                &:hover
-                    background: var(--primary)
-
-                    .icon
-                        color: rgba(255, 255, 255, 0.7)
-                    .tag
-                        color: white
+            &:hover
+                background: var(--color-dimm)
 
                 .icon
-                    width: 40px
-                    text-align: center
-                    line-height: 40px
-                    color: rgba(255, 255, 255, 0.2)
-                    font-size: 32px
-                    font-weight: lighter
-                    font-family: 'Material Icons'
-                    vertical-align: top
-
+                    color: var(--color)
                 .tag
-                    width: calc(100% - 40px)
-                    line-height: 40px
-                    color: rgba(255, 255, 255, 0.7)
-                    text-align: left
-                    padding: 0 10px
-                    font-size: 13px
-                    font-weight: 900
-                    vertical-align: top
-                    letter-spacing: 1px
+                    color: var(--color-bright)
+
+            .icon
+                width: 40px
+                text-align: center
+                line-height: 40px
+                color: var(--color-light)
+                font-size: 25px
+                font-weight: lighter
+                font-family: 'Material Icons'
+                vertical-align: top
+
+            .tag
+                width: calc(100% - 40px)
+                line-height: 40px
+                color: var(--color)
+                text-align: left
+                font-size: 13px
+                font-weight: 900
+                vertical-align: top
+                letter-spacing: 1px
 
 .style-add-panel
-    position: fixed
-    top: var(--header-height)
-    left: 0
+    height: 300px
+    width: 400px
     z-index: 10000
-    width: 100%
-    height: calc(100% - var(--header-height))
-    background: rgba(0,0,0,0.4)
-    backdrop-filter: blur(0px)
-    pointer-events: none
+    position: absolute
+    bottom: 60px
+    left: 0
+    background: var(--background)
+    border-top: 5px solid var(--dark-background)
     opacity: 0
-    transition: backdrop-filter 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 100ms
+    pointer-events: none
 
     &.active
         opacity: 1
         pointer-events: all
-        backdrop-filter: blur(5px)
 
-    .container
-        height: 66px
-        width: 400px
+    .close
+        height: 20px
         position: absolute
-        top: calc(50% - 33px)
-        left: calc(50% - 200px)
-        background: var(--dark-background)
-        border-radius: 4px
-        filter: drop-shadow(0 10px 10px rgba(0,0,0,var(--so)))
+        top: 0
+        right: 0
+        border-radius: 5px
+        user-select: none
+        cursor: pointer
+        white-space: nowrap
+        color: var(--color-light)
 
-        .close
-            height: 40px
-            width: 40px
+        &:hover
+            background: var(--color-dimm)
+            color: var(--color-bright)
+
+        .key
+            line-height: 19px
+            text-align: center
+            font-size: 12px
+            letter-spacing: 1px
+            vertical-align: top
+            padding: 0 6px
+
+    .object-container
+        width: calc(100% - 40px)
+        position: absolute
+        top: 20px
+        left: 20px
+
+        .label
+            width: 100%
+            line-height: 20px
+            text-align: left
+            color: #d19a66
+            font-size: 12px
+            font-family: 'SCP'
+
+        .property
+            width: 100%
+            line-height: 20px
+            text-align: left
+            color: var(--color)
+            font-size: 12px
+            font-family: 'SCP'
+            padding-left: 15px
+
+            .value
+                color: #d19a66
+
+    .direction-indicator
+        height: 22px
+        width: 22px
+        position: absolute
+        top: 192px
+        right: 20px
+        border: 3px solid var(--color-dimm)
+        border-radius: 6px
+
+        .dot
+            height: 6px
+            width: 6px
+            margin: 5px
+            border-radius: 1px
+            background: var(--color-dimm)
+
+        &.ABOVE
+            border-top-color: var(--color-bright)
+        &.INTO
+            .dot
+                background: var(--color-bright)
+        &.BELOW
+            border-bottom-color: var(--color-bright)
+
+    .search
+        width: calc(100% - 40px)
+        position: absolute
+        top: 190px
+        left: 20px
+        background: rgba(0,0,0,0.3)
+        text-align: left
+        height: 26px
+        border-radius: 3px
+        cursor: text
+        overflow: hidden
+
+        &.style-name
+            width: calc(100% - 72px)
+
+        .input
+            border: none
+            height: 26px
+            width: calc(100% - 64px)
             position: absolute
-            top: 13px
-            right: -50px
-            border-radius: 5px
-            background: var(--red)
-            user-select: none
-            cursor: pointer
-            filter: drop-shadow(0 3px 3px rgba(0,0,0,var(--so)))
-            
+            top: 0
+            left: 0
+            padding: 0 8px
+            background: transparent
+            color: var(--color)
+            font-family: 'SCP'
+            font-size: 12px
+            letter-spacing: 0.5px
+        
+        .info
+            position: absolute
+            top: 0
+            right: 0
+            height: 26px
+            width: 64px
+            white-space: nowrap
+            pointer-events: none
+            transform: scale(1.3)
+            opacity: 0
+            transition: transform 80ms cubic-bezier(0.46, 0.03, 0.52, 0.96), opacity 70ms
+
+            &.active
+                transform: scale(1)
+                opacity: 1
+
             .icon
-                position: absolute
-                top: 0
-                left: 0
-                height: 100%
-                width: 100%
+                width: 16px
                 text-align: center
-                line-height: 35px
-                color: white
-                font-size: 20px
+                line-height: 29px
+                color: rgba(255, 255, 255, 0.2)
+                font-size: 17px
+                font-weight: lighter
                 font-family: 'Material Icons'
+                vertical-align: top
 
             .key
-                width: 100%
-                height: 20px
-                line-height: 20px
-                color: rgba(255, 255, 255, 0.7)
+                line-height: 26px
+                color: rgba(255, 255, 255, 0.2)
                 text-align: center
-                font-size: 12px
+                font-size: 13px
+                vertical-align: top
                 letter-spacing: 1px
-                position: absolute
-                top: 20px
-                left: 0
-        
-        .direction-indicator
-            height: 22px
-            width: 22px
-            position: absolute
-            top: 22px
-            right: 20px
-            border: 3px solid rgba(255, 255, 255, 0.05)
-            border-radius: 6px
-
-            .dot
-                height: 6px
-                width: 6px
-                margin: 5px
-                border-radius: 1px
-                background: rgba(255, 255, 255, 0.05)
-
-            &.ABOVE
-                border-top-color: white
-            &.INTO
-                .dot
-                    background: white
-            &.BELOW
-                border-bottom-color: white
-
-        .search
-            width: calc(100% - 72px)
-            position: absolute
-            top: 20px
-            left: 20px
-            background: rgba(0,0,0,0.3)
-            text-align: left
-            height: 26px
-            border-radius: 3px
-            cursor: text
-            overflow: hidden
-
-            .input
-                border: none
-                height: 26px
-                width: calc(100% - 64px)
-                position: absolute
-                top: 0
-                left: 0
-                padding: 0 8px
-                background: transparent
-                color: rgba(255, 255, 255, 0.7)
-                font-family: 'SCP'
-                font-size: 12px
-                letter-spacing: 0.5px
-            
-            .info
-                position: absolute
-                top: 0
-                right: 0
-                height: 26px
-                width: 64px
-                white-space: nowrap
-                pointer-events: none
-                transform: scale(1.3)
-                opacity: 0
-                transition: transform 80ms cubic-bezier(0.46, 0.03, 0.52, 0.96), opacity 70ms
-
-                &.active
-                    transform: scale(1)
-                    opacity: 1
-
-                .icon
-                    width: 16px
-                    text-align: center
-                    line-height: 29px
-                    color: rgba(255, 255, 255, 0.2)
-                    font-size: 17px
-                    font-weight: lighter
-                    font-family: 'Material Icons'
-                    vertical-align: top
-
-                .key
-                    line-height: 26px
-                    color: rgba(255, 255, 255, 0.2)
-                    text-align: center
-                    font-size: 13px
-                    vertical-align: top
-                    letter-spacing: 1px
-                    width: 48px
+                width: 48px

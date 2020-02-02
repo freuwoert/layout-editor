@@ -186,9 +186,16 @@ window.activeTabChanged = () => {
 }
 
 
-
+// arrow keys plus tab
 window.disableInputArrowKeys = (event) => {
-    if(event.keyCode == 40 || event.keyCode == 38){
+    if(event.keyCode == 40 || event.keyCode == 38 || event.keyCode == 9){
         event.preventDefault()
+    }
+}
+
+// get rekt tab key >:)
+document.onkeydown = function (event) {
+    if(event.which == 9){
+        return false
     }
 }

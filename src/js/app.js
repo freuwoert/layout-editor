@@ -12,7 +12,7 @@ app = new Vue({
             displayImage: 'src/images/icon/layout_editor_logo.png',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
-            online: false,
+            online: true,
             JWT: null,
         },
         GENERAL_UI: {
@@ -29,7 +29,7 @@ app = new Vue({
             IS_DUMMY: false,
             UI: {
                 structureAdd: false,
-                styleAdd: false,
+                styleAdd: false, // PROD
             },
             UI_DATA: {
                 structureAddTrace: '',
@@ -39,9 +39,14 @@ app = new Vue({
                 structureAddSearchItems: [],
                 styleAddTrace: '',
                 styleAddDirection: '',
-                styleAddName: '',
+                styleAddObject: {
+                    label: 'Test',
+                    properties: [
+                        {label: 'font-size', value: '16px'}
+                    ]
+                },
             },
-            VIEW: 'START',
+            VIEW: 'START', // PROD
             NAME: 'New Tab',
             DOCUMENT: {
                 HTML: { children: []},
