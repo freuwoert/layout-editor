@@ -9,14 +9,14 @@ app = new Vue({
             nodeVersion: process.versions.node,
         },
         USER: {
-            displayImage: 'src/images/icon/vudesigner_logo_white.svg',
+            displayImage: 'src/images/icon/vudesigner_logo.svg',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
             online: true,
             JWT: null,
         },
         GENERAL_UI: {
-            loadDelay: 500,
+            loadDelay: 0, // PROD
             settings: false,
             releaseNote: false,
             activeSetting: 'INFO',
@@ -30,17 +30,25 @@ app = new Vue({
             IS_DUMMY: false,
             UI: {
                 structureAdd: false,
-                styleAdd: true, // PROD
+                styleAdd: false,
+                stylePropAdd: false,
             },
             UI_DATA: {
+                // STRUCTURE ADD
                 structureAddTrace: '',
                 structureAddDirection: '',
                 structureAddSearch: '',
                 structureAddSearchSelected: 0,
                 structureAddSearchItems: [],
+
+                // STYLE ADD
                 styleAddTrace: '',
                 styleAddDirection: '',
                 styleAddInput: '',
+
+                // STYLE PROP ADD
+                styleAddPropTrace: '',
+                styleAddPropInput: '',
             },
             VIEW: 'START', // PROD
             NAME: 'New Tab',

@@ -1,1 +1,14 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><style>.cls-1{fill:#282c34;}.cls-2{fill:#0984e3;}</style></defs><title>vudesigner_logo</title><path class="cls-1" d="M461.5,738.92l92.17-159.28h84.86a65,65,0,0,0,56.28-32.5l54.43-94.29c12.51-21.66-3.12-48.74-28.14-48.74H478l82.6-143h230c112.58,0,182.93,121.89,126.61,219.37L813.36,660.36a157.06,157.06,0,0,1-136,78.56Z"/><path class="cls-2" d="M338.88,738.92,614.74,261.08H468.36a65,65,0,0,0-56.28,32.49l-73.2,126.79-73.2-126.79a65,65,0,0,0-56.28-32.49H63Z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <clipPath id="clip-vudesigner_logo">
+      <rect width="500" height="500"/>
+    </clipPath>
+  </defs>
+  <g id="vudesigner_logo" clip-path="url(#clip-vudesigner_logo)">
+    <rect id="Rechteck_2" data-name="Rechteck 2" width="500" height="500" rx="100" fill="#0984e3"/>
+    <g id="vudesigner_logo_white" transform="translate(-15.786 -122.08)">
+      <path id="Pfad_6" data-name="Pfad 6" d="M461.5,482.966l42.8-73.957h39.4a30.179,30.179,0,0,0,26.129-15.086L595.1,350.138a15.086,15.086,0,0,0-13.066-22.631H469.161l38.353-66.4H614.307c52.273,0,84.938,56.6,58.787,101.858l-48.219,83.522a72.926,72.926,0,0,1-63.147,36.477Z" transform="translate(-213.469 -0.016)" fill="#fff" opacity="0.8"/>
+      <path id="Pfad_7" data-name="Pfad 7" d="M191.1,482.95,319.183,261.08H251.216a30.18,30.18,0,0,0-26.131,15.083L191.1,335.037l-33.988-58.871a30.181,30.181,0,0,0-26.132-15.086H63Z" transform="translate(0 0)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -1,11 +1,16 @@
-# Layout Editor (WIP)
+# VuDesigner
 An experimental project by Maurice Freuwört  
-Started on: 15.01.2020
+Started: 15. January 2020  
+MVP: January 2020  
+Alpha: ???  
+Closed Beta: ???  
+Open Beta: ???  
+Official Release: ???  
 
 ## What's this software supposed to solve?
-TL;DR Software for efficient web based UI creation.  
+TL;DR a software for efficient web based UI creation.  
 
-Layout Editor is a software development tool written in Node.js (Electron.js) specifically designed for efficient web based UI creation through autocompletion and prefabricated assets. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern. This will be achieved and accompanied by a full keyboard-shortcut control over the most important parts of the software and a range of quality-of-life features listed below:
+VuDesigner is a software development tool written in Node.js (Electron.js) specifically designed for efficient web based UI creation through autocompletion and prefabricated assets. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern. This will be achieved and accompanied by a full keyboard-shortcut control over the most important parts of the software and a range of quality-of-life features listed below:
 * Autocompletion including favorised assets
 * A sophisticated marketplace for intricate user generated assets
 * Live preview with custom viewport size support
@@ -23,10 +28,10 @@ This collection of ideas also states the roadmap or rather the upcoming updates 
 ## What does it look like?
 _"Does it look like a bitch?"_  
 
-### Welcome View:
+### Welcome Page:
 <img src="https://i.imgur.com/7BCV1XD.png" width="60%">
 
-### Editor View:
+### Editor Page:
 <img src="https://i.imgur.com/VVEQsIt.png" width="60%">
 
 ### Disclaimer

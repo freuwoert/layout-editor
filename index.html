@@ -283,6 +283,29 @@
                             </div>
                         </label>
                     </div>
+
+                    <div class="style-add-panel style-prop-add-panel" :class="{'active' : TAB.UI.stylePropAdd}">
+                        <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE_PROP_ADD"></focus-indicator>
+
+                        <div class="close" onclick="closeStylePropAdd()">
+                            <div class="key">esc</div>
+                        </div>
+
+                        <label class="search style-name">
+                            <input  class="input mousetrap"
+                                    type="text"
+                                    ref="stylePropInput"
+                                    tabindex="-1"
+                                    placeholder="Selector"
+                                    v-model="TAB.UI_DATA.styleAddInput"
+                                    onkeydown="disableInputArrowKeys(event)">
+    
+                            <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">
+                                <div class="icon">&#62225;</div>
+                                <div class="key">enter</div>
+                            </div>
+                        </label>
+                    </div>
                     
                     <div class="button-container">
                         <div class="btn">
@@ -399,7 +422,7 @@
                             <span class="version">{{info.version}}</span>
                         </span>
                     </div>
-                    <span class="headline">Welcome to Layout Editor!</span>
+                    <span class="headline">Welcome to VuDesigner!</span>
                     <div class="release-note-container">
                         • Add and remove elements<br>
                     </div>

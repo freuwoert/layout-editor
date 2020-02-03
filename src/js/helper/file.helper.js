@@ -2,7 +2,7 @@ window.showLayoutSaveDialog = (tab, force, callback) => {
 
     if( force || tab.SAVE_PATH == null )
     {
-        dialog.showSaveDialog({filters:[{ name: 'Layout Editor Files', extensions: ['lef'] }]}).then((data)=>{
+        dialog.showSaveDialog({filters:[{ name: 'VuDesigner Document', extensions: ['vdd'] }]}).then((data)=>{
             if( !data.canceled )
             {
                 callback(data.filePath)
@@ -87,7 +87,7 @@ window.setSavePath = (tab) => {
 
 
 window.showLayoutOpenDialog = (callback) => {
-    dialog.showOpenDialog({filters:[{ name: 'Layout Editor Files', extensions: ['lef'] }]}).then((data)=>{
+    dialog.showOpenDialog({filters:[{ name: 'VuDesigner Document', extensions: ['vdd'] }]}).then((data)=>{
         if( !data.canceled )
         {
             callback(data.filePaths)

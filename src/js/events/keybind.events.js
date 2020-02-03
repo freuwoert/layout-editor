@@ -43,6 +43,7 @@ Mousetrap.bind(['ctrl+left','command+left'], function(){
 Mousetrap.bind(['esc'], function(){
     switch (PANEL()){
         case 'STYLE_ADD': closeStyleAdd(); break
+        case 'STYLE_PROP_ADD': closeStylePropAdd(); break
         case 'STRUCTURE_ADD': closeStructureAdd(); break
         case 'STRUCTURE_ADD_SEARCH': blurStructureAddSearch(); break
     }

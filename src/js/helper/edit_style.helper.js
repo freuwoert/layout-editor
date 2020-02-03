@@ -2,11 +2,16 @@ window.openStyleAddDist = (trace, direction = 'INTO') => {
 
     if( trace.endsWith('-prop') )
     {
-        console.log('ADD PROP')
+        trace = trace.split('-')
+        trace.pop()
+        trace.pop()
+        openStylePropAdd(trace.join('-'))
     }
     else if( trace.endsWith('-propadd') )
     {
-        console.log('ADD PROP (btn)')
+        trace = trace.split('-')
+        trace.pop()
+        openStylePropAdd(trace.join('-'))
     }
     else if( isValidTrace(trace, 'CSS') )
     {
@@ -17,6 +22,8 @@ window.openStyleAddDist = (trace, direction = 'INTO') => {
         openStyleAdd(null, null)
     }
 }
+
+
 
 window.openStyleAdd = (trace, direction = 'INTO') => {
 
@@ -47,6 +54,26 @@ window.closeStyleAdd = () => {
     TAB().UI.styleAdd = false
 }
 
+
+
+window.openStylePropAdd = (trace) => {
+
+    // sloppy solution but it works
+    setTimeout(() => { app.$refs.stylePropInput.focus() }, 1)
+
+    TAB().FOCUSED_PANEL = 'STYLE_PROP_ADD'
+    TAB().UI_DATA.stylePropAddTrace = isValidTrace(trace, 'CSS') ? trace : null
+    TAB().UI_DATA.stylePropAddInput = ''
+    TAB().UI.stylePropAdd = true
+}
+
+window.closeStylePropAdd = () => {
+    app.$refs.stylePropInput.blur()
+    TAB().FOCUSED_PANEL = 'STYLE'
+    TAB().UI_DATA.stylePropAddTrace = ''
+    TAB().UI_DATA.stylePropAddInput = ''
+    TAB().UI.stylePropAdd = false
+}
 
 
 
