@@ -108,7 +108,7 @@ window.isValidTrace = (trace, panel = 'HTML') => {
 
 
 
-window.getChildrenFromTrace = (trace, panel = 'HTML') => {
+window.getObjectFromTrace = (trace, panel = 'HTML') => {
 
     trace = unlink(trace)
     let isProp = false
@@ -133,8 +133,6 @@ window.getChildrenFromTrace = (trace, panel = 'HTML') => {
             query += '.children[' + trace[i] + ']'
         }
     }
-
-    query = (isProp) ? query + '.properties' : query + '.children'
 
     return (typeof eval(query) == 'object') ? eval(query) : null
 }

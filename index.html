@@ -264,12 +264,8 @@
                             <div class="key">esc</div>
                         </div>
 
-                        <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
-                            <div class="dot"></div>
-                        </div>
-
-                        <label class="search style-name">
-                            <input  class="input mousetrap"
+                        <label class="input style-name">
+                            <input  class="input-field mousetrap"
                                     type="text"
                                     ref="styleInput"
                                     tabindex="-1"
@@ -282,29 +278,44 @@
                                 <div class="key">enter</div>
                             </div>
                         </label>
+
+                        <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
+                            <div class="dot"></div>
+                        </div>
+
+                        <div class="button">Add Selector</div>
                     </div>
 
-                    <div class="style-add-panel style-prop-add-panel" :class="{'active' : TAB.UI.stylePropAdd}">
+                    <div class="style-prop-add-panel" :class="{'active' : TAB.UI.stylePropAdd}">
                         <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE_PROP_ADD"></focus-indicator>
 
                         <div class="close" onclick="closeStylePropAdd()">
                             <div class="key">esc</div>
                         </div>
 
-                        <label class="search style-name">
-                            <input  class="input mousetrap"
+                        <label class="input prop-name">
+                            <input  class="input-field mousetrap"
                                     type="text"
-                                    ref="stylePropInput"
+                                    ref="stylePropName"
                                     tabindex="-1"
-                                    placeholder="Selector"
-                                    v-model="TAB.UI_DATA.styleAddInput"
+                                    placeholder="Property"
+                                    v-model="TAB.UI_DATA.stylePropAddName"
+                                    onfocus="addStylePropSetStep(0)"
                                     onkeydown="disableInputArrowKeys(event)">
-    
-                            <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">
-                                <div class="icon">&#62225;</div>
-                                <div class="key">enter</div>
-                            </div>
                         </label>
+
+                        <label class="input prop-value">
+                            <input  class="input-field mousetrap"
+                                    type="text"
+                                    ref="stylePropValue"
+                                    tabindex="-1"
+                                    placeholder="Value"
+                                    v-model="TAB.UI_DATA.stylePropAddValue"
+                                    onfocus="addStylePropSetStep(1)"
+                                    onkeydown="disableInputArrowKeys(event)">
+                        </label>
+
+                        <div class="button" onclick="addStylePropAddHELPER()">Add Property</div>
                     </div>
                     
                     <div class="button-container">
@@ -380,7 +391,8 @@
                     <div class="popup-content settings-content" v-show="GENERAL_UI.activeSetting == 'ACCOUNT'">
                         <div class="settings-divider">
                             <div class="info">
-                                <h2>Account Settings</h2>
+                                <h2>Account Settings</h2><br>
+                                Pretty empty, huh?
                             </div>
                         </div>
                     </div>

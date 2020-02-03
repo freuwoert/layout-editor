@@ -653,13 +653,15 @@
                 vertical-align: top
                 letter-spacing: 1px
 
-.style-add-panel
-    height: 120px
+.style-add-panel, .style-prop-add-panel
+    height: 112px
     width: 400px
     z-index: 10000
     position: absolute
     bottom: 60px
     left: 0
+    padding: 20px
+    text-align: left
     background: var(--background)
     border-top: 5px solid var(--dark-background)
     opacity: 0
@@ -695,11 +697,11 @@
     .direction-indicator
         height: 22px
         width: 22px
-        position: absolute
-        top: 22px
-        right: 20px
+        margin: 2px
         border: 3px solid var(--color-dimm)
         border-radius: 6px
+        vertical-align: top
+        float: right
 
         .dot
             height: 6px
@@ -716,22 +718,22 @@
         &.BELOW
             border-bottom-color: var(--color-bright)
 
-    .search
-        width: calc(100% - 40px)
-        position: absolute
-        top: 20px
-        left: 20px
+    .input
+        width: 100%
+        margin-bottom: 20px
+        position: relative
         background: rgba(0,0,0,0.3)
         text-align: left
         height: 26px
         border-radius: 3px
         cursor: text
         overflow: hidden
+        vertical-align: top
 
         &.style-name
-            width: calc(100% - 72px)
+            width: calc(100% - 32px)
 
-        .input
+        .input-field
             border: none
             height: 26px
             width: calc(100% - 64px)
@@ -779,3 +781,13 @@
                 vertical-align: top
                 letter-spacing: 1px
                 width: 48px
+
+    .button
+        float: right
+
+.style-prop-add-panel
+    height: 158px
+
+    .prop-name, .prop-value
+        .input-field
+            width: 100%

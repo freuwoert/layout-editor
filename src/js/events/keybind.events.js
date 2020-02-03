@@ -18,6 +18,7 @@ Mousetrap.bind(['ctrl+up', 'command+up'], function(){
     switch (PANEL()){
         case 'STRUCTURE': navigateSTRUCTURE('UP', true); break
         case 'STYLE': navigateSTYLE('UP', true); break
+        case 'STYLE_PROP_ADD': addStylePropSetStep(0); break
     }
 })
 
@@ -25,6 +26,7 @@ Mousetrap.bind(['ctrl+down', 'command+down'], function(){
     switch (PANEL()){
         case 'STRUCTURE': navigateSTRUCTURE('DOWN', true); break
         case 'STYLE': navigateSTYLE('DOWN', true); break
+        case 'STYLE_PROP_ADD': addStylePropSetStep(1); break
     }
 })
 
@@ -64,8 +66,9 @@ Mousetrap.bind(['backspace'], function(){
 
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
-        case 'STYLE': openStyleAddDist(TAB().FOCUSED_CSS, 'INTO'); break
+        case 'STYLE': openStyleAddDist( TAB().FOCUSED_CSS, 'INTO' ); break
         case 'STYLE_ADD': addStyleAdd( TAB().UI_DATA.styleAddInput, TAB().UI_DATA.styleAddTrace, TAB().UI_DATA.styleAddDirection ); break
+        case 'STYLE_PROP_ADD': addStylePropSetStep('NEXT', ()=>{ addStylePropAddHELPER() }); break
         case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
         case 'STRUCTURE_ADD': focusStructureAddSearch(); break
         case 'STRUCTURE_ADD_SEARCH': addStructureAdd( getAbsoluteStructureID(TAB().UI_DATA.structureAddSearchSelected, 'STRUCTURE_ADD_SEARCH'), TAB().UI_DATA.structureAddTrace, TAB().UI_DATA.structureAddDirection ); break

@@ -1,11 +1,11 @@
 # VuDesigner
 An experimental project by Maurice Freuwört  
-Started: 15. January 2020  
-MVP: January 2020  
-Alpha: ???  
-Closed Beta: ???  
-Open Beta: ???  
-Official Release: ???  
+Started: **15. January 2020**  
+MVP: **February 2020**  
+Alpha: **???**  
+Closed Beta: **???**  
+Open Beta: **???**  
+Official Release: **???**  
 
 ## What's this software supposed to solve?
 TL;DR a software for efficient web based UI creation.  

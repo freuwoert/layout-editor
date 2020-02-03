@@ -48,7 +48,9 @@ app = new Vue({
 
                 // STYLE PROP ADD
                 styleAddPropTrace: '',
-                styleAddPropInput: '',
+                styleAddPropFocus: 0,
+                styleAddPropName: '',
+                styleAddPropValue: '',
             },
             VIEW: 'START', // PROD
             NAME: 'New Tab',

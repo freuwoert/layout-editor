@@ -8,8 +8,10 @@ Vue.component('style-tree', {
                 <span class="label none" v-show="!label.startsWith('.') && !label.startsWith('#')">{{label}}</span>
             </div>
             <div class="property-container">
+                <span>
+                    <style-property v-for="(property, id) in properties" :focus="focus" :trace="trace+'-'+id+'-prop'" :property="property"></structure-property>
+                </span>
                 <div class="add-property" :class="{'selected' : focus == trace+'-propadd'}">+++ Add Property +++</div>
-                <style-property v-for="(property, id) in properties" :focus="focus" :trace="trace+'-'+id+'-prop'" :property="property"></structure-property>
             </div>
             <div class="children-container" v-show="children.length > 0">
                 <style-tree v-for="(child, id) in children" :focus="focus" :trace="trace+'-'+id" :properties="child.properties" :label="child.label" :children="child.children"></structure-tree>

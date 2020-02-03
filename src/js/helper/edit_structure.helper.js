@@ -114,22 +114,22 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
         
             if( direction == 'INTO' )
             {
-                getChildrenFromTrace(trace, 'HTML').unshift(...layout)
+                getObjectFromTrace(trace, 'HTML').children.unshift(...layout)
             }
             else if( direction == 'ABOVE' )
             {
                 let insertPos = parseInt(trace.pop())
-                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+                getObjectFromTrace(trace, 'HTML').children.splice(insertPos, 0, ...layout)
             }
             else if( direction == 'BELOW' )
             {
                 let insertPos = parseInt(trace.pop()) + 1
-                getChildrenFromTrace(trace, 'HTML').splice(insertPos, 0, ...layout)
+                getObjectFromTrace(trace, 'HTML').children.splice(insertPos, 0, ...layout)
             }
         }
         else
         {
-            getChildrenFromTrace([], 'HTML').unshift(...layout)
+            getObjectFromTrace([], 'HTML').children.unshift(...layout)
         }
     
         updateStructureOL()
@@ -145,7 +145,7 @@ window.removeStructureRemove = (trace) => {
     {
         trace = trace.split('-')
         let cutPos = trace.pop()
-        getChildrenFromTrace(trace, 'HTML').splice(cutPos, 1)
+        getObjectFromTrace(trace, 'HTML').children.splice(cutPos, 1)
         updateStructureOL()
         activeTabChanged()
 
