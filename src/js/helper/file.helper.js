@@ -158,7 +158,7 @@ window.openLayout = (options, callback) => {
                 let preparedTabs = []
 
                 rawTabs.forEach(tab => {
-                    let blank = JSON.parse(JSON.stringify(app.TAB_TEMPLATE))
+                    let blank = unlink(app.TAB_TEMPLATE)
     
                     blank.NAME = path.parse(tab.path).name
                     blank.VIEW = 'EDIT'
@@ -180,7 +180,7 @@ window.openLayout = (options, callback) => {
             let preparedTabs = []
 
             rawTabs.forEach(tab => {
-                let blank = JSON.parse(JSON.stringify(app.TAB_TEMPLATE))
+                let blank = unlink(app.TAB_TEMPLATE)
 
                 blank.NAME = path.parse(tab.path).name
                 blank.VIEW = 'EDIT'

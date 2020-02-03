@@ -63,8 +63,8 @@ Mousetrap.bind(['backspace'], function(){
 
 Mousetrap.bind(['enter'], function(){
     switch (PANEL()){
-        case 'STYLE': console.log('STYLE:ADD:PROP'); break
-        case 'STYLE_ADD': addStyleAdd( TAB().UI_DATA.styleAddName, TAB().UI_DATA.styleAddTrace, TAB().UI_DATA.styleAddDirection ); break
+        case 'STYLE': openStyleAddDist(TAB().FOCUSED_CSS, 'INTO'); break
+        case 'STYLE_ADD': addStyleAdd( TAB().UI_DATA.styleAddInput, TAB().UI_DATA.styleAddTrace, TAB().UI_DATA.styleAddDirection ); break
         case 'STRUCTURE': openStructureAdd(TAB().FOCUSED_HTML, 'INTO'); break
         case 'STRUCTURE_ADD': focusStructureAddSearch(); break
         case 'STRUCTURE_ADD_SEARCH': addStructureAdd( getAbsoluteStructureID(TAB().UI_DATA.structureAddSearchSelected, 'STRUCTURE_ADD_SEARCH'), TAB().UI_DATA.structureAddTrace, TAB().UI_DATA.structureAddDirection ); break
@@ -79,9 +79,9 @@ Mousetrap.bind(['ctrl+enter','command+enter'], function(){
 })
 
 Mousetrap.bind(['plus'], function(){
-    switch (PANEL()){
-        case 'STYLE': openStyleAdd(TAB().FOCUSED_CSS, 'INTO'); break
-    }
+    // switch (PANEL()){
+    //     case 'STYLE': openStyleAdd(TAB().FOCUSED_CSS, 'INTO'); break
+    // }
 })
 
 Mousetrap.bind(['shift+plus'], function(){
@@ -166,13 +166,13 @@ Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
 
 Mousetrap.bind(['ctrl+s','command+s'], function(){
     switch (VIEW()){
-        case 'EDIT': saveLayout({tab: app.TAB, force: false}, (tab)=>{ app.TAB = JSON.parse(JSON.stringify(tab))}); break
+        case 'EDIT': saveLayout({tab: app.TAB, force: false}, (tab)=>{ app.TAB = unlink(tab)}); break
     }
 })
 
 Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
     switch (VIEW()){
-        case 'EDIT': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = JSON.parse(JSON.stringify(tab))}); break
+        case 'EDIT': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = unlink(tab)}); break
     }
 })
 

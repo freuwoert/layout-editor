@@ -1,14 +1,36 @@
+window.openStyleAddDist = (trace, direction = 'INTO') => {
+
+    if( trace.endsWith('-prop') )
+    {
+        console.log('ADD PROP')
+    }
+    else if( trace.endsWith('-propadd') )
+    {
+        console.log('ADD PROP (btn)')
+    }
+    else if( isValidTrace(trace, 'CSS') )
+    {
+        openStyleAdd(trace, direction)
+    }
+    else
+    {
+        openStyleAdd(null, null)
+    }
+}
+
 window.openStyleAdd = (trace, direction = 'INTO') => {
+
+    if(direction == null) direction = 'INTO'
     
     if( direction == 'INTO' || direction == 'ABOVE' || direction == 'BELOW' )
     {
         // sloppy solution but it works
-        setTimeout(() => { app.$refs.styleName.focus() }, 1)
+        setTimeout(() => { app.$refs.styleInput.focus() }, 1)
 
         TAB().FOCUSED_PANEL = 'STYLE_ADD'
         TAB().UI_DATA.styleAddTrace = isValidTrace(trace, 'CSS') ? trace : null
         TAB().UI_DATA.styleAddDirection = isValidTrace(trace, 'CSS') ? direction : 'BELOW' 
-        TAB().UI_DATA.styleAddName = ''
+        TAB().UI_DATA.styleAddInput = ''
         TAB().UI.styleAdd = true
     }
     else
@@ -18,27 +40,16 @@ window.openStyleAdd = (trace, direction = 'INTO') => {
 }
 
 window.closeStyleAdd = () => {
-    app.$refs.styleName.blur()
+    app.$refs.styleInput.blur()
     TAB().FOCUSED_PANEL = 'STYLE'
     TAB().UI_DATA.styleAddTrace = ''
-    TAB().UI_DATA.styleAddName = ''
+    TAB().UI_DATA.styleAddInput = ''
     TAB().UI.styleAdd = false
 }
 
 
 
-window.setStyleAddMode = (mode) => {
-    let validModes = ['PROPERTY', 'SELECTOR']
 
-    if(validModes.includes(mode))
-    {
-        TAB().UI.styleAddMode = mode
-    }
-}
-
-window.toggleStyleAddMode = () => {
-    TAB().UI.styleAddMode = (TAB().UI.styleAddMode == 'PROPERTY') ? 'SELECTOR' : 'PROPERTY'
-}
 
 
 

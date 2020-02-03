@@ -263,23 +263,18 @@
                         <div class="close" onclick="closeStyleAdd()">
                             <div class="key">esc</div>
                         </div>
-                        <div class="object-container">
-                            <div class="label">{{TAB.UI_DATA.styleAddObject.label}}</div>
-                            <div class="property" v-for="prop in TAB.UI_DATA.styleAddObject.properties">
-                                <div class="name">{{prop.label}}:</div>
-                                <div class="value">{{prop.value}}</div>
-                            </div>
-                        </div>
+
                         <div class="direction-indicator" :class="TAB.UI_DATA.styleAddDirection">
                             <div class="dot"></div>
                         </div>
+
                         <label class="search style-name">
                             <input  class="input mousetrap"
                                     type="text"
-                                    ref="styleName"
+                                    ref="styleInput"
                                     tabindex="-1"
-                                    placeholder="Selector / Property / Emmet"
-                                    v-model="TAB.UI_DATA.styleAddName"
+                                    placeholder="Selector"
+                                    v-model="TAB.UI_DATA.styleAddInput"
                                     onkeydown="disableInputArrowKeys(event)">
     
                             <div class="info" :class="{'active' : TAB.FOCUSED_PANEL == 'STYLE_ADD'}">

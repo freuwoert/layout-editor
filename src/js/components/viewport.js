@@ -22,8 +22,8 @@ Vue.component('viewport', {
             this.direction = direction
             this.startPos.x = e.x
             this.startPos.y = e.y
-            this.startSize.x = parseInt(JSON.parse(JSON.stringify(this.x)))
-            this.startSize.y = parseInt(JSON.parse(JSON.stringify(this.y)))
+            this.startSize.x = parseInt(unlink(this.x))
+            this.startSize.y = parseInt(unlink(this.y))
             this.mouseMove(e)
         },
         mouseUp: function(e){

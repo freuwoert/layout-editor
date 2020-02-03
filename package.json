@@ -1,7 +1,7 @@
 {
-  "name": "layout-editor",
+  "name": "vudesigner",
   "version": "0.1.0",
-  "description": "super efficient html / css editor",
+  "description": "efficient web-based-ui editor",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
@@ -10,8 +10,8 @@
     "publish": "electron-builder --win -p always"
   },
   "build": {
-    "appId": "com.layouteditor.app",
-    "productName": "Layout Editor",
+    "appId": "io.vudesigner.vudesigner",
+    "productName": "VuDesigner",
     "npmArgs": "--production",
     "win": {
       "target": "nsis",
@@ -20,7 +20,7 @@
         {
           "provider": "github",
           "owner": "freuwoert",
-          "repo": "layout-editor"
+          "repo": "vudesigner"
         }
       ]
     },
@@ -33,28 +33,30 @@
   },
   "fileAssociations": [
     {
-      "name": "Layout Editor LEF",
-      "description": "Layout Editor File",
+      "name": "VuDesigner VDD",
+      "description": "VuDesigner Document",
       "ext": [
-        "lef"
+        "vdd"
       ]
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freuwoert/layout-editor.git"
+    "url": "git+https://github.com/freuwoert/vudesigner.git"
   },
   "keywords": [
     "css",
     "html",
-    "layout-editor"
+    "layout",
+    "editor",
+    "vudesigner"
   ],
   "author": "Maurice Freuwört",
   "license": "",
   "bugs": {
-    "url": "https://github.com/freuwoert/layout-editor/issues"
+    "url": "https://github.com/freuwoert/vudesigner/issues"
   },
-  "homepage": "https://github.com/freuwoert/layout-editor#readme",
+  "homepage": "https://github.com/freuwoert/vudesigner#readme",
   "dependencies": {
     "animejs": "^3.1.0",
     "color-convert": "^2.0.1",

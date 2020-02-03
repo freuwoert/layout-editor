@@ -1,6 +1,6 @@
 window.rotateCoupledViewport = () => {
-    let X = JSON.parse(JSON.stringify(TAB().VIEWPORT.X))
-    let Y = JSON.parse(JSON.stringify(TAB().VIEWPORT.Y))
+    let X = unlink(TAB().VIEWPORT.X)
+    let Y = unlink(TAB().VIEWPORT.Y)
     
     TAB().VIEWPORT.X = Y
     TAB().VIEWPORT.Y = X

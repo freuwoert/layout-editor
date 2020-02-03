@@ -28,6 +28,12 @@ window.VIEW$ = (comparison) => {
 
 
 
+window.unlink = (obj) => {
+    return JSON.parse(JSON.stringify(obj))
+}
+
+
+
 window.isValidTrace = (trace, panel = 'HTML') => {
 
     if( !trace || typeof trace == 'null')
@@ -36,7 +42,7 @@ window.isValidTrace = (trace, panel = 'HTML') => {
     }
     else
     {
-        trace = JSON.parse(JSON.stringify(trace))
+        trace = unlink(trace)
     }
 
     let isProp = false
@@ -104,7 +110,7 @@ window.isValidTrace = (trace, panel = 'HTML') => {
 
 window.getChildrenFromTrace = (trace, panel = 'HTML') => {
 
-    trace = JSON.parse(JSON.stringify(trace))
+    trace = unlink(trace)
     let isProp = false
 
     if( typeof trace == 'string' )
@@ -150,6 +156,7 @@ window.flattenObject = (ob, k = '', ret = []) => {
                 {
                     ret.push(`${p}-${ii}-prop`)
                 }
+                ret.push(`${p}-propadd`)
             }
 
             flattenObject(ob[i]['children'], p, ret)
@@ -179,6 +186,24 @@ window.updateStyleOL = () => {
     } catch (error) {
         new Toast('ERROR', 'INTERNAL ERROR: '+error)
     }
+}
+
+window.updateAddStyleOL = () => {
+    let ol = ['label']
+    let objects = TAB().UI_DATA.styleAddObject.properties
+
+    for (let i = 0; i < objects.length; i++) {
+        const obj = objects[i]
+        const keys = Object.keys(obj)
+
+        keys.forEach(key => {
+            ol.push(i+'-'+key)
+        })
+    }
+
+    ol.push('add')
+
+    TAB().UI_DATA.styleAddObjectOL = unlink([...ol])
 }
 
 window.activeTabChanged = () => {

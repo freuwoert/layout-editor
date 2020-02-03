@@ -48,7 +48,7 @@ let createWindow = () => {
         width: 1400,
         height: 800,
         frame: false,
-        icon:'src/images/icon/layout_editor_logo.png',
+        icon:'src/images/icon/vudesigner_logo.png',
         webPreferences: {
             nodeIntegration: true
         }

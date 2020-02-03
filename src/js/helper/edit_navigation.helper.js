@@ -96,74 +96,66 @@ window.navigateSTYLE = (direction = 'UP', isShift = false) => {
     let trace = TAB().FOCUSED_CSS.split('-')
 
     // Validate current trace
-    if(isValidTrace(trace, 'CSS'))
+    let traceIndex = TAB().CSS_OL.indexOf( trace.join('-') )
+    
+    if(direction == 'UP')
     {
-        
-        let traceIndex = TAB().CSS_OL.indexOf( trace.join('-') )
-        
-        if(direction == 'UP')
+
+        if( isShift )
         {
+            let foundNearestTrace = false
 
-            if( isShift )
+            while ( !foundNearestTrace )
             {
-                let foundNearestTrace = false
-
-                while ( !foundNearestTrace )
+                if(traceIndex > 0)
                 {
-                    if(traceIndex > 0)
-                    {
-                        traceIndex = traceIndex - 1
-                    }
-
-                    if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
-                    {
-                        TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
-                        foundNearestTrace = true
-                    }
+                    traceIndex = traceIndex - 1
                 }
 
-            }
-            else
-            {
-                if( traceIndex > 0 )
+                if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
                 {
-                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex - 1 ]
+                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
+                    foundNearestTrace = true
                 }
             }
+
         }
-
-        if(direction == 'DOWN')
+        else
         {
-
-            if( isShift )
+            if( traceIndex > 0 )
             {
-                let foundNearestTrace = false
-
-                while ( !foundNearestTrace )
-                {
-                    if(traceIndex < TAB().CSS_OL.length - 1)
-                    {
-                        traceIndex++
-                    }
-
-                    if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
-                    {
-                        TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
-                        foundNearestTrace = true
-                    }
-                }
-            }
-            else
-            {
-                if( traceIndex < TAB().CSS_OL.length - 1 )
-                {
-                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex + 1 ]
-                }
+                TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex - 1 ]
             }
         }
     }
-    else
+
+    if(direction == 'DOWN')
     {
-        TAB().FOCUSED_CSS = '0'
+
+        if( isShift )
+        {
+            let foundNearestTrace = false
+
+            while ( !foundNearestTrace )
+            {
+                if(traceIndex < TAB().CSS_OL.length - 1)
+                {
+                    traceIndex++
+                }
+
+                if( !TAB().CSS_OL[ traceIndex ].endsWith('prop') )
+                {
+                    TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex ]
+                    foundNearestTrace = true
+                }
+            }
+        }
+        else
+        {
+            if( traceIndex < TAB().CSS_OL.length - 1 )
+            {
+                TAB().FOCUSED_CSS = TAB().CSS_OL[ traceIndex + 1 ]
+            }
+        }
     }
 }

@@ -9,13 +9,14 @@ app = new Vue({
             nodeVersion: process.versions.node,
         },
         USER: {
-            displayImage: 'src/images/icon/layout_editor_logo.png',
+            displayImage: 'src/images/icon/vudesigner_logo_white.svg',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
             online: true,
             JWT: null,
         },
         GENERAL_UI: {
+            loadDelay: 500,
             settings: false,
             releaseNote: false,
             activeSetting: 'INFO',
@@ -29,7 +30,7 @@ app = new Vue({
             IS_DUMMY: false,
             UI: {
                 structureAdd: false,
-                styleAdd: false, // PROD
+                styleAdd: true, // PROD
             },
             UI_DATA: {
                 structureAddTrace: '',
@@ -39,12 +40,7 @@ app = new Vue({
                 structureAddSearchItems: [],
                 styleAddTrace: '',
                 styleAddDirection: '',
-                styleAddObject: {
-                    label: 'Test',
-                    properties: [
-                        {label: 'font-size', value: '16px'}
-                    ]
-                },
+                styleAddInput: '',
             },
             VIEW: 'START', // PROD
             NAME: 'New Tab',
@@ -77,7 +73,7 @@ app = new Vue({
     created(){
         if( this.TABS.length == 0 )
         {
-            let blank = JSON.parse(JSON.stringify(this.TAB_TEMPLATE))
+            let blank = unlink(this.TAB_TEMPLATE)
 
             blank.NAME = 'Layout Editor'
 
@@ -86,7 +82,7 @@ app = new Vue({
 
         if( Object.keys(this.TAB).length == 0 )
         {
-            this.TAB = JSON.parse(JSON.stringify(this.TABS[this.ACTIVE_TAB]))
+            this.TAB = unlink(this.TABS[this.ACTIVE_TAB])
         }
     },
     watch: {
@@ -100,7 +96,7 @@ app = new Vue({
                         this.TAB.NAME = (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).name : 'Untitled Layout'
                     }
 
-                    this.TABS[this.ACTIVE_TAB] = JSON.parse(JSON.stringify(this.TAB))
+                    this.TABS[this.ACTIVE_TAB] = unlink(this.TAB)
                 }
             }
         },
@@ -152,7 +148,7 @@ document.onreadystatechange = () => {
 
         setTimeout(() => {
             document.getElementById('preloader').classList.add('loaded')
-        }, 0)
+        }, app.GENERAL_UI.loadDelay)
 
     }
 }

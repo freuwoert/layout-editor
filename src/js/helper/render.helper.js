@@ -1,6 +1,6 @@
 window.renderHTML = (structureObject) => {
 
-    let object = JSON.parse(JSON.stringify(structureObject))
+    let object = unlink(structureObject)
     let htmlstring = ''
     
     let recursive = (children) => {

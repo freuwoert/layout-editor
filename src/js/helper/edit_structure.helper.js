@@ -104,7 +104,7 @@ window.addStructureAdd = (absoluteID, trace, direction) => {
         //   is equal to the number off elements this recursion would cause without it.      //
         //   I really should switch to Vuex.                                                 //
         ///////////////////////////////////////////////////////////////////////////////////////
-        let layout = JSON.parse(JSON.stringify(structure.layout))
+        let layout = unlink(structure.layout)
 
 
         

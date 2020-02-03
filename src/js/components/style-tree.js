@@ -3,9 +3,12 @@ Vue.component('style-tree', {
     template: `
         <div class="style-tree" :trace="trace">
             <div class="selector-container" :trace="trace" :class="{'selected' : focus == trace}">
-                <span class="label">{{label}}</span>
+                <span class="label class" v-show="label.startsWith('.')">{{label}}</span>
+                <span class="label id" v-show="label.startsWith('#')">{{label}}</span>
+                <span class="label none" v-show="!label.startsWith('.') && !label.startsWith('#')">{{label}}</span>
             </div>
-            <div class="property-container" v-show="properties.length > 0">
+            <div class="property-container">
+                <div class="add-property" :class="{'selected' : focus == trace+'-propadd'}">+++ Add Property +++</div>
                 <style-property v-for="(property, id) in properties" :focus="focus" :trace="trace+'-'+id+'-prop'" :property="property"></structure-property>
             </div>
             <div class="children-container" v-show="children.length > 0">
