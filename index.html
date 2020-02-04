@@ -162,7 +162,7 @@
                         <structure-tree v-for="(child, id) in TAB.DOCUMENT.HTML.children" :focus="TAB.FOCUSED_HTML" :trace="id" :attributes="child.attributes" :label="child.label" :children="child.children"></structure-tree>
                     </div>
 
-                    <div class="structure-add-panel" :class="{'active' : TAB.UI.structureAdd}">
+                    <div class="structure-add-panel" v-show="TAB.UI.structureAdd">
                         <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STRUCTURE_ADD|STRUCTURE_ADD_SEARCH"></focus-indicator>
                         
                         <div class="close" onclick="closeStructureAdd()">
@@ -260,7 +260,7 @@
                         <style-tree v-for="(child, id) in TAB.DOCUMENT.CSS.children" :focus="TAB.FOCUSED_CSS" :trace="id" :properties="child.properties" :label="child.label" :children="child.children"></style-tree>
                     </div>
 
-                    <div class="style-add-panel" :class="{'active' : TAB.UI.styleAdd}">
+                    <div class="style-add-panel" v-show="TAB.UI.styleAdd">
                         <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE_ADD"></focus-indicator>
 
                         <div class="close" onclick="closeStyleAdd()">
@@ -289,7 +289,7 @@
                         <div class="button">Add Selector</div>
                     </div>
 
-                    <div class="style-prop-add-panel" :class="{'active' : TAB.UI.stylePropAdd}">
+                    <div class="style-prop-add-panel" v-show="TAB.UI.stylePropAdd">
                         <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE_PROP_ADD"></focus-indicator>
 
                         <div class="close" onclick="closeStylePropAdd()">
@@ -379,11 +379,12 @@
             <div class="popup-bg" :class="{'active' : TAB.UI.code}">
                 <div class="popup-holder settings-holder">
                     <div class="popup-header settings-header">
-                        Code
+                        Generated Code:
                         <div class="close-ui" @click="TAB.UI.code = false">&#61782;</div>
                     </div>
-                    <div class="popup-content generated-code-holder">
-                        <pre style="font-size: 15px; font-family: 'SCP'; text-align: left;" v-html="TAB.UI_DATA.html"></pre>
+                    <div class="popup-content generated-code-container">
+                        <pre class="html-container" v-html="TAB.UI_DATA.html"></pre>
+                        <pre class="css-container" v-html="TAB.UI_DATA.css"></pre>
                     </div>
                 </div>
             </div>

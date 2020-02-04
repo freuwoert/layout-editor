@@ -94,17 +94,17 @@
 
     .structure-panel
         grid-area: structure_panel
+        position: relative
+        display: flex
+        flex-direction: column
         background: var(--background)
         border-top: 5px solid var(--dark-background)
         border-bottom: 5px solid var(--dark-background)
-        position: relative
 
         .tree-container
-            height: calc(100% - 90px)
             width: calc(100% - 10px)
-            position: absolute
-            top: 25px
-            left: 5px
+            margin: 25px 5px 5px 5px
+            flex: 1 1 0px
             overflow-y: auto
 
         .button-container
@@ -112,10 +112,7 @@
             width: 100%
             border-top: 5px solid var(--dark-background)
             background: var(--background)
-            position: absolute
-            bottom: 0
-            left: 0
-            display: flex
+            display: inline-flex
 
             .btn
                 height: 50px
@@ -164,17 +161,18 @@
 
     .styling-panel
         grid-area: styling_panel
+        position: relative
+        display: flex
+        flex-direction: column
         background: var(--background)
         border-bottom: 5px solid var(--dark-background)
         border-top: 5px solid var(--dark-background)
-        position: relative
 
         .tree-container
-            height: calc(100% - 90px)
             width: calc(100% - 10px)
-            position: absolute
-            top: 25px
-            left: 5px
+            margin: 25px 5px 5px 5px
+            flex: 1 1 0px
+            overflow: hidden
             overflow-y: auto
 
         .button-container
@@ -182,10 +180,7 @@
             width: 100%
             border-top: 5px solid var(--dark-background)
             background: var(--background)
-            position: absolute
-            bottom: 0
-            left: 0
-            display: flex
+            display: inline-flex
 
             .btn
                 height: 50px
@@ -418,19 +413,10 @@
 .structure-add-panel
     height: 236px
     width: 100%
-    z-index: 10000
-    position: absolute
-    bottom: 60px
-    left: 0
+    position: relative
     background: var(--background)
     border-top: 5px solid var(--dark-background)
-    pointer-events: none
-    opacity: 0
     transition: opacity 100ms
-
-    &.active
-        opacity: 1
-        pointer-events: all
 
     .close
         height: 20px
@@ -656,20 +642,11 @@
 .style-add-panel, .style-prop-add-panel
     height: 112px
     width: 400px
-    z-index: 10000
-    position: absolute
-    bottom: 60px
-    left: 0
     padding: 20px
     text-align: left
+    position: relative
     background: var(--background)
     border-top: 5px solid var(--dark-background)
-    opacity: 0
-    pointer-events: none
-
-    &.active
-        opacity: 1
-        pointer-events: all
 
     .close
         height: 20px
@@ -795,10 +772,28 @@
 
 
 .generated-code-container
-    background: var(--dark-background)
     text-align: left
+    overflow: hidden
+    padding: 5px
+    padding-top: 0
 
-    .html-container
-        width: 50%
-        height: 100%
+    .html-container, .css-container
+        background: var(--dark-background)
+        border-radius: 5px
+        width: calc(50% - 10px)
+        height: calc(100% - 5px)
+        margin: 5px
+        margin-top: 0
+        padding: 10px
         overflow: auto
+        font-size: 14px
+        font-family: 'SCP'
+        text-align: left
+        vertical-align: top
+
+    ::selection
+        background: var(--color-dimm)
+        border-radius: 3px
+
+    .css-container
+        color: #e8a666

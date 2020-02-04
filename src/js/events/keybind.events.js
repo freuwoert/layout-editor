@@ -109,32 +109,20 @@ Mousetrap.bind(['ctrl+plus','command+plus'], function(){
 // })
 
 Mousetrap.bind(['1'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'ASSET'
-    } else {
-        switch (PANEL()){
-            case 'STRUCTURE_ADD': selectStructureAddSuggestion('1'); break
-        }
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('1'); break
     }
 })
 
 Mousetrap.bind(['2'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'EDIT'
-    } else {
-        switch (PANEL()){
-            case 'STRUCTURE_ADD': selectStructureAddSuggestion('2'); break
-        }
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('2'); break
     }
 })
 
 Mousetrap.bind(['3'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'STORE'
-    } else {
-        switch (PANEL()){
-            case 'STRUCTURE_ADD': selectStructureAddSuggestion('3'); break
-        }
+    switch (PANEL()){
+        case 'STRUCTURE_ADD': selectStructureAddSuggestion('3'); break
     }
 })
 
@@ -156,6 +144,24 @@ Mousetrap.bind(['6'], function(){
     }
 })
 
+Mousetrap.bind(['ctrl+1','command+1'], function(){
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'ASSET'
+    }
+})
+
+Mousetrap.bind(['ctrl+2','command+2'], function(){
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'EDIT'
+    }
+})
+
+Mousetrap.bind(['ctrl+3','command+3'], function(){
+    if (VIEW() == 'START') {
+        TAB().VIEW = 'STORE'
+    }
+})
+
 
 
 // CONTEXT FREE
@@ -166,6 +172,12 @@ Mousetrap.bind(['ctrl+shift+e','command+shift+e'], function(){
 
 Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
     remote.getCurrentWindow().toggleDevTools()
+})
+
+Mousetrap.bind(['ctrl+g','command+g'], function(){
+    switch (VIEW()){
+        case 'EDIT': generateCode(); break
+    }
 })
 
 Mousetrap.bind(['ctrl+s','command+s'], function(){

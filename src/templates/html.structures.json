@@ -52,7 +52,7 @@
     ]},
 
     {"id": "HTML:STR:00014", "type": "tag", "origin": "ROOT", "name": "div", "layout": [
-        {"label": "div", "attributes": [{"label": "class", "value": []}], "children": []}
+        {"label": "div", "attributes": [], "children": []}
     ]},
 
     {"id": "HTML:STR:00015", "type": "tag", "origin": "ROOT", "name": "meta", "layout": [

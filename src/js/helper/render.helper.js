@@ -59,7 +59,7 @@ window.renderCSS = (styleObject) => {
 
             css += `${selector}${child.label}{\n`
             css += prop
-            css += `}\n`
+            css += `}\n\n`
 
             if(child.children && child.children.length > 0)
             {
@@ -89,9 +89,13 @@ window.renderViewport = (HTML, CSS) => {
 
 
 window.generateCode = () => {
-    let code = pretty(renderHTML(TAB().DOCUMENT.HTML.children), {ocd: true})
-    let html = Prism.highlight(code, Prism.languages.html, 'html')
+    let htmlstring = pretty(renderHTML(TAB().DOCUMENT.HTML.children), {ocd: true})
+    let html = Prism.highlight(htmlstring, Prism.languages.html, 'html')
+
+    let cssstring = renderCSS(TAB().DOCUMENT.CSS.children)
+    let css = Prism.highlight(cssstring, Prism.languages.css, 'css')
 
     TAB().UI_DATA.html = html
+    TAB().UI_DATA.css = css
     TAB().UI.code = true
 }
