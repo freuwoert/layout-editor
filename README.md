@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/ou9Y8gI.png" width="180">
+<img src="https://i.imgur.com/ou9Y8gI.png?2" width="180">
 
 # VuDesigner
 An experimental project by Maurice Freuwört  
