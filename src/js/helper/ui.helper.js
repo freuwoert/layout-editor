@@ -12,8 +12,10 @@ window.decoupleViewport = () => {
 
 
 
-window.updateCoupledViewport = (html) => {
-    app.$refs.coupledViewport.contentWindow.document.open()
-    app.$refs.coupledViewport.contentWindow.document.write(html)
-    app.$refs.coupledViewport.contentWindow.document.close()
+window.setCoupledViewport = (viewportstring) => {
+    TAB().VIEWPORT.CONTENT = viewportstring
+}
+
+window.updateCoupledViewport = () => {
+    setCoupledViewport( renderViewport(TAB().DOCUMENT.HTML.children, TAB().DOCUMENT.CSS.children) )
 }

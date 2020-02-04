@@ -29,6 +29,7 @@ app = new Vue({
         TAB_TEMPLATE: {
             IS_DUMMY: false,
             UI: {
+                code: false,
                 structureAdd: false,
                 styleAdd: false,
                 stylePropAdd: false,
@@ -51,6 +52,10 @@ app = new Vue({
                 styleAddPropFocus: 0,
                 styleAddPropName: '',
                 styleAddPropValue: '',
+
+                // GENERATED CODE
+                html: '',
+                css: ''
             },
             VIEW: 'START', // PROD
             NAME: 'New Tab',
@@ -63,6 +68,7 @@ app = new Vue({
                 Y: 600,
                 SCALE: 1,
                 DECOUPLED: false,
+                CONTENT: '',
             },
             FOCUSED_PANEL: 'STRUCTURE',
             FOCUSED_HTML: '0',
@@ -115,6 +121,7 @@ app = new Vue({
             handler(){
                 this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
                 this.TAB.CSS_OL = flattenObject(this.TAB.DOCUMENT.CSS.children)
+                updateCoupledViewport()
                 //console.log('CHANGED')
             }
         },
@@ -159,7 +166,6 @@ document.onreadystatechange = () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('loaded')
         }, app.GENERAL_UI.loadDelay)
-
     }
 }
 

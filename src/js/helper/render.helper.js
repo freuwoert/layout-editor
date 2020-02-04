@@ -35,7 +35,63 @@ window.renderHTML = (structureObject) => {
 
     htmlstring = recursive(object)
 
-    console.log(pretty(htmlstring, {ocd: true}))
+    //console.log(pretty(htmlstring, {ocd: true}))
 
     return htmlstring
+}
+
+window.renderCSS = (styleObject) => {
+
+    let object = unlink(styleObject)
+    let cssstring = ''
+    
+    let recursive = (children, depth, selector) => {
+
+        let css = ''
+
+        children.forEach(child => {
+
+            let prop = ''
+
+            child.properties.forEach(property => {
+                prop += `  ${property.label}: ${property.value};\n`
+            })
+
+            css += `${selector}${child.label}{\n`
+            css += prop
+            css += `}\n`
+
+            if(child.children && child.children.length > 0)
+            {
+                css += recursive(child.children, depth+1, selector+''+child.label+' ')
+            }
+
+
+        })
+
+        return css
+    }
+
+    cssstring = recursive(object, 0, '')
+
+    return cssstring
+}
+
+window.renderViewport = (HTML, CSS) => {
+    let HTMLstring = renderHTML(HTML)
+    let CSSstring = '<style>'+renderCSS(CSS)+'</style>'
+
+    let viewportstring = HTMLstring + CSSstring
+
+    return viewportstring
+}
+
+
+
+window.generateCode = () => {
+    let code = pretty(renderHTML(TAB().DOCUMENT.HTML.children), {ocd: true})
+    let html = Prism.highlight(code, Prism.languages.html, 'html')
+
+    TAB().UI_DATA.html = html
+    TAB().UI.code = true
 }

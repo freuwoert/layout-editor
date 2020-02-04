@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="src/css/ROOT.components.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.edit.min.css">
         <link rel="stylesheet" href="src/css/ROOT.VIEW.start.min.css">
+
+        <link href="src/css/themes/prism.css" rel="stylesheet">
         <script>
             // STORAGE / DEFAULTS
             const HTML_ROOT_STRUCTURES = require('./src/templates/html.structures.json')
@@ -20,10 +22,11 @@
             const Vue = require('vue/dist/vue.min')
             const Vuex = require('vuex')
             const path = require('path')
+            const emmet = require('emmet')
             const Fuse = require('fuse.js')
             const anime = require('animejs')
             const pretty = require('pretty')
-            const emmet = require('emmet')
+            const Prism = require('prismjs')
             const html2json = require('html2json').html2json
             const Toast = require('./src/js/modules/toast.js')
             const settings = require('electron-settings')
@@ -133,7 +136,7 @@
 
                 <div class="option-panel">
                     <div class="icon-button unimportant" title="Leave to overview" onclick="">&#62828;</div>
-                    <div class="button" onclick="renderHTML(TAB().DOCUMENT.HTML.children)">
+                    <div class="button" onclick="generateCode()">
                         <div class="icon">&#64567;</div> Generate Code
                     </div>
                     <div class="account">
@@ -356,7 +359,7 @@
                             </div>
                         </div>
 
-                        <viewport :x="TAB.VIEWPORT.X" :y="TAB.VIEWPORT.Y" @update:x="TAB.VIEWPORT.X = $event" @update:y="TAB.VIEWPORT.Y = $event" v-show="!TAB.VIEWPORT.DECOUPLED"></viewport>
+                        <viewport :content="TAB.VIEWPORT.CONTENT" :x="TAB.VIEWPORT.X" :y="TAB.VIEWPORT.Y" @update:x="TAB.VIEWPORT.X = $event" @update:y="TAB.VIEWPORT.Y = $event" v-show="!TAB.VIEWPORT.DECOUPLED"></viewport>
                     </div>
                 </div>
 
@@ -372,6 +375,18 @@
 
 
             <colorpicker v-show="false"></colorpicker>
+
+            <div class="popup-bg" :class="{'active' : TAB.UI.code}">
+                <div class="popup-holder settings-holder">
+                    <div class="popup-header settings-header">
+                        Code
+                        <div class="close-ui" @click="TAB.UI.code = false">&#61782;</div>
+                    </div>
+                    <div class="popup-content generated-code-holder">
+                        <pre style="font-size: 15px; font-family: 'SCP'; text-align: left;" v-html="TAB.UI_DATA.html"></pre>
+                    </div>
+                </div>
+            </div>
 
 
 

@@ -13,7 +13,7 @@ TL;DR a software for efficient web based UI creation.
 VuDesigner is a software development tool written in Node.js (Electron.js) specifically designed for efficient web based UI creation through autocompletion and prefabricated assets. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern. This will be achieved and accompanied by a full keyboard-shortcut control over the most important parts of the software and a range of quality-of-life features listed below:
 * Autocompletion including favorised assets
 * A sophisticated marketplace for intricate user generated assets
-* Live preview with custom viewport size support
+* ✅ Live preview with custom viewport size support
 * Quick project launch - meaning one-click setup for custom folder structures + git initialization
 * Cloud saving assets, files and settings
 * Export options:

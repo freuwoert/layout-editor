@@ -1,5 +1,5 @@
 Vue.component('viewport', {
-    props: ['x', 'y'],
+    props: ['x', 'y', 'content'],
     data: () => {
         return {
             grabbed: false,
@@ -15,6 +15,9 @@ Vue.component('viewport', {
         }
     },
     watch: {
+        'content': function() {
+            this.setContent(this.content)
+        }
     },
     methods: {
         mouseDown: function(e, direction = 'BOTH'){
@@ -43,6 +46,11 @@ Vue.component('viewport', {
 
             this.$emit('update:x', this.x)
             this.$emit('update:y', this.y)
+        },
+        setContent: function(viewportstring){
+            this.$refs.coupledViewport.contentWindow.document.open()
+            this.$refs.coupledViewport.contentWindow.document.write(viewportstring)
+            this.$refs.coupledViewport.contentWindow.document.close()
         },
         limit: function(value, min, max){
             if(value < min) value = min
