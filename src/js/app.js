@@ -12,7 +12,7 @@ app = new Vue({
             displayImage: 'src/images/icon/vudesigner_logo.svg',
             displayName: 'Maurice Freuwört',
             username: 'freuwoert',
-            online: true,
+            online: false,
             JWT: null,
         },
         GENERAL_UI: {
