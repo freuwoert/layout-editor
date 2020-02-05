@@ -61,6 +61,7 @@ Mousetrap.bind(['del'], function(){
 Mousetrap.bind(['backspace'], function(){
     switch (PANEL()){
         case 'STRUCTURE': removeStructureRemove(TAB().FOCUSED_HTML); break
+        case 'STYLE': removeStyleRemove(TAB().FOCUSED_CSS); break
     }
 })
 
