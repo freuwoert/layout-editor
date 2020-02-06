@@ -135,7 +135,7 @@
             <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
 
                 <div class="option-panel">
-                    <div class="icon-button unimportant" title="Leave to overview" onclick="">&#62828;</div>
+                    <div class="icon-button unimportant" title="Leave to overview" @click="TAB.VIEW = 'START'">&#62828;</div>
                     <div class="button" onclick="generateCode()">
                         <div class="icon">&#64567;</div> Generate Code
                     </div>
