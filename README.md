@@ -30,10 +30,10 @@ This collection of ideas also states the roadmap or rather the upcoming updates 
 ## What does it look like?
 _"Does it look like a bitch?"_  
 
-### Welcome Page:
+### Welcome:
 <img src="https://i.imgur.com/7BCV1XD.png" width="60%">
 
-### Editor Page:
+### Editor:
 <img src="https://i.imgur.com/VVEQsIt.png" width="60%">
 
 ### Disclaimer
