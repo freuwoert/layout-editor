@@ -93,23 +93,29 @@
                     <div class="icon">&#62611;</div>
                 </div>
                 <div class="header">
-                    <div class="view-selector" @click="TAB.VIEW = 'ASSET'">
+                    <div class="view-selector" @click="TAB.VIEW = 'VIEW:LAYOUT_EDITOR'">
                         <div class="image-container">
-                            <div class="image asset"></div>
+                            <div class="image image-layout-editor"></div>
                         </div>
-                        <div class="label">Start Project (1)</div>
+                        <div class="label">Layout Editor (1)</div>
                     </div>
-                    <div class="view-selector" @click="TAB.VIEW = 'EDIT'">
+                    <div class="view-selector" @click="TAB.VIEW = 'VIEW:LAYOUT_CREATOR'">
                         <div class="image-container">
-                            <div class="image create"></div>
+                            <div class="image image-layout-creator"></div>
                         </div>
-                        <div class="label">Create Layout (2)</div>
+                        <div class="label">Layout Creator (2)</div>
                     </div>
-                    <div class="view-selector" @click="TAB.VIEW = 'STORE'">
+                    <div class="view-selector" @click="TAB.VIEW = 'VIEW:PROJECT_MANAGER'">
                         <div class="image-container">
-                            <div class="image store"></div>
+                            <div class="image image-project-manager"></div>
                         </div>
-                        <div class="label">Open Market (3)</div>
+                        <div class="label">Project Manager (3)</div>
+                    </div>
+                    <div class="view-selector" @click="TAB.VIEW = 'VIEW:ASSET_STORE'">
+                        <div class="image-container">
+                            <div class="image image-asset-store"></div>
+                        </div>
+                        <div class="label">Open Market (4)</div>
                     </div>
                 </div>
             </div>

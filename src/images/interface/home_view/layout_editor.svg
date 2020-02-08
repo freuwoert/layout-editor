@@ -1,0 +1,285 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="770" height="500" viewBox="0 0 770 500">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="158" height="210" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect width="270" height="109" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-layout_editor">
+      <rect width="770" height="500"/>
+    </clipPath>
+  </defs>
+  <g id="layout_editor" clip-path="url(#clip-layout_editor)">
+    <rect width="770" height="500" fill="#0c3"/>
+    <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" transform="translate(65 297)" opacity="0.4" clip-path="url(#clip-path)">
+      <g transform="translate(-89 -298)">
+        <circle id="Ellipse_4" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -298)">
+        <circle id="Ellipse_4-2" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -298)">
+        <circle id="Ellipse_4-3" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -298)">
+        <circle id="Ellipse_4-4" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -298)">
+        <circle id="Ellipse_4-5" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -298)">
+        <circle id="Ellipse_4-6" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -270)">
+        <circle id="Ellipse_4-7" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -270)">
+        <circle id="Ellipse_4-8" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -270)">
+        <circle id="Ellipse_4-9" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -270)">
+        <circle id="Ellipse_4-10" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -270)">
+        <circle id="Ellipse_4-11" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -270)">
+        <circle id="Ellipse_4-12" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -242)">
+        <circle id="Ellipse_4-13" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -242)">
+        <circle id="Ellipse_4-14" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -242)">
+        <circle id="Ellipse_4-15" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -242)">
+        <circle id="Ellipse_4-16" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -242)">
+        <circle id="Ellipse_4-17" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -242)">
+        <circle id="Ellipse_4-18" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -214)">
+        <circle id="Ellipse_4-19" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -214)">
+        <circle id="Ellipse_4-20" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -214)">
+        <circle id="Ellipse_4-21" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -214)">
+        <circle id="Ellipse_4-22" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -214)">
+        <circle id="Ellipse_4-23" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -214)">
+        <circle id="Ellipse_4-24" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -186)">
+        <circle id="Ellipse_4-25" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -186)">
+        <circle id="Ellipse_4-26" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -186)">
+        <circle id="Ellipse_4-27" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -186)">
+        <circle id="Ellipse_4-28" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -186)">
+        <circle id="Ellipse_4-29" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -186)">
+        <circle id="Ellipse_4-30" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -158)">
+        <circle id="Ellipse_4-31" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -158)">
+        <circle id="Ellipse_4-32" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -158)">
+        <circle id="Ellipse_4-33" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -158)">
+        <circle id="Ellipse_4-34" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -158)">
+        <circle id="Ellipse_4-35" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -158)">
+        <circle id="Ellipse_4-36" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -130)">
+        <circle id="Ellipse_4-37" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -130)">
+        <circle id="Ellipse_4-38" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -130)">
+        <circle id="Ellipse_4-39" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -130)">
+        <circle id="Ellipse_4-40" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -130)">
+        <circle id="Ellipse_4-41" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -130)">
+        <circle id="Ellipse_4-42" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -102)">
+        <circle id="Ellipse_4-43" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -102)">
+        <circle id="Ellipse_4-44" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -102)">
+        <circle id="Ellipse_4-45" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -102)">
+        <circle id="Ellipse_4-46" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -102)">
+        <circle id="Ellipse_4-47" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -102)">
+        <circle id="Ellipse_4-48" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Wiederholungsraster_4" data-name="Wiederholungsraster 4" transform="translate(500 11)" opacity="0.4" clip-path="url(#clip-path-2)">
+      <g transform="translate(-89 -298)">
+        <circle id="Ellipse_4-49" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -298)">
+        <circle id="Ellipse_4-50" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -298)">
+        <circle id="Ellipse_4-51" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -298)">
+        <circle id="Ellipse_4-52" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -298)">
+        <circle id="Ellipse_4-53" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -298)">
+        <circle id="Ellipse_4-54" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(79 -298)">
+        <circle id="Ellipse_4-55" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(107 -298)">
+        <circle id="Ellipse_4-56" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(135 -298)">
+        <circle id="Ellipse_4-57" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(163 -298)">
+        <circle id="Ellipse_4-58" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -270)">
+        <circle id="Ellipse_4-59" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -270)">
+        <circle id="Ellipse_4-60" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -270)">
+        <circle id="Ellipse_4-61" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -270)">
+        <circle id="Ellipse_4-62" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -270)">
+        <circle id="Ellipse_4-63" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -270)">
+        <circle id="Ellipse_4-64" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(79 -270)">
+        <circle id="Ellipse_4-65" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(107 -270)">
+        <circle id="Ellipse_4-66" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(135 -270)">
+        <circle id="Ellipse_4-67" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(163 -270)">
+        <circle id="Ellipse_4-68" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -242)">
+        <circle id="Ellipse_4-69" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -242)">
+        <circle id="Ellipse_4-70" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -242)">
+        <circle id="Ellipse_4-71" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -242)">
+        <circle id="Ellipse_4-72" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -242)">
+        <circle id="Ellipse_4-73" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -242)">
+        <circle id="Ellipse_4-74" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(79 -242)">
+        <circle id="Ellipse_4-75" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(107 -242)">
+        <circle id="Ellipse_4-76" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(135 -242)">
+        <circle id="Ellipse_4-77" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(163 -242)">
+        <circle id="Ellipse_4-78" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-89 -214)">
+        <circle id="Ellipse_4-79" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-61 -214)">
+        <circle id="Ellipse_4-80" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-33 -214)">
+        <circle id="Ellipse_4-81" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(-5 -214)">
+        <circle id="Ellipse_4-82" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(23 -214)">
+        <circle id="Ellipse_4-83" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(51 -214)">
+        <circle id="Ellipse_4-84" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(79 -214)">
+        <circle id="Ellipse_4-85" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(107 -214)">
+        <circle id="Ellipse_4-86" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(135 -214)">
+        <circle id="Ellipse_4-87" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+      <g transform="translate(163 -214)">
+        <circle id="Ellipse_4-88" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>
+      </g>
+    </g>
+    <path id="code-braces" d="M65.778,3A25.111,25.111,0,0,0,40.667,28.111V78.333a25.111,25.111,0,0,1-25.111,25.111H3v25.111H15.556a25.111,25.111,0,0,1,25.111,25.111v50.222A25.111,25.111,0,0,0,65.778,229H90.889V203.889H65.778V141.111A25.111,25.111,0,0,0,40.667,116,25.111,25.111,0,0,0,65.778,90.889V28.111H90.889V3m75.333,0a25.111,25.111,0,0,1,25.111,25.111V78.333a25.111,25.111,0,0,0,25.111,25.111H229v25.111H216.444a25.111,25.111,0,0,0-25.111,25.111v50.222A25.111,25.111,0,0,1,166.222,229H141.111V203.889h25.111V141.111A25.111,25.111,0,0,1,191.333,116a25.111,25.111,0,0,1-25.111-25.111V28.111H141.111V3Z" transform="translate(269 134)" fill="#fff"/>
+  </g>
+</svg>
