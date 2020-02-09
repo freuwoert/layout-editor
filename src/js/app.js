@@ -57,7 +57,7 @@ app = new Vue({
                 html: '',
                 css: ''
             },
-            VIEW: 'START', // PROD
+            VIEW: 'VIEW:HOME', // PROD
             NAME: 'New Tab',
             DOCUMENT: {
                 HTML: { children: []},

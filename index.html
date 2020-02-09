@@ -88,8 +88,8 @@
 
 
 
-            <div class="view" id="start-view" v-show="TAB.VIEW == 'START'">
-                <div class="start-open-settings" @click="GENERAL_UI.settings = true">
+            <div class="view" id="home-view" v-show="TAB.VIEW == 'VIEW:HOME'">
+                <div class="home-open-settings" @click="GENERAL_UI.settings = true">
                     <div class="icon">&#62611;</div>
                 </div>
                 <div class="header">
@@ -124,26 +124,10 @@
 
 
 
-            <div class="view" id="asset-view" v-show="TAB.VIEW == 'ASSET'">
-                
-            </div>
-
-
-
-
-
-            <div class="view" id="store-view" v-show="TAB.VIEW == 'STORE'">
-                
-            </div>
-
-
-
-
-
-            <div class="view" id="edit-view" v-show="TAB.VIEW == 'EDIT'">
+            <div class="view" id="layout-editor-view" v-show="TAB.VIEW == 'VIEW:LAYOUT_EDITOR'">
 
                 <div class="option-panel">
-                    <div class="icon-button unimportant" title="Leave to overview" @click="TAB.VIEW = 'START'">&#62828;</div>
+                    <div class="icon-button unimportant" title="Leave to overview" @click="TAB.VIEW = 'VIEW:HOME'">&#62828;</div>
                     <div class="button" onclick="generateCode()">
                         <div class="icon">&#64567;</div> Generate Code
                     </div>
@@ -379,6 +363,32 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+            <div class="view" id="layout-creator-view" v-show="TAB.VIEW == 'VIEW:LAYOUT_CREATOR'">
+                
+            </div>
+
+
+
+
+
+            <div class="view" id="project-manager-view" v-show="TAB.VIEW == 'VIEW:PROJECT_MANAGER'">
+                
+            </div>
+
+
+
+
+
+            <div class="view" id="asset-store-view" v-show="TAB.VIEW == 'VIEW:ASSET_STORE'">
+                
+            </div>
+
+
 
 
 

@@ -1,0 +1,103 @@
+.style-tree
+    width: 100%
+    user-select: none
+    font-family: 'SCP'
+
+    .selector-container
+        text-align: left
+        display: block
+        box-sizing: border-box
+        height: 20px
+        border-radius: 5px
+        padding-left: 5px
+        margin-top: 3px
+        font-size: 0
+        font-weight: 600
+        position: relative
+        white-space: nowrap
+        overflow: hidden
+        border: 1px solid transparent
+
+        &:hover
+            background: var(--dark-background)
+
+            .btn-container
+                background: var(--dark-background)
+                display: block !important
+
+        &.selected
+            border-color: var(--color-light)
+
+        .btn-container
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            line-height: 20px
+            display: none
+
+            .btn
+                height: 100%
+                width: 20px
+                line-height: 20px
+                font-size: 15px
+                font-family: 'Material Icons'
+                vertical-align: top
+                text-align: center
+                color: var(--color-bright)
+                cursor: pointer
+                font-weight: normal !important
+
+        .label
+            display: inline-block
+            line-height: 18px
+            color: var(--color)
+            font-size: 12px
+
+            &.id
+                color: #44A3EF
+            &.class
+                color: #e8a666
+            &.none
+                color: var(--red)
+
+        .deco
+            color: var(--color)
+            display: inline
+            font-size: 12px
+
+    .property-container
+        display: block
+        padding: 0 0 0 5px
+        margin: 0 0 0 5px
+        text-align: left
+        border-left: 1px solid var(--color-light)
+
+        span
+            display: block
+
+        .add-property
+            line-height: 20px
+            border: 1px solid transparent
+            border-radius: 5px
+            padding: 0 5px
+            text-align: left
+            color: var(--color)
+            background: var(--dark-background)
+            font-size: 11px
+            font-family: 'SCP'
+            user-select: none
+            cursor: pointer
+
+            &:hover
+                background: var(--dark-background)
+                color: var(--color-bright)
+
+            &.selected
+                border: 1px solid var(--color-light)
+
+    .children-container
+        display: block
+        padding: 0 0 0 5px
+        margin: 0 0 0 5px
+        border-left: 1px solid var(--color-light)
