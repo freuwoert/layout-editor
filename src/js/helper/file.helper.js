@@ -161,7 +161,7 @@ window.openLayout = (options, callback) => {
                     let blank = unlink(app.TAB_TEMPLATE)
     
                     blank.NAME = path.parse(tab.path).name
-                    blank.VIEW = 'EDIT'
+                    blank.VIEW = 'VIEW:LAYOUT_EDITOR'
                     blank.SAVE_PATH = tab.path
                     blank.DOCUMENT = tab.document
 
@@ -183,7 +183,7 @@ window.openLayout = (options, callback) => {
                 let blank = unlink(app.TAB_TEMPLATE)
 
                 blank.NAME = path.parse(tab.path).name
-                blank.VIEW = 'EDIT'
+                blank.VIEW = 'VIEW:LAYOUT_EDITOR'
                 blank.SAVE_PATH = tab.path
                 blank.DOCUMENT = tab.document
 

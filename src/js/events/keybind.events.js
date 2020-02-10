@@ -146,20 +146,26 @@ Mousetrap.bind(['6'], function(){
 })
 
 Mousetrap.bind(['ctrl+1','command+1'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'ASSET'
+    if (VIEW() == 'VIEW:HOME') {
+        TAB().VIEW = 'VIEW:LAYOUT_EDITOR'
     }
 })
 
 Mousetrap.bind(['ctrl+2','command+2'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'EDIT'
+    if (VIEW() == 'VIEW:HOME') {
+        TAB().VIEW = 'VIEW:LAYOUT_CREATOR'
     }
 })
 
 Mousetrap.bind(['ctrl+3','command+3'], function(){
-    if (VIEW() == 'START') {
-        TAB().VIEW = 'STORE'
+    if (VIEW() == 'VIEW:HOME') {
+        TAB().VIEW = 'VIEW:PROJECT_MANAGER'
+    }
+})
+
+Mousetrap.bind(['ctrl+4','command+4'], function(){
+    if (VIEW() == 'VIEW:HOME') {
+        TAB().VIEW = 'VIEW:ASSET_STORE'
     }
 })
 
@@ -177,24 +183,24 @@ Mousetrap.bind(['ctrl+shift+i','command+shift+i'], function(){
 
 Mousetrap.bind(['ctrl+g','command+g'], function(){
     switch (VIEW()){
-        case 'EDIT': generateCode(); break
+        case 'VIEW:LAYOUT_EDITOR': generateCode(); break
     }
 })
 
 Mousetrap.bind(['ctrl+s','command+s'], function(){
     switch (VIEW()){
-        case 'EDIT': saveLayout({tab: app.TAB, force: false}, (tab)=>{ app.TAB = unlink(tab)}); break
+        case 'VIEW:LAYOUT_EDITOR': saveLayout({tab: app.TAB, force: false}, (tab)=>{ app.TAB = unlink(tab)}); break
     }
 })
 
 Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
     switch (VIEW()){
-        case 'EDIT': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = unlink(tab)}); break
+        case 'VIEW:LAYOUT_EDITOR': saveLayout({tab: app.TAB, force: true}, (tab)=>{ app.TAB = unlink(tab)}); break
     }
 })
 
 Mousetrap.bind(['ctrl+o','command+o'], function(){
     switch (VIEW()){
-        case 'EDIT': openLayout({paths: null}, ()=>{selectTab(app.TABS.length-1)}); break
+        case 'VIEW:LAYOUT_EDITOR': openLayout({paths: null}, ()=>{selectTab(app.TABS.length-1)}); break
     }
 })
