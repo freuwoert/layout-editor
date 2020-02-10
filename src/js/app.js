@@ -8,6 +8,13 @@ app = new Vue({
             electronVersion: process.versions.electron,
             nodeVersion: process.versions.node,
         },
+        INFO: {
+            versionName: 'Founders Update',
+            version: require('electron').remote.app.getVersion(),
+            apiVersion: '0.1.0',
+            electronVersion: process.versions.electron,
+            nodeVersion: process.versions.node,
+        },
         USER: {
             displayImage: 'src/images/icon/vudesigner_logo.svg',
             displayName: 'Maurice Freuwört',

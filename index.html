@@ -80,9 +80,6 @@
 
 
             <div class="view" id="home-view" v-show="TAB.VIEW == 'VIEW:HOME'">
-                <div class="home-open-settings" @click="GENERAL_UI.settings = true">
-                    <div class="icon">&#62611;</div>
-                </div>
                 <div class="header">
                     <div class="view-selector" @click="TAB.VIEW = 'VIEW:LAYOUT_EDITOR'">
                         <div class="image-container">
@@ -451,21 +448,7 @@
 
 
 
-            <div class="popup-bg release-note-bg no-select" :class="{'active' : GENERAL_UI.releaseNote}">
-                <div class="popup-holder release-note-holder">
-                    <div class="release-image">
-                        <span class="title">
-                            {{info.versionName}}
-                            <span class="version">{{info.version}}</span>
-                        </span>
-                    </div>
-                    <span class="headline">Welcome to VuDesigner!</span>
-                    <div class="release-note-container">
-                        • Add and remove elements<br>
-                    </div>
-                    <div class="close-release-note" @click="GENERAL_UI.releaseNote = false">Let's go!</div>
-                </div>
-            </div>
+            <release-notes :show="GENERAL_UI.releaseNote" :info="INFO" @close="GENERAL_UI.releaseNote = false"></release-notes>
 
 
 
@@ -491,20 +474,19 @@
         require('./src/js/helper/layout_editor/structure.helper.js')
         require('./src/js/helper/layout_editor/navigation.helper.js')
     </script>
+    <script src="src/js/components/colorpicker.js"></script>
     <script src="src/js/components/drag-number-input.js"></script>
     <script src="src/js/components/focus-indicator.js"></script>
-    <script src="src/js/components/style-property.js"></script>
-    <script src="src/js/components/structure-tree.js"></script>
-    <script src="src/js/components/colorpicker.js"></script>
     <script src="src/js/components/iconpicker.js"></script>
+    <script src="src/js/components/release-notes.js"></script>
+    <script src="src/js/components/structure-tree.js"></script>
+    <script src="src/js/components/style-property.js"></script>
     <script src="src/js/components/style-tree.js"></script>
     <script src="src/js/components/viewport.js"></script>
     <script src="src/js/app.js"></script>
     <script> ipcRenderer.send('loaded') </script>
 
-    <script src="tests/unit/functioncall.js"></script>
     <script>
         //console.log(emmet.markupAbbreviation('div.*4', {output: {format: false}}))
-        //test_validateTrace()
     </script>
 </html>

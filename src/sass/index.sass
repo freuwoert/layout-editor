@@ -2,6 +2,7 @@
 @import 'components/_drag-number-input.sass'
 @import 'components/_focus-indicator.sass'
 @import 'components/_iconpicker.sass'
+@import 'components/_release-notes.sass'
 @import 'components/_structure-tree.sass'
 @import 'components/_style-property.sass'
 @import 'components/_style-tree.sass'
@@ -691,88 +692,3 @@ h1,h2,h3,h4,h5,h6
         background: var(--background)
         white-space: nowrap
         opacity: 1
-
-.release-note-bg
-    &.active
-        background: rgba(0,0,0,0.8)
-
-    .release-note-holder
-        width: calc(100% - 160px)
-        max-width: 700px
-        height: calc(100% - 180px)
-        margin: 90px auto
-        display: block
-        position: initial
-        border-radius: 20px
-        box-shadow: none
-        overflow: unset
-        background: white
-
-        .release-image
-            height: 270px
-            width: calc(100% + 140px)
-            margin: 40px -70px 70px
-            border-radius: 15px
-            background-image: url('../images/release-bg/rn_init_update.png')
-            background-repeat: no-repeat
-            background-position: center
-            background-size: cover
-            filter: drop-shadow(0px 10px 12px rgba(0,0,0,0.4))
-            position: relative
-
-            .title
-                color: white
-                font-weight: 600
-                letter-spacing: 3px
-                line-height: 80px
-                position: absolute
-                top: calc(50% - 40px)
-                left: 0
-                font-size: 50px
-                width: 100%
-                text-align: center
-                background: rgba(0,0,0,0.4)
-
-                .version
-                    font-size: 30px
-                    height: 50px
-                    vertical-align: top
-                    font-weight: 200
-                    letter-spacing: 0
-                    transform: translate(-10px, -40%)
-        
-        .headline
-            color: black
-            font-weight: 700
-            line-height: 40px
-            font-size: 25px
-            width: 100%
-            text-align: center
-
-        .release-note-container
-            width: calc(100% - 40px)
-            height: calc(100% - 60px - 480px)
-            margin: 20px 40px
-            text-align: left
-            color: #333
-            font-size: 15px
-            line-height: 27px
-            overflow-y: auto
-
-        .close-release-note
-            height: 40px
-            line-height: 40px
-            border-radius: 5px
-            text-align: center
-            color: white
-            background: black
-            width: 200px
-            font-size: 16px
-            display: block
-            margin: 20px auto
-            cursor: pointer
-            user-select: none
-            transition: all 100ms
-
-            &:hover
-                filter: drop-shadow(0px 3px 4px rgba(0,0,0,0.3))
