@@ -3,6 +3,7 @@
 # VuDesigner
 An experimental project by Maurice Freuwört  
 Started: **15. January 2020**  
+Upcoming switch to Vue.js
 
 ## What's this software supposed to solve?
 TL;DR a software for efficient web based UI creation.  
