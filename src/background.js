@@ -1,13 +1,18 @@
-const { app, BrowserWindow, globalShortcut } = require('electron')
-const { autoUpdater } = require('electron-updater')
-const { ipcMain } = require('electron')
-const electron = require('electron')
-const log = require('electron-log')
+'use strict'
+
+import { app, protocol, BrowserWindow, globalShortcut } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import { autoUpdater } from 'electron-updater'
+import { ipcMain } from 'electron'
+import log from 'electron-log'
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+let mainWindow
+let gotTheLock = app.requestSingleInstanceLock()
 
 
 
-let mainWindow = null
-const gotTheLock = app.requestSingleInstanceLock()
+protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
 
 
@@ -30,7 +35,17 @@ else
 
 
 
-    app.on('ready', () => {
+    app.on('ready', async () => {
+
+        if (isDevelopment && !process.env.IS_TEST)
+        {
+            // try {
+            //     await installVueDevtools()
+            // } catch (error) {
+            //     console.error('Vue Devtools failed to install:', error.toString())
+            // }
+        }
+
         createWindow()
     })
     
@@ -43,6 +58,8 @@ else
     })
 }
 
+
+
 let createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1400,
@@ -54,14 +71,20 @@ let createWindow = () => {
         }
     })
 
-    mainWindow.loadFile('index.html')
+    if (process.env.WEBPACK_DEV_SERVER_URL) {
+        mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    } else {
+        createProtocol('app')
+        mainWindow.loadURL('app://./index.html')
+    }
+
     mainWindow.maximize()
     mainWindow.setTitle(`Layout Editor ${app.getVersion()}`)
     mainWindow.on('closed', () => { mainWindow = null })
 
     globalShortcut.register('f5', () => {
-		mainWindow.reload()
-	})
+        mainWindow.reload()
+    })
 }
 
 
