@@ -4,23 +4,24 @@ import router from './router'
 import store from './store'
 
 // GLOBAL REQUIREMENTS
-import $ from 'jquery'
-import _ from 'lodash'
-import fs from 'fs'
-import path from 'path'
-import emmet from 'emmet'
-import Fuse from 'fuse.js'
-import anime from 'animejs'
-import pretty from 'pretty'
-import Prism from 'prismjs'
-import Toast from '@/assets/js/modules/toast.js'
-import settings from 'electron-settings'
-import Mousetrap from 'mousetrap'
-import colorConvert from 'color-convert'
-
+const $ = require('jquery')
+const _ = require('lodash')
+const fs = require('fs')
+const path = require('path')
+const emmet = require('emmet')
+const Fuse = require('fuse.js')
+const anime = require('animejs')
+const pretty = require('pretty')
+const Prism = require('prismjs')
+const Toast = require('@/assets/js/modules/toast.js')
+const settings = require('electron-settings')
+const Mousetrap = require('mousetrap')
+const colorConvert = require('color-convert')
 const remote = require('electron').remote
 const { dialog } = require('electron').remote
 const { ipcRenderer } = require('electron')
+
+
 
 const WINDOW = () => {
     return remote.getCurrentWindow()
@@ -29,6 +30,8 @@ const WINDOW = () => {
 const unlink = (obj) => {
     return JSON.parse(JSON.stringify(obj))
 }
+
+
 
 Vue.config.productionTip = false
 
@@ -122,7 +125,7 @@ const app = new Vue({
     computed: {
         savePathName: function (){
             return (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).base : null
-        }
+        },
     },
     created(){
         if( this.TABS.length == 0 )

@@ -4,7 +4,7 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
-                        <div class="tab" :key="id" v-for="(tab, id) in TABS" :class="{'active' : id == ACTIVE_TAB}">
+                        <div class="tab" :key="id" v-for="(tab, id) in allTabHandles" :class="{'active' : id == activeTab}">
                             <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
                             <span class="title" :onclick="'selectTab('+id+')'">{{tab.NAME}}</span>
                             <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
@@ -45,65 +45,14 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-    data: () => {
-        return {
-            ACTIVE_TAB: 0,
-            TABS: [
-                {
-                    IS_DUMMY: false,
-                    UI: {
-                        code: false,
-                        structureAdd: false,
-                        styleAdd: false,
-                        stylePropAdd: false,
-                    },
-                    UI_DATA: {
-                        // STRUCTURE ADD
-                        structureAddTrace: '',
-                        structureAddDirection: '',
-                        structureAddSearch: '',
-                        structureAddSearchSelected: 0,
-                        structureAddSearchItems: [],
-
-                        // STYLE ADD
-                        styleAddTrace: '',
-                        styleAddDirection: '',
-                        styleAddInput: '',
-
-                        // STYLE PROP ADD
-                        styleAddPropTrace: '',
-                        styleAddPropFocus: 0,
-                        styleAddPropName: '',
-                        styleAddPropValue: '',
-
-                        // GENERATED CODE
-                        html: '',
-                        css: '',
-                    },
-                    VIEW: 'VIEW:HOME', // PROD
-                    NAME: 'New Tab',
-                    DOCUMENT: {
-                        HTML: { children: [] },
-                        CSS: { children: [] },
-                    },
-                    VIEWPORT: {
-                        X: 300,
-                        Y: 600,
-                        SCALE: 1,
-                        DECOUPLED: false,
-                        CONTENT: '',
-                    },
-                    FOCUSED_PANEL: 'STRUCTURE',
-                    FOCUSED_HTML: '0',
-                    FOCUSED_CSS: '0',
-                    HTML_OL: [],
-                    CSS_OL: [],
-                    SAVE_PATH: null,
-                    CHANGED: false,
-                }
-            ]
-        }
+    computed: {
+        ...mapGetters([
+            'allTabHandles',
+            'activeTab'
+        ])
     }
 }
 </script>
