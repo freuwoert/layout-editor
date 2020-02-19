@@ -24,7 +24,7 @@ VuDesigner is a software development tool written in Node.js (Electron.js) speci
 
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
-## Roadmap for this Project
+## Roadmap for this Project in 2020/2021
 <img src="https://i.imgur.com/M0oI5lf.png" width="100%">
 
 ## What does it look like?
