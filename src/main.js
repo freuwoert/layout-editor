@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import { mapGetters, mapActions } from 'vuex'
+
 // GLOBAL REQUIREMENTS
 const $ = require('jquery')
 const _ = require('lodash')
@@ -23,14 +25,6 @@ const { ipcRenderer } = require('electron')
 
 
 
-const WINDOW = () => {
-    return remote.getCurrentWindow()
-}
-
-const unlink = (obj) => {
-    return JSON.parse(JSON.stringify(obj))
-}
-
 
 
 Vue.config.productionTip = false
@@ -41,13 +35,6 @@ const app = new Vue({
     store,
     data: () => {
         return {
-            INFO: {
-                versionName: 'Founders Update',
-                version: require('electron').remote.app.getVersion(),
-                apiVersion: '0.1.0',
-                electronVersion: process.versions.electron,
-                nodeVersion: process.versions.node,
-            },
             USER: {
                 displayImage: 'src/images/icon/vudesigner_logo.svg',
                 displayName: 'Maurice Freuwört',
@@ -123,24 +110,12 @@ const app = new Vue({
     methods: {
     },
     computed: {
+        ...mapGetters(['vAppInfo']),
         savePathName: function (){
             return (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).base : null
         },
     },
     created(){
-        if( this.TABS.length == 0 )
-        {
-            let blank = unlink(this.TAB_TEMPLATE)
-
-            blank.NAME = 'Layout Editor'
-
-            this.TABS.push( blank )
-        }
-
-        if( Object.keys(this.TAB).length == 0 )
-        {
-            this.TAB = unlink(this.TABS[this.ACTIVE_TAB])
-        }
     },
     // watch: {
     //     'TAB': {
@@ -185,10 +160,10 @@ document.onreadystatechange = () => {
         handleWindowControls()
 
         // Show release notes after update
-        if (settings.get('currentVersion') !== app.INFO.version)
+        if (settings.get('currentVersion') !== app.vAppInfo)
         {
             app.GENERAL_UI.releaseNote = true
-            settings.set('currentVersion', app.INFO.version)
+            settings.set('currentVersion', app.vAppInfo)
         }
 
         setTimeout(() => {
@@ -201,23 +176,23 @@ function handleWindowControls ()
 {
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener('click', event => {
-        WINDOW().minimize()
+        remote.getCurrentWindow().minimize()
     })
 
     document.getElementById('max-button').addEventListener('click', event => {
-        WINDOW().maximize()
+        remote.getCurrentWindow().maximize()
     })
 
     document.getElementById('restore-button').addEventListener('click', event => {
-        WINDOW().unmaximize()
+        remote.getCurrentWindow().unmaximize()
     })
 
     document.getElementById('close-button').addEventListener('click', event => {
-        WINDOW().close()
+        remote.getCurrentWindow().close()
     })
 
     // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
-    if (WINDOW().isMaximized())
+    if (remote.getCurrentWindow().isMaximized())
     {
         document.body.classList.add('maximized')
     }
@@ -226,8 +201,8 @@ function handleWindowControls ()
         document.body.classList.remove('maximized')
     }
 
-    WINDOW().on('maximize', function () {
-        if (WINDOW().isMaximized())
+    remote.getCurrentWindow().on('maximize', function () {
+        if (remote.getCurrentWindow().isMaximized())
         {
             document.body.classList.add('maximized')
         }
@@ -237,8 +212,8 @@ function handleWindowControls ()
         }
     })
 
-    WINDOW().on('unmaximize', function () {
-        if (WINDOW().isMaximized())
+    remote.getCurrentWindow().on('unmaximize', function () {
+        if (remote.getCurrentWindow().isMaximized())
         {
             document.body.classList.add('maximized')
         }

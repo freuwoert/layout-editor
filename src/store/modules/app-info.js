@@ -6,7 +6,14 @@ const state = {
     nodeVersion: process.versions.node,
 }
 
-const getters = {}
+const getters = {
+    allAppInfo: (state) => state,
+    vAppInfo: (state) => state.version,
+    vNameAppInfo: (state) => state.versionName,
+    vApiAppInfo: (state) => state.apiVersion,
+    vElectronAppInfo: (state) => state.electronVersion,
+    vNodeAppInfo: (state) => state.nodeVersion,
+}
 
 const actions = {}
 

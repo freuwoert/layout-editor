@@ -6,10 +6,10 @@
                     <div class="tab-container">
                         <div class="tab" :key="id" v-for="(tab, id) in allTabHandles" :class="{'active' : id == activeTab}">
                             <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
-                            <span class="title" :onclick="'selectTab('+id+')'">{{tab.NAME}}</span>
+                            <span class="title" @click="selectTab(id)">{{tab.NAME}}</span>
                             <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
                         </div>
-                        <div class="create" onclick="newTab()">&#62485;</div>
+                        <div class="create" @click="addTab()">&#62485;</div>
                     </div>
                 </div>
                 <div class="window-controls">
@@ -45,14 +45,28 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     computed: {
         ...mapGetters([
             'allTabHandles',
-            'activeTab'
-        ])
-    }
+            'activeTab',
+        ]),
+    },
+    methods: {
+        ...mapActions([
+            'initializeTab',
+            'addTab',
+            'selectTab',
+        ]),
+    },
+    created () {
+        if( this.allTabHandles.length == 0 )
+        {
+            this.initializeTab()
+        }
+    },
+    mounted () {},
 }
 </script>

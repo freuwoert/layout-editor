@@ -1,88 +1,38 @@
 const state = {
     ACTIVE_TAB: 0,
     TAB: {},
-    TABS: [
-        {IS_DUMMY: false,
-            UI: {
-                code: false,
-                structureAdd: false,
-                styleAdd: false,
-                stylePropAdd: false,
-            },
-            UI_DATA: {
-                // STRUCTURE ADD
-                structureAddTrace: '',
-                structureAddDirection: '',
-                structureAddSearch: '',
-                structureAddSearchSelected: 0,
-                structureAddSearchItems: [],
-    
-                // STYLE ADD
-                styleAddTrace: '',
-                styleAddDirection: '',
-                styleAddInput: '',
-    
-                // STYLE PROP ADD
-                styleAddPropTrace: '',
-                styleAddPropFocus: 0,
-                styleAddPropName: '',
-                styleAddPropValue: '',
-    
-                // GENERATED CODE
-                html: '',
-                css: '',
-            },
-            VIEW: 'VIEW:HOME', // PROD
-            NAME: 'New Tab',
-            DOCUMENT: {
-                HTML: { children: [] },
-                CSS: { children: [] },
-            },
-            VIEWPORT: {
-                X: 300,
-                Y: 600,
-                SCALE: 1,
-                DECOUPLED: false,
-                CONTENT: '',
-            },
-            FOCUSED_PANEL: 'STRUCTURE',
-            FOCUSED_HTML: '0',
-            FOCUSED_CSS: '0',
-            HTML_OL: [],
-            CSS_OL: [],
-            SAVE_PATH: null,
-            CHANGED: false,}
-    ],
-    TAB_TEMPLATE: {
-        IS_DUMMY: false,
+    TABS: [],
+    TAB_PROTOTYPE: {
+        IS_GHOST: false,
         UI: {
-            code: false,
+            generatedCode: false,
             structureAdd: false,
             styleAdd: false,
             stylePropAdd: false,
         },
         UI_DATA: {
-            // STRUCTURE ADD
-            structureAddTrace: '',
-            structureAddDirection: '',
-            structureAddSearch: '',
-            structureAddSearchSelected: 0,
-            structureAddSearchItems: [],
-
-            // STYLE ADD
-            styleAddTrace: '',
-            styleAddDirection: '',
-            styleAddInput: '',
-
-            // STYLE PROP ADD
-            styleAddPropTrace: '',
-            styleAddPropFocus: 0,
-            styleAddPropName: '',
-            styleAddPropValue: '',
-
-            // GENERATED CODE
-            html: '',
-            css: '',
+            structureAdd: {
+                trace: '',
+                direction: '',
+                search: '',
+                searchSelected: 0,
+                searchItems: [],
+            },
+            styleAdd: {
+                trace: '',
+                direction: '',
+                addInput: '',
+            },
+            styleAddProp: {
+                trace: '',
+                focus: 0,
+                name: '',
+                value: '',
+            },
+            generatedCode: {
+                html: '',
+                css: '',
+            },
         },
         VIEW: 'VIEW:HOME', // PROD
         NAME: 'New Tab',
@@ -109,24 +59,52 @@ const state = {
 
 const getters = {
     allTabHandles: (state) => {
-
         let handles = []
 
-        state.TABS.forEach(tab => {
+        for ( const tab of state.TABS ) {
             handles.push({
                 NAME: tab.NAME,
                 CHANGED: tab.CHANGED,
             })
-        })
+        }
 
         return handles
     },
-    activeTab: (state) => state.ACTIVE_TAB
+    tabFromID: (state) => state.TABS,
+    activeTab: (state) => state.ACTIVE_TAB,
+    prototypeTab: (state) => state.TAB_PROTOTYPE,
 }
 
-const actions = {}
+const actions = {
+    initializeTab({ commit, getters }) {
+        commit( 'addTabs', [getters.prototypeTab])
+    },
+    addTab({ commit, getters }) {
+        commit( 'addTabs', [getters.prototypeTab])
+    },
+    selectTab({ commit, getters}, ID) {
+        if(ID < getters.allTabHandles.length)
+        {
+            let newTab = getters.tabFromID[ID]
+            let currentTab = getters.tabFromID[getters.activeTab]
+            commit('setTab', { TAB: currentTab, ID })
+            commit('setActiveTab', { TAB: newTab, ID })
+        }
+    }
+}
 
-const mutations = {}
+const mutations = {
+    addTabs: (state, tabs) => {
+        state.TABS.push(...tabs)
+    },
+    setTab: (state, param) => {
+        state.TABS[param.ID] = param.TAB
+    },
+    setActiveTab: (state, param) => {
+        state.ACTIVE_TAB = param.ID
+        state.TAB = param.TAB
+    }
+}
 
 export default {
     state,
