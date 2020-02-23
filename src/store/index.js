@@ -6,6 +6,7 @@ import ui from './modules/ui'
 import styles from './modules/styles'
 import structures from './modules/structures'
 import tabs from './modules/tabs'
+import views from './modules/views'
 
 Vue.use(Vuex)
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
         styles,
         structures,
         tabs,
+        views,
     }
 })

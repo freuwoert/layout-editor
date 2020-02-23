@@ -9,7 +9,7 @@
                             <span class="title" @click="selectTab(id)">{{tab.NAME}}</span>
                             <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
                         </div>
-                        <div class="create" @click="addTab()">&#62485;</div>
+                        <div class="create" @click="addTab((ID)=>{selectTab(ID)})">&#62485;</div>
                     </div>
                 </div>
                 <div class="window-controls">
@@ -64,7 +64,7 @@ export default {
     created () {
         if( this.allTabHandles.length == 0 )
         {
-            this.initializeTab()
+            this.initializeTab((ID)=>{this.selectTab(ID)})
         }
     },
     mounted () {},

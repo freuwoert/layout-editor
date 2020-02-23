@@ -1,3 +1,5 @@
+import router from './../../router'
+
 const state = {
     ACTIVE_TAB: 0,
     TAB: {},
@@ -70,32 +72,63 @@ const getters = {
 
         return handles
     },
-    tabFromID: (state) => state.TABS,
+    tabs: (state) => state.TABS,
     activeTab: (state) => state.ACTIVE_TAB,
     prototypeTab: (state) => state.TAB_PROTOTYPE,
 }
 
 const actions = {
-    initializeTab({ commit, getters }) {
-        commit( 'addTabs', [getters.prototypeTab])
+    initializeTab({ commit, getters }, callback) {
+        commit( 'addTabs', {
+            tabs: [getters.prototypeTab],
+            callback: (ID) => {
+                callback(ID)
+            }
+        })
     },
-    addTab({ commit, getters }) {
-        commit( 'addTabs', [getters.prototypeTab])
+    addTab({ commit, getters }, callback) {
+        commit( 'addTabs', {
+            tabs: [getters.prototypeTab],
+            callback: (ID) => {
+                callback(ID)
+            }
+        })
     },
     selectTab({ commit, getters}, ID) {
         if(ID < getters.allTabHandles.length)
         {
-            let newTab = getters.tabFromID[ID]
-            let currentTab = getters.tabFromID[getters.activeTab]
+            let newTab = getters.tabs[ID]
+            let currentTab = getters.tabs[getters.activeTab]
+
             commit('setTab', { TAB: currentTab, ID })
             commit('setActiveTab', { TAB: newTab, ID })
+
+            if( router.currentRoute.name !== newTab.VIEW )
+            {
+                if( getters.allViewHandles.includes(newTab.VIEW) )
+                {
+                    router.push({name: newTab.VIEW})
+                }
+            }
         }
-    }
+    },
+    setViewOfTab({ commit, getters}, payload) {
+        commit('setView', { VIEW: payload.view, ID: payload.ID})
+
+        if( router.currentRoute.name !== payload.view )
+        {
+            if( getters.allViewHandles.includes(payload.view) )
+            {
+                router.push({name: payload.view})
+            }
+        }
+    },
 }
 
 const mutations = {
-    addTabs: (state, tabs) => {
-        state.TABS.push(...tabs)
+    addTabs: (state, param) => {
+        state.TABS.push(...param.tabs)
+        param.callback(state.TABS.length-1)
     },
     setTab: (state, param) => {
         state.TABS[param.ID] = param.TAB
@@ -103,7 +136,15 @@ const mutations = {
     setActiveTab: (state, param) => {
         state.ACTIVE_TAB = param.ID
         state.TAB = param.TAB
-    }
+    },
+    setView: (state, param) => {
+        state.TABS[param.ID].VIEW = param.VIEW
+
+        if(state.ACTIVE_TAB == param.ID)
+        {
+            state.TAB.VIEW = param.VIEW
+        }
+    },
 }
 
 export default {

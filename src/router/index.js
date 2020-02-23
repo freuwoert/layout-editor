@@ -12,23 +12,23 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'VIEW:HOME',
         component: Home
     },{
         path: '/asset_store',
-        name: 'AssetStore',
+        name: 'VIEW:ASSET_STORE',
         component: AssetStore
     },{
         path: '/layout_creator',
-        name: 'LayoutCreator',
+        name: 'VIEW:LAYOUT_CREATOR',
         component: LayoutCreator
     },{
         path: '/layout_editor',
-        name: 'LayoutEditor',
+        name: 'VIEW:LAYOUT_EDITOR',
         component: LayoutEditor
     },{
         path: '/project_manager',
-        name: 'ProjectManager',
+        name: 'VIEW:PROJECT_MANAGER',
         component: ProjectManager
     }
 ]
