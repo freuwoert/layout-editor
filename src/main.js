@@ -51,7 +51,15 @@ const app = new Vue({
             AVAILABLE_STRUCTURES: [],
             AVAILABLE_STYLES: [],
             ACTIVE_TAB: 0,
-            TAB: {},
+            TAB: {
+                VIEWPORT: {
+                    X: 300,
+                    Y: 600,
+                    SCALE: 1,
+                    DECOUPLED: false,
+                    CONTENT: '',
+                },
+            },
             TABS: [],
             TAB_TEMPLATE: {
                 IS_DUMMY: false,
