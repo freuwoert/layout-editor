@@ -4,7 +4,7 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
-                        <div class="tab" :key="id" v-for="(tab, id) in allTabHandles" :class="{'active' : id == activeTab}">
+                        <div class="tab" :key="id" v-for="(tab, id) in allTabHandles" :class="{'active' : id == activeTabID}">
                             <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
                             <span class="title" @click="selectTab(id)">{{tab.NAME}}</span>
                             <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
@@ -51,22 +51,16 @@ export default {
     computed: {
         ...mapGetters([
             'allTabHandles',
-            'activeTab',
+            'activeTabID',
         ]),
     },
     methods: {
         ...mapActions([
-            'initializeTab',
             'addTab',
             'selectTab',
         ]),
     },
-    created () {
-        if( this.allTabHandles.length == 0 )
-        {
-            this.initializeTab((ID)=>{this.selectTab(ID)})
-        }
-    },
+    created () {},
     mounted () {},
 }
 </script>

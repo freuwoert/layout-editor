@@ -1,62 +1,9 @@
 import router from './../../router'
+import Tab from './../../classes/Tab'
 
 const state = {
     ACTIVE_TAB: 0,
-    TAB: {},
-    TABS: [],
-    TAB_PROTOTYPE: {
-        IS_GHOST: false,
-        UI: {
-            generatedCode: false,
-            structureAdd: false,
-            styleAdd: false,
-            stylePropAdd: false,
-        },
-        UI_DATA: {
-            structureAdd: {
-                trace: '',
-                direction: '',
-                search: '',
-                searchSelected: 0,
-                searchItems: [],
-            },
-            styleAdd: {
-                trace: '',
-                direction: '',
-                addInput: '',
-            },
-            styleAddProp: {
-                trace: '',
-                focus: 0,
-                name: '',
-                value: '',
-            },
-            generatedCode: {
-                html: '',
-                css: '',
-            },
-        },
-        VIEW: 'VIEW:HOME', // PROD
-        NAME: 'New Tab',
-        DOCUMENT: {
-            HTML: { children: [] },
-            CSS: { children: [] },
-        },
-        VIEWPORT: {
-            X: 300,
-            Y: 600,
-            SCALE: 1,
-            DECOUPLED: false,
-            CONTENT: '',
-        },
-        FOCUSED_PANEL: 'STRUCTURE',
-        FOCUSED_HTML: '0',
-        FOCUSED_CSS: '0',
-        HTML_OL: [],
-        CSS_OL: [],
-        SAVE_PATH: null,
-        CHANGED: false,
-    },
+    TABS: [ new Tab() ],
 }
 
 const getters = {
@@ -73,22 +20,16 @@ const getters = {
         return handles
     },
     tabs: (state) => state.TABS,
-    activeTab: (state) => state.ACTIVE_TAB,
+    activeTab: (state) => state.TABS[state.ACTIVE_TAB],
+    activeTabID: (state) => state.ACTIVE_TAB,
     prototypeTab: (state) => state.TAB_PROTOTYPE,
+    tab: (state) => state.TAB
 }
 
 const actions = {
-    initializeTab({ commit, getters }, callback) {
-        commit( 'addTabs', {
-            tabs: [getters.prototypeTab],
-            callback: (ID) => {
-                callback(ID)
-            }
-        })
-    },
-    addTab({ commit, getters }, callback) {
-        commit( 'addTabs', {
-            tabs: [getters.prototypeTab],
+    addTab({ commit }, callback) {
+        commit( 'addTabs_', {
+            tabs: [new Tab()],
             callback: (ID) => {
                 callback(ID)
             }
@@ -97,23 +38,20 @@ const actions = {
     selectTab({ commit, getters}, ID) {
         if(ID < getters.allTabHandles.length)
         {
-            let newTab = getters.tabs[ID]
-            let currentTab = getters.tabs[getters.activeTab]
+            let tab = getters.tabs[ID]
+            commit('setActiveTab_', { ID })
 
-            commit('setTab', { TAB: currentTab, ID })
-            commit('setActiveTab', { TAB: newTab, ID })
-
-            if( router.currentRoute.name !== newTab.VIEW )
+            if( router.currentRoute.name !== tab.VIEW )
             {
-                if( getters.allViewHandles.includes(newTab.VIEW) )
+                if( getters.allViewHandles.includes(tab.VIEW) )
                 {
-                    router.push({name: newTab.VIEW})
+                    router.push({name: tab.VIEW})
                 }
             }
         }
     },
-    setViewOfTab({ commit, getters}, payload) {
-        commit('setView', { VIEW: payload.view, ID: payload.ID})
+    setTabView({ commit, getters}, payload) {
+        commit('setTabView_', { VIEW: payload.view, ID: payload.ID })
 
         if( router.currentRoute.name !== payload.view )
         {
@@ -126,24 +64,22 @@ const actions = {
 }
 
 const mutations = {
-    addTabs: (state, param) => {
-        state.TABS.push(...param.tabs)
-        param.callback(state.TABS.length-1)
+    addTabs_: (state, param) => {
+        state.TABS.push( ...param.tabs )
+        param.callback( state.TABS.length-1 )
     },
-    setTab: (state, param) => {
-        state.TABS[param.ID] = param.TAB
-    },
-    setActiveTab: (state, param) => {
+    setActiveTab_: (state, param) => {
         state.ACTIVE_TAB = param.ID
-        state.TAB = param.TAB
     },
-    setView: (state, param) => {
+    setTabView_: (state, param) => {
         state.TABS[param.ID].VIEW = param.VIEW
-
-        if(state.ACTIVE_TAB == param.ID)
-        {
-            state.TAB.VIEW = param.VIEW
-        }
+    },
+    setViewport_: (state, param) => {
+        if(param.X)         state.TABS[param.ID].VIEWPORT.X = param.X
+        if(param.Y)         state.TABS[param.ID].VIEWPORT.Y = param.Y
+        if(param.SCALE)     state.TABS[param.ID].VIEWPORT.SCALE = param.SCALE
+        if(param.CONTENT)   state.TABS[param.ID].VIEWPORT.CONTENT = param.CONTENT
+        if(param.DECOUPLED) state.TABS[param.ID].VIEWPORT.DECOUPLED = param.DECOUPLED
     },
 }
 

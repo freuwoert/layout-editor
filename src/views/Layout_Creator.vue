@@ -51,25 +51,25 @@
             <div class="controls">
                 <div class="control-input">
                     <div class="icon">&#63565;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.X">
+                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="viewportX">
                 </div>
                 <div class="control-input">
                     <div class="icon">&#63566;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="TAB.VIEWPORT.Y">
+                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="viewportY">
                 </div>
                 <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
-                <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : TAB.VIEWPORT.DECOUPLED}">&#61516;</div>
+                <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : activeTab.VIEWPORT.DECOUPLED}">&#61516;</div>
             </div>
 
             <div class="center">
-                <div class="decoupled-viewport" v-show="TAB.VIEWPORT.DECOUPLED">
+                <div class="decoupled-viewport" v-show="activeTab.VIEWPORT.DECOUPLED">
                     <div class="icon">&#63880;</div>
                     <div class="text">
                         The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
                     </div>
                 </div>
 
-                <viewport :content="TAB.VIEWPORT.CONTENT" :x="TAB.VIEWPORT.X" :y="TAB.VIEWPORT.Y" @update:x="TAB.VIEWPORT.X = $event" @update:y="TAB.VIEWPORT.Y = $event" v-show="!TAB.VIEWPORT.DECOUPLED"></viewport>
+                <viewport :content="activeTab.VIEWPORT.CONTENT" :x="activeTab.VIEWPORT.X" :y="activeTab.VIEWPORT.Y" @update:x="activeTab.VIEWPORT.X = $event" @update:y="activeTab.VIEWPORT.Y = $event" v-show="!activeTab.VIEWPORT.DECOUPLED"></viewport>
             </div>
         </div>
 
@@ -84,22 +84,39 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import viewport from './../components/viewport'
+
 export default {
     name: 'LayoutCreator',
-    data: function(){
-        return {
-            TAB: {
-                VIEWPORT: {
-                    X: 300,
-                    Y: 600,
-                    SCALE: 1,
-                    DECOUPLED: false,
-                    CONTENT: '',
-                },
+    computed: {
+        ...mapGetters([
+            'activeTab',
+        ]),
+        viewportX: {
+            get() {
+                return this.activeTab.VIEWPORT.X
+            },
+            set(value){
+                this.$store.commit('setViewport_',{X: value})
+            }
+        },
+        viewportY: {
+            get() {
+                return this.activeTab.VIEWPORT.Y
+            },
+            set(value){
+                this.$store.commit('setViewport_',{Y: value})
             }
         }
     },
+    methods: {
+        ...mapActions([
+            'setViewOfTab',
+        ]),
+    },
     components: {
+        viewport
     }
 }
 </script>

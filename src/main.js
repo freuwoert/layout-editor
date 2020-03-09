@@ -33,95 +33,14 @@ const app = new Vue({
     el: '#app',
     router,
     store,
-    data: () => {
-        return {
-            USER: {
-                displayImage: 'src/images/icon/vudesigner_logo.svg',
-                displayName: 'Maurice Freuwört',
-                username: 'freuwoert',
-                online: false,
-                JWT: null,
-            },
-            GENERAL_UI: {
-                loadDelay: 0, // PROD
-                settings: false,
-                releaseNote: false,
-                activeSetting: 'INFO',
-            },
-            AVAILABLE_STRUCTURES: [],
-            AVAILABLE_STYLES: [],
-            ACTIVE_TAB: 0,
-            TAB: {
-                VIEWPORT: {
-                    X: 300,
-                    Y: 600,
-                    SCALE: 1,
-                    DECOUPLED: false,
-                    CONTENT: '',
-                },
-            },
-            TABS: [],
-            TAB_TEMPLATE: {
-                IS_DUMMY: false,
-                UI: {
-                    code: false,
-                    structureAdd: false,
-                    styleAdd: false,
-                    stylePropAdd: false,
-                },
-                UI_DATA: {
-                    // STRUCTURE ADD
-                    structureAddTrace: '',
-                    structureAddDirection: '',
-                    structureAddSearch: '',
-                    structureAddSearchSelected: 0,
-                    structureAddSearchItems: [],
-
-                    // STYLE ADD
-                    styleAddTrace: '',
-                    styleAddDirection: '',
-                    styleAddInput: '',
-
-                    // STYLE PROP ADD
-                    styleAddPropTrace: '',
-                    styleAddPropFocus: 0,
-                    styleAddPropName: '',
-                    styleAddPropValue: '',
-
-                    // GENERATED CODE
-                    html: '',
-                    css: '',
-                },
-                VIEW: 'VIEW:HOME', // PROD
-                NAME: 'New Tab',
-                DOCUMENT: {
-                    HTML: { children: [] },
-                    CSS: { children: [] },
-                },
-                VIEWPORT: {
-                    X: 300,
-                    Y: 600,
-                    SCALE: 1,
-                    DECOUPLED: false,
-                    CONTENT: '',
-                },
-                FOCUSED_PANEL: 'STRUCTURE',
-                FOCUSED_HTML: '0',
-                FOCUSED_CSS: '0',
-                HTML_OL: [],
-                CSS_OL: [],
-                SAVE_PATH: null,
-                CHANGED: false,
-            },
-        }
-    },
     methods: {
+        ...mapActions([])
     },
     computed: {
-        ...mapGetters(['vAppInfo']),
-        savePathName: function (){
-            return (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).base : null
-        },
+        ...mapGetters([
+            'vAppInfo',
+            'GENERAL_UI'
+        ]),
     },
     created(){
     },

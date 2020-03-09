@@ -5,7 +5,10 @@ const state = {
     activeSetting: 'INFO',
 }
 
-const getters = {}
+const getters = {
+    GENERAL_UI: (state) => state,
+    loadDelay: (state) => state.loadDelay
+}
 
 const actions = {}
 
