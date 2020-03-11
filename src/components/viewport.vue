@@ -36,14 +36,22 @@ export default {
             startSize: {
                 x: 0,
                 y: 0,
-            }
+            },
+            x_: 0,
+            y_: 0
         }
     },
 
     watch: {
         'content': function() {
             this.setContent(this.content)
-        }
+        },
+        'x': function() {
+            this.x_ = this.x
+        },
+        'y': function() {
+            this.y_ = this.y
+        },
     },
 
     methods: {
@@ -52,8 +60,8 @@ export default {
             this.direction = direction
             this.startPos.x = e.x
             this.startPos.y = e.y
-            this.startSize.x = parseInt(this.x)
-            this.startSize.y = parseInt(this.y)
+            this.startSize.x = parseInt(this.x_)
+            this.startSize.y = parseInt(this.y_)
             this.mouseMove(e)
         },
         mouseUp: function(e){
@@ -63,16 +71,16 @@ export default {
 
             if( this.direction == 'HORIZONTAL' || this.direction == 'BOTH' )
             {
-                this.x = parseInt(this.limit(this.startSize.x + (e.x - this.startPos.x) * 2, 40, 20000))
+                this.x_ = parseInt(this.limit(this.startSize.x + (e.x - this.startPos.x) * 2, 40, 20000))
             }
 
             if( this.direction == 'VERTICAL' || this.direction == 'BOTH' )
             {
-                this.y = parseInt(this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000))
+                this.y_ = parseInt(this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000))
             }
 
-            this.$emit('update:x', this.x)
-            this.$emit('update:y', this.y)
+            this.$emit('update:x', this.x_)
+            this.$emit('update:y', this.y_)
         },
         setContent: function(viewportstring){
             this.$refs.coupledViewport.contentWindow.document.open()

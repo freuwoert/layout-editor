@@ -51,11 +51,11 @@
             <div class="controls">
                 <div class="control-input">
                     <div class="icon">&#63565;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="viewportX">
+                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="activeTab.VIEWPORT.X">
                 </div>
                 <div class="control-input">
                     <div class="icon">&#63566;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="viewportY">
+                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="activeTab.VIEWPORT.Y">
                 </div>
                 <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
                 <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : activeTab.VIEWPORT.DECOUPLED}">&#61516;</div>
@@ -93,22 +93,6 @@ export default {
         ...mapGetters([
             'activeTab',
         ]),
-        viewportX: {
-            get() {
-                return this.activeTab.VIEWPORT.X
-            },
-            set(value){
-                this.$store.commit('setViewport_',{X: value})
-            }
-        },
-        viewportY: {
-            get() {
-                return this.activeTab.VIEWPORT.Y
-            },
-            set(value){
-                this.$store.commit('setViewport_',{Y: value})
-            }
-        }
     },
     methods: {
         ...mapActions([

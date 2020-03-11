@@ -75,6 +75,7 @@ const mutations = {
         state.TABS[param.ID].VIEW = param.VIEW
     },
     setViewport_: (state, param) => {
+        console.log('__')
         if(param.X)         state.TABS[param.ID].VIEWPORT.X = param.X
         if(param.Y)         state.TABS[param.ID].VIEWPORT.Y = param.Y
         if(param.SCALE)     state.TABS[param.ID].VIEWPORT.SCALE = param.SCALE
