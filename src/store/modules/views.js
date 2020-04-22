@@ -1,8 +1,7 @@
 const state = {
     viewHandles: [
-        'VIEW:HOME',
+        'VIEW:LANDING',
         'VIEW:LAYOUT_CREATOR',
-        'VIEW:LAYOUT_EDITOR',
         'VIEW:ASSET_STORE',
         'VIEW:PROJECT_MANAGER',
     ]

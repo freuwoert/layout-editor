@@ -25,18 +25,34 @@
         <div class="structure-panel">
             <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STRUCTURE"></focus-indicator> -->
 
+            <div class="structure-container">
+                <structure-tree :key="id" v-for="(child, id) in docStructures.children" :structure="child" :trace="id"></structure-tree>
+            </div>
+
             <div class="button-container">
-                <div class="btn">
-                    <div class="icon">&#64120;</div>
-                    <div class="key">del</div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">
+                    <div class="icon">&#62059;</div>
+                    <div class="key">h1</div>
                 </div>
-                <div class="btn">
-                    <div class="icon">&#62443;</div>
-                    <div class="key">ctrl + enter</div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">
+                    <div class="icon">&#61812;</div>
+                    <div class="key">div</div>
                 </div>
-                <div class="btn">
-                    <div class="icon">&#62485;</div>
-                    <div class="key">enter</div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">
+                    <div class="icon">&#62185;</div>
+                    <div class="key">image</div>
+                </div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">
+                    <div class="icon">&#63911;</div>
+                    <div class="key">span</div>
+                </div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:P:0')">
+                    <div class="icon">&#62077;</div>
+                    <div class="key">p</div>
+                </div>
+                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:A:0')">
+                    <div class="icon">&#62265;</div>
+                    <div class="key">a</div>
                 </div>
             </div>
         </div>
@@ -85,22 +101,35 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import viewport from './../components/viewport'
+import Viewport from './components/Viewport'
+import StructureTree from './components/StructureTree'
 
 export default {
-    name: 'LayoutCreator',
     computed: {
         ...mapGetters([
             'activeTab',
+            'docStructures',
+            'dragElement',
         ]),
     },
     methods: {
         ...mapActions([
             'setViewOfTab',
+            'setDraggedElement',
         ]),
+        dragStructure(event, elementId) {
+            this.setDraggedElement({type: 'structure', element: elementId})
+        },
+    },
+    mounted() {
     },
     components: {
-        viewport
+        Viewport,
+        StructureTree,
     }
 }
 </script>
+<style lang="sass" scoped>
+    .structure-container
+        height: calc(100% - 55px)
+</style>

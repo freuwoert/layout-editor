@@ -32,7 +32,7 @@ export default class Tab {
                 css: '',
             },
         }
-        this.VIEW = 'VIEW:HOME' // PROD
+        this.VIEW = 'VIEW:LANDING' // PROD
         this.NAME = 'New Tab'
         this.DOCUMENT = {
             HTML: { children: [] },

@@ -1,5 +1,5 @@
-import router from './../../router'
-import Tab from './../../classes/Tab'
+import router from '../../router'
+import Tab from '../../classes/Tab'
 
 const state = {
     ACTIVE_TAB: 0,
