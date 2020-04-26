@@ -1,12 +1,12 @@
 const state = {
     structures: {
         children: [
-            {tag: 'div', classes: [], id: 'test_1', children: []},
-            {tag: 'div', classes: [], id: 'test_2', children: []},
-            {tag: 'div', classes: [], id: 'test_3', children: [
-                {tag: 'div', classes: [], id: 'test_1_1', children: []},
-                {tag: 'div', classes: [], id: 'test_1_2', children: []},
-                {tag: 'div', classes: [], id: 'test_1_3', children: []},
+            {tag: 'div', classes: ['teet'], id: 'test_1', children: []},
+            {tag: 'div', classes: ['container'], id: 'test_2', children: []},
+            {tag: 'div', classes: ['bridge','timer'], id: 'test_3', children: [
+                {tag: 'div', classes: [], id: 'test_3_1', children: []},
+                {tag: 'div', classes: [], id: 'test_3_2', children: []},
+                {tag: 'div', classes: [], id: 'test_3_3', children: []},
             ]},
         ]
     }

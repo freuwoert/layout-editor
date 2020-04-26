@@ -16,34 +16,28 @@
             height: calc(100% - 20px)
             margin: 10px
             flex: 1
-            border-radius: 5px
+            border-radius: 10px
             overflow: hidden
             position: relative
             user-select: none
             cursor: pointer
 
             &:hover
-                .image
-                    transform: scale(1.05)
-                .label
-                    background: rgba(255,255,255,0.4) !important
 
             .label
                 height: 40px
-                width: calc(100% - 10px)
+                width: calc(100% - 0px)
                 line-height: 40px
                 color: white
                 font-size: 16px
                 text-transform: uppercase
                 letter-spacing: 1px
                 font-weight: 900
-                border-radius: 3px
-                background: rgba(255,255,255,0.2)
-                backdrop-filter: blur(3px)
+                border-radius: 10px
                 transition: all 80ms ease-in-out
                 position: absolute
-                bottom: 5px
-                left: 5px
+                bottom: 0px
+                left: 0px
                 z-index: 10
 
             .image-container
@@ -53,6 +47,13 @@
                 top: 0px
                 left: 0px
                 overflow: hidden
+
+                &.i1
+                    background-color: #ffa502
+                &.i2
+                    background-color: #ff6348
+                &.i3
+                    background-color: #ff4757
 
                 .image
                     width: 100%

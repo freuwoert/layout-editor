@@ -6,7 +6,9 @@ const state = {
     JWT: null,
 }
 
-const getters = {}
+const getters = {
+    userInfo: (state)=>{ return state}
+}
 
 const actions = {}
 

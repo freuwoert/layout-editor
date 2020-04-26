@@ -11,7 +11,6 @@
     </clipPath>
   </defs>
   <g id="layout_editor" clip-path="url(#clip-layout_editor)">
-    <rect width="770" height="500" fill="#0c3"/>
     <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" transform="translate(65 297)" opacity="0.4" clip-path="url(#clip-path)">
       <g transform="translate(-89 -298)">
         <circle id="Ellipse_4" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>

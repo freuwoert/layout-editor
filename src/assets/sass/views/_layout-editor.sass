@@ -19,10 +19,11 @@
         border: 4px solid var(--green)
     
 #layout-editor-view
+    background: var(--dark-background)
     display: grid
-    grid-template-columns: 400px auto 400px
+    grid-template-columns: 50px 400px auto 400px
     grid-template-rows: 40px auto 30px
-    grid-template-areas: "option_panel option_panel option_panel" "structure_panel workspace styling_panel" "status_panel status_panel status_panel"
+    grid-template-areas: "option_panel option_panel option_panel option_panel" "tool_panel structure_panel workspace styling_panel" "status_panel status_panel status_panel status_panel"
 
     .option-panel
         grid-area: option_panel
@@ -36,12 +37,14 @@
             background: transparent
             color: var(--color)
 
-            &.unimportant
-                color: var(--color-light)
+            &.leave
+                color: var(--red)
 
             &:hover
                 background: var(--color-dimm)
                 color: var(--color-bright)
+                &.leave
+                    color: var(--red)
 
         .account
             position: absolute
@@ -92,72 +95,54 @@
                     height: 100%
                     width: 100%
 
+    .tool-panel
+        grid-area: tool_panel
+        position: relative
+        display: flex
+        flex-direction: column
+        margin: 5px 0
+        background: var(--background)
+        border-radius: 0 5px 5px 0
+
+        .tool
+            height: 50px
+            width: 50px
+            position: relative
+            border-radius: 5px
+            background: var(--background)
+            text-align: center
+            line-height: 50px
+            color: rgba(255, 255, 255, 0.7)
+            font-size: 24px
+            font-family: 'Material Icons'
+            user-select: none
+            cursor: pointer
+
+            &:hover
+                background: rgba(255, 255, 255, 0.05)
+                color: white
+        
+        .divider
+            height: 0
+            width: calc(100% - 10px)
+            margin: 0 5px
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+
     .structure-panel
         grid-area: structure_panel
         position: relative
         display: flex
         flex-direction: column
         background: var(--background)
-        border-top: 5px solid var(--dark-background)
-        border-bottom: 5px solid var(--dark-background)
+        margin: 5px
+        margin-right: 0
+        border-radius: 5px
 
-        .tree-container
+        .structure-container
             width: calc(100% - 10px)
-            margin: 25px 5px 5px 5px
+            margin: 5px
             flex: 1 1 0px
             overflow-y: auto
-
-        .button-container
-            height: 55px
-            width: 100%
-            border-top: 5px solid var(--dark-background)
-            background: var(--background)
-            display: inline-flex
-
-            .btn
-                height: 50px
-                flex: 1
-                position: relative
-                border-radius: 5px
-                background: var(--background)
-                user-select: none
-                cursor: pointer
-
-                &:hover
-                    background: rgba(255, 255, 255, 0.05)
-                    .icon
-                        color: white !important
-                
-                .icon
-                    position: absolute
-                    top: 0
-                    left: 0
-                    height: 100%
-                    width: 100%
-                    text-align: center
-                    line-height: 37px
-                    color: rgba(255, 255, 255, 0.7)
-                    font-size: 22px
-                    font-family: 'Material Icons'
-
-                .key
-                    width: 100%
-                    height: 20px
-                    line-height: 20px
-                    color: rgba(255, 255, 255, 0.2)
-                    text-align: center
-                    font-size: 12px
-                    letter-spacing: 1px
-                    position: absolute
-                    top: 29px
-                    left: 0
-
-                    &.small
-                        font-size: 10px
-                        top: 30px
-
-                    span
-                        font-family: 'Material Icons'
 
     .styling-panel
         grid-area: styling_panel
@@ -165,8 +150,9 @@
         display: flex
         flex-direction: column
         background: var(--background)
-        border-bottom: 5px solid var(--dark-background)
-        border-top: 5px solid var(--dark-background)
+        margin: 5px 0
+        background: var(--background)
+        border-radius: 5px 0 0 5px
 
         .tree-container
             width: calc(100% - 10px)

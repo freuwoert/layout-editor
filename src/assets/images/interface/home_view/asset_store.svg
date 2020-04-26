@@ -11,7 +11,6 @@
     </clipPath>
   </defs>
   <g id="asset_store" clip-path="url(#clip-asset_store)">
-    <rect width="770" height="500" fill="#9c00cc"/>
     <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" transform="translate(19 12)" opacity="0.4" clip-path="url(#clip-path)">
       <g transform="translate(-89 -298)">
         <circle id="Ellipse_4" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>

@@ -6,12 +6,11 @@
     <clipPath id="clip-path-2">
       <rect width="129" height="216" fill="none"/>
     </clipPath>
-    <clipPath id="clip-layout_editor">
+    <clipPath id="clip-layout_creator">
       <rect width="770" height="500"/>
     </clipPath>
   </defs>
-  <g id="layout_editor" clip-path="url(#clip-layout_editor)">
-    <rect width="770" height="500" fill="#ffaa2a"/>
+  <g id="layout_creator" clip-path="url(#clip-layout_creator)">
     <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" opacity="0.4" clip-path="url(#clip-path)">
       <g transform="translate(-89 -298)">
         <circle id="Ellipse_4" data-name="Ellipse 4" cx="4" cy="4" r="4" transform="translate(89 298)" fill="#fff"/>

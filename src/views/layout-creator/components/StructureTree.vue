@@ -1,12 +1,24 @@
 <template>
-    <div class="structure-tree" :trace="trace" :class="insertPos">
-        <div class="attribute-container" :trace="trace" @drop="drop($event)" @dragover="drapOver($event)" @dragenter="dragEnter('drag-insert')" @dragleave="dragLeave()">
-            <span class="label">{{structure.tag}}</span>
-            <!-- <span class="attr" v-for="(attribute, i) in attributes" :key="i">
-                &nbsp;{{attribute.label}}<span class="deco">=</span><span class="string">"{{attribute.value.join(' ')}}"</span>
-            </span> -->
+    <div class="structure-tree" :trace="trace" :class="[{'selected': (selectedStructures.includes(trace+''))}, insertPos]">
+        <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="drapOver($event)" @dragenter="dragEnter('drag-insert')" @dragleave="dragLeave()">
+            <span class="tag">{{structure.tag}}</span>
+
+            <span class="attribute" v-if="structure.classes && structure.classes.length">
+                <div class="attribute-name">class</div>
+                <div class="attribute-connector">=</div>
+                <div class="attribute-value">"<span v-for="(class_, i) in structure.classes" :key="i">{{class_}}</span>"</div>
+            </span>
+
+            <span class="attribute" v-if="structure.id">
+                <div class="attribute-name is-id">id</div>
+                <div class="attribute-connector">=</div>
+                <div class="attribute-value">"{{structure.id}}"</div>
+            </span>
         </div>
-        <div class="children-container" v-if="structure.children.length > 0">
+
+
+
+        <div class="children-container" v-if="structure.children.length">
             <structure-tree v-for="(child, id) in structure.children" :key="id" :trace="trace+'-'+id" :structure="child"></structure-tree>
         </div>
     </div>
@@ -32,11 +44,13 @@
             ...mapGetters([
                 'dragElement',
                 'availableStructures',
+                'selectedStructures',
             ]),
         },
         methods: {
             ...mapActions([
                 'insertStructure',
+                'setSelectedStructures',
             ]),
             drop(event) {
                 if( this.dragElement.type === 'structure' )
@@ -60,6 +74,9 @@
             dragLeave() {
                 this.insertPos = null
             },
+            select() {
+                this.setSelectedStructures({trace: this.trace})
+            }
         },
         mounted() {
         },
@@ -71,18 +88,11 @@
         user-select: none
         font-family: 'SCP'
 
-        .label
-            display: inline-block
-            line-height: 18px
-            color: var(--red)
-            text-transform: lowercase
-            font-size: 12px
-
-        .attribute-container
+        .tag-container
             text-align: left
             display: block
             box-sizing: border-box
-            height: 20px
+            height: 24px
             border-radius: 5px
             padding-left: 5px
             font-size: 0
@@ -95,57 +105,51 @@
             &:hover
                 background: var(--dark-background)
 
-                .btn-container
-                    background: var(--dark-background)
-                    display: block !important
-
-            &.selected
-                border-color: rgba(255, 255, 255, 0.2)
-
-            .btn-container
-                position: absolute
-                top: 0
-                right: 0
-                height: 100%
-                line-height: 20px
-                display: none
-
-                .btn
-                    height: 100%
-                    width: 20px
-                    line-height: 20px
-                    font-size: 15px
-                    font-family: 'Material Icons'
-                    vertical-align: top
-                    text-align: center
-                    color: white
-                    cursor: pointer
-                    font-weight: normal !important
-
-            .attr
+            .tag
                 display: inline-block
-                line-height: 18px
-                color: #e8a666
+                line-height: 22px
+                color: var(--red)
                 text-transform: lowercase
                 font-size: 12px
+                pointer-events: none
 
-                .string
+            .attribute
+                display: inline-block
+                line-height: 22px
+                font-size: 12px
+                margin-left: 7px
+                pointer-events: none
+
+                .attribute-name
+                    color: #e8a666
+                    display: inline
+
+                    &.is-id
+                        color: #61AFEF
+
+                .attribute-connector
+                    color: rgba(255, 255, 255, 0.7)
+                    display: inline
+
+                .attribute-value
                     color: #89ca78
                     display: inline
-                    font-size: 12px
 
-            .deco
-                color: rgba(255, 255, 255, 0.7)
-                display: inline
-                font-size: 12px
+                    span
+                        margin-right: 7px
 
-        &.drag-insert > .attribute-container
-            border-color: rgba(255, 255, 255, 0.6)
-            background: rgba(255, 255, 255, 0.1)
-
+                        &:last-of-type
+                            margin: 0
+        
         .children-container
             display: block
             padding: 0 0 0 5px
             margin: 0 0 0 5px
             border-left: 1px solid rgba(255, 255, 255, 0.2)
+
+        &.selected > .tag-container
+            background: rgba(255, 255, 255, 0.05)
+            border-color: rgba(255, 255, 255, 0.2)
+        &.drag-insert > .tag-container
+            background: rgba(255, 255, 255, 0.1)
 </style>

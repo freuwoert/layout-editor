@@ -2,24 +2,36 @@
     <div class="view" id="layout-editor-view">
 
         <div class="option-panel">
-            <div class="icon-button unimportant" title="Leave to overview" @click="''">&#62828;</div>
-            <div class="button" onclick="generateCode()">
-                <div class="icon">&#64567;</div> Generate Code
+            <div class="icon-button leave" title="Leave to overview">&#61517;</div>
+            <div class="button">
+                <div class="icon">&#62903;</div> Build Code
             </div>
-            <!-- <div class="account">
-                <div class="sign-in" v-show="!USER.online">
+            <div class="account">
+                <div class="sign-in" v-show="!userInfo.online">
                     <div class="text">Sign In</div>
                     <div class="image">
                         <div class="icon">&#64305;</div>
                     </div>
                 </div>
-                <div class="online" v-show="USER.online">
-                    <div class="text">{{USER.displayName}}</div>    
+                <div class="online" v-show="userInfo.online">
+                    <div class="text">{{userInfo.displayName}}</div>    
                     <div class="image">
-                        <img :src="USER.displayImage" alt="">
+                        <img :src="userInfo.displayImage" alt="">
                     </div>
                 </div>
-            </div> -->
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <div class="tool" title="Search">&#62281;</div>
+            <div class="divider">&#62281;</div>
+            <div class="tool" draggable="true" title="Div-Box" @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">&#63651;</div>
+            <div class="tool" draggable="true" title="Text" @drag="dragStructure($event, 'VU:DEFAULT:TEXT:0')">&#62964;</div>
+            <div class="tool" draggable="true" title="Link" @drag="dragStructure($event, 'W3:DEFAULT:A:0')">&#62265;</div>
+            <div class="tool" draggable="true" title="Span" @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">&#63912;</div>
+            <div class="tool" draggable="true" title="Paragraph" @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#63911;</div>
+            <div class="tool" draggable="true" title="Image" @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
+            <div class="tool" draggable="true" title="Video" @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
         </div>
 
         <div class="structure-panel">
@@ -28,39 +40,10 @@
             <div class="structure-container">
                 <structure-tree :key="id" v-for="(child, id) in docStructures.children" :structure="child" :trace="id"></structure-tree>
             </div>
-
-            <div class="button-container">
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">
-                    <div class="icon">&#62059;</div>
-                    <div class="key">h1</div>
-                </div>
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">
-                    <div class="icon">&#61812;</div>
-                    <div class="key">div</div>
-                </div>
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">
-                    <div class="icon">&#62185;</div>
-                    <div class="key">image</div>
-                </div>
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">
-                    <div class="icon">&#63911;</div>
-                    <div class="key">span</div>
-                </div>
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:P:0')">
-                    <div class="icon">&#62077;</div>
-                    <div class="key">p</div>
-                </div>
-                <div class="btn" draggable="true" @drag="dragStructure($event, 'W3:DEFAULT:A:0')">
-                    <div class="icon">&#62265;</div>
-                    <div class="key">a</div>
-                </div>
-            </div>
         </div>
 
         <div class="styling-panel">
             <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE"></focus-indicator> -->
-
-            
         </div>
 
         <div class="workspace">
@@ -110,6 +93,7 @@ export default {
             'activeTab',
             'docStructures',
             'dragElement',
+            'userInfo',
         ]),
     },
     methods: {
@@ -130,6 +114,4 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-    .structure-container
-        height: calc(100% - 55px)
 </style>

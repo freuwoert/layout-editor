@@ -11,6 +11,9 @@ const state = {
         'W3:DEFAULT:DIV:0': { children: [], classes: null, id: null, tag: 'div' },
         'W3:DEFAULT:SPAN:0': { children: [], classes: null, id: null, tag: 'span' },
         'W3:DEFAULT:IMAGE:0': { children: [], classes: null, id: null, tag: 'image' },
+        'W3:DEFAULT:VIDEO:0': { children: [], classes: null, id: null, tag: 'video' },
+
+        'VU:DEFAULT:TEXT:0': { children: [], tag: '' },
     }
 }
 
