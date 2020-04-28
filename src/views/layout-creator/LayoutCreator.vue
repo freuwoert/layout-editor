@@ -73,11 +73,11 @@
         </div>
 
         <div class="status-panel">
-            <!-- <div class="savepath" :title="TAB.SAVE_PATH" onclick="setSavePath(TAB())">
+            <div class="savepath" :title="activeTab.SAVE_PATH">
                 <div class="icon">&#63343;</div>
-                <div class="label" v-show="savePathName">{{savePathName}}</div>
-                <div class="label" v-show="!savePathName">Set file location</div>
-            </div> -->
+                <div class="label" v-show="false">{{'savePathName'}}</div>
+                <div class="label" v-show="!false">Set file location</div>
+            </div>
         </div>
     </div>
 </template>
