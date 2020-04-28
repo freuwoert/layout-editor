@@ -32,6 +32,7 @@
             <div class="tool" draggable="true" title="Paragraph" @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#63911;</div>
             <div class="tool" draggable="true" title="Image" @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
             <div class="tool" draggable="true" title="Video" @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
+            <div class="tool" draggable="true" title="Headline 1" @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
         </div>
 
         <div class="structure-panel">
@@ -42,9 +43,7 @@
             </div>
         </div>
 
-        <div class="styling-panel">
-            <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE"></focus-indicator> -->
-        </div>
+        <property-panel></property-panel>
 
         <div class="workspace">
             <div class="controls">
@@ -83,35 +82,37 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Viewport from './components/Viewport'
-import StructureTree from './components/StructureTree'
+    import { mapGetters, mapActions } from 'vuex'
+    import Viewport from './components/Viewport'
+    import StructureTree from './components/StructureTree'
+    import PropertyPanel from './components/PropertyPanel'
 
-export default {
-    computed: {
-        ...mapGetters([
-            'activeTab',
-            'docStructures',
-            'dragElement',
-            'userInfo',
-        ]),
-    },
-    methods: {
-        ...mapActions([
-            'setViewOfTab',
-            'setDraggedElement',
-        ]),
-        dragStructure(event, elementId) {
-            this.setDraggedElement({type: 'structure', element: elementId})
+    export default {
+        computed: {
+            ...mapGetters([
+                'activeTab',
+                'docStructures',
+                'dragElement',
+                'userInfo',
+            ]),
         },
-    },
-    mounted() {
-    },
-    components: {
-        Viewport,
-        StructureTree,
+        methods: {
+            ...mapActions([
+                'setViewOfTab',
+                'setDraggedElement',
+            ]),
+            dragStructure(event, elementId) {
+                this.setDraggedElement({type: 'structure', element: elementId})
+            },
+        },
+        mounted() {
+        },
+        components: {
+            Viewport,
+            StructureTree,
+            PropertyPanel,
+        }
     }
-}
 </script>
 <style lang="sass" scoped>
 </style>

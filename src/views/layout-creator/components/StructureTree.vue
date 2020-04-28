@@ -1,7 +1,9 @@
 <template>
     <div class="structure-tree" :trace="trace" :class="[{'selected': (selectedStructures.includes(trace+''))}, insertPos]">
         <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="drapOver($event)" @dragenter="dragEnter('drag-insert')" @dragleave="dragLeave()">
-            <span class="tag">{{structure.tag}}</span>
+            <span class="tag" v-if="structure.tag">
+                {{structure.tag}}
+            </span>
 
             <span class="attribute" v-if="structure.classes && structure.classes.length">
                 <div class="attribute-name">class</div>
@@ -13,6 +15,12 @@
                 <div class="attribute-name is-id">id</div>
                 <div class="attribute-connector">=</div>
                 <div class="attribute-value">"{{structure.id}}"</div>
+            </span>
+
+            <span class="attribute no-margin" v-if="structure.text">
+                <div class="attribute-deco">{</div>
+                <div class="attribute-value">{{structure.text}}</div>
+                <div class="attribute-deco">}</div>
             </span>
         </div>
 
@@ -120,6 +128,9 @@
                 margin-left: 7px
                 pointer-events: none
 
+                &.no-margin
+                    margin: 0
+
                 .attribute-name
                     color: #e8a666
                     display: inline
@@ -127,7 +138,7 @@
                     &.is-id
                         color: #61AFEF
 
-                .attribute-connector
+                .attribute-connector, .attribute-deco
                     color: rgba(255, 255, 255, 0.7)
                     display: inline
 
@@ -140,6 +151,8 @@
 
                         &:last-of-type
                             margin: 0
+                    i
+                        margin: 0 2px 0 0
         
         .children-container
             display: block

@@ -1,3 +1,6 @@
+import { EventBus } from '../../assets/js/event-bus'
+
+
 const state = {
     loadDelay: 0,
     settings: false,
@@ -21,8 +24,12 @@ const actions = {
         if( !payload.element ) return
         commit('setDraggedElement_', { type: payload.type, element: payload.element })
     },
+
     setSelectedStructures({ commit }, payload) {
         if( !payload.trace.toString() ) return
+
+        EventBus.$emit('structure-selected', [payload.trace])
+
         commit('setSelectedStructures_', { trace: payload.trace })
     },
 }

@@ -15,7 +15,33 @@ const state = {
 const getters = {
     docStructures: (state) => {
         return state.structures
-    }
+    },
+
+    getProperty: (state) => (trace) => {
+
+        let getFromTrace = (trace) => {
+
+            trace = trace.split('-')
+
+            for (let i = 0; i < trace.length; i++)
+            {
+                trace[i] = parseInt(trace[i])
+            }
+
+            let path = 'state.structures'
+            let location = null
+
+            for (const i of trace) {
+                path += '.children['+i+']'
+            }
+
+            location = eval(path)
+
+            return location ? location : false
+        }
+
+        return getFromTrace(trace)
+    },
 }
 
 const actions = {
@@ -53,6 +79,31 @@ const actions = {
             commit('insertStructure_', { trace: payload.trace, position: payload.position, element: payload.element })
         }
     },
+
+    setProperty({ commit }, payload) {
+
+        let reformTrace = (trace) => {
+
+            trace = trace.split('-')
+
+            for (let i = 0; i < trace.length; i++)
+            {
+                trace[i] = parseInt(trace[i])
+            }
+
+            return trace
+        }
+
+        
+
+        if( payload.hasOwnProperty('text') )
+        {
+            for (const trace of payload.selectedStructures)
+            {
+                commit('setPropertyText_', { trace: reformTrace(trace), text: payload.text })
+            }
+        }
+    }
 }
 
 const mutations = {
@@ -70,6 +121,23 @@ const mutations = {
         if(param.position === 'insert')
         {
             location.children.unshift(JSON.parse(JSON.stringify(param.element)))
+        }
+    },
+
+    setPropertyText_: (state, param) => {
+
+        let path = 'state.structures'
+        let structure = null
+
+        for (const i of param.trace) {
+            path += '.children['+i+']'
+        }
+
+        structure = eval(path)
+
+        if( structure && structure.hasOwnProperty('text') )
+        {
+            structure.text = param.text
         }
     },
 }
