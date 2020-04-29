@@ -12,15 +12,14 @@
             </span>
 
             <span class="attribute" v-if="structure.id">
-                <div class="attribute-name is-id">id</div>
+                <div class="attribute-name is-blue">id</div>
                 <div class="attribute-connector">=</div>
                 <div class="attribute-value">"{{structure.id}}"</div>
             </span>
 
-            <span class="attribute no-margin" v-if="structure.text">
-                <div class="attribute-deco">{</div>
-                <div class="attribute-value">{{structure.text}}</div>
-                <div class="attribute-deco">}</div>
+            <span class="attribute no-margin" v-if="structure.hasOwnProperty('text')">
+                <div class="attribute-value" v-show="!structure.text">∙ EMPTY ∙</div>
+                <div class="attribute-value" v-show="structure.text">{{structure.text}}</div>
             </span>
         </div>
 
@@ -135,7 +134,7 @@
                     color: #e8a666
                     display: inline
 
-                    &.is-id
+                    &.is-blue
                         color: #61AFEF
 
                 .attribute-connector, .attribute-deco

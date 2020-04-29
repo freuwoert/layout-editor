@@ -1,6 +1,6 @@
 <template>
     <div class="styling-panel">
-        <textarea rows="10" class="text-field" v-model="textField"></textarea>
+        <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
         <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE"></focus-indicator> -->
     </div>
 </template>

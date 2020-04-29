@@ -13,7 +13,7 @@ const state = {
         'W3:DEFAULT:IMAGE:0': { children: [], classes: null, id: null, tag: 'image' },
         'W3:DEFAULT:VIDEO:0': { children: [], classes: null, id: null, tag: 'video' },
 
-        'VU:DEFAULT:TEXT:0': { children: [], tag: '', text: 'Bin ich jetzt im Fernsehn?' },
+        'VU:DEFAULT:TEXT:0': { children: [], tag: '', text: '' },
     }
 }
 
