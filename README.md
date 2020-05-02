@@ -25,11 +25,6 @@ Listed below are some of the upcomming / planned features:
 
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
-## Watch it in action - kinda
-Lately I've been streaming a lot of the progress I'm making with this project.  
-Tune in to my Twitch @ https://www.twitch.tv/morriis_  
-(It's mostly german though)  
-
 ## Roadmap for this Project in 2020/2021
 <img src="https://i.imgur.com/M0oI5lf.png" width="100%">
 
@@ -37,6 +32,11 @@ Tune in to my Twitch @ https://www.twitch.tv/morriis_
 _"Does it look like a bitch?"_  
 
 <img src="https://i.imgur.com/5a7yGxv.png" width="100%">
+
+## Watch it in action - kinda
+Lately I've been streaming a lot of the progress I'm making with this project.  
+Tune in to my Twitch at [twitch.com/morriis_](https://www.twitch.tv/morriis_)  
+It's mostly german though.  
 
 ## Disclaimer
 This idea came from my desire for a tool like this. I'm not working fulltime on Vudesigner nor am I capible of financially supporting it more than I do now. I simply cannot guarantee for a set list of features before I haven't decide on making Vudesigner into a commercial product. I will however do my absolute best to keep the promises listed above. And just to mention it: although this project may be openly available I do not support the altering or republishing of it. After all this is my 'brain child'. 😅  
