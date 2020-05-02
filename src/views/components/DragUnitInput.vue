@@ -1,15 +1,25 @@
 <template>
     <div class="input">
-        <div class="label" v-if="label">{{label}}</div>
-        <input @click="selectAll()" @blur="valueBlur()" @dragstart.prevent @mousedown="valueMouseDown($event)" ref="input" type="number" class="number-input" v-model="value_">
-        <div class="unit" @wheel.prevent="scrollUnit($event)">
-            <div class="list top">
-                <div class="item" v-for="(item,i) in unitList.top" :key="i">{{item}}</div>
-            </div>
-            {{units[unit]}}
-            <div class="list bottom">
-                <div class="item" v-for="(item,i) in unitList.bottom" :key="i">{{item}}</div>
-            </div>
+        <div class="label" @dragstart.prevent v-if="label">{{label}}</div>
+        
+        <input @click="selectAll()" @dragstart.prevent @mousedown="valueMouseDown($event)" ref="input" type="number" class="number-input" v-model="value_">
+        
+        <div class="unit" ref="unit" @dragstart.prevent @mousedown="unitMouseDown($event)">
+            {{units[unit_]}}
+        </div>
+
+        <div class="unit-wheel" v-show="isUnitMouseDown">
+            <div class="center">{{units[unit_]}}</div>
+            <div class="knob" :style="'transform: rotate('+(-1)*unitDeg+'deg)'"></div>
+
+            <div class="item right"         :class="{'selected': unit_ == 0}">{{units[0]}}</div>
+            <div class="item top-right"     :class="{'selected': unit_ == 1}">{{units[1]}}</div>
+            <div class="item top"           :class="{'selected': unit_ == 2}">{{units[2]}}</div>
+            <div class="item top-left"      :class="{'selected': unit_ == 3}">{{units[3]}}</div>
+            <div class="item left"          :class="{'selected': unit_ == 4}">{{units[4]}}</div>
+            <div class="item bottom-left"   :class="{'selected': unit_ == 5}">{{units[5]}}</div>
+            <div class="item bottom"        :class="{'selected': unit_ == 6}">{{units[6]}}</div>
+            <div class="item bottom-right"  :class="{'selected': unit_ == 7}">{{units[7]}}</div>
         </div>
     </div>
 </template>
@@ -29,54 +39,34 @@
         data() {
             return {
                 isValueMouseDown: false,
-                isDragging: false,
+                isValueDragging: false,
+                valueStart: 0,
                 value_: 0,
-                unit: 2,
+                valueTemp: 0,
+
                 units: ['cm','auto','px','%','vm','vh','em','rem'],
-                start: 0,
-                temp: 0,
+                unit_: 2,
+                isUnitMouseDown: false,
+                unitStartX: 0,
+                unitStartY: 0,
+                unitDeg: 0,
+                unitLen: 0,
             }
         },
         computed: {
-            unitList()
-            {
-                let units = this.units
-                let top = []
-                let bottom = []
-                let len = 0
-
-                len = Math.floor((units.length - 1) / 2)
-
-                for (let i = 0; i < len; i++) {
-
-                    let h = this.unit - i - 1
-                    if( h < 0 ) h += units.length
-                    
-                    top.unshift(units[h])
-                }
-
-                len = units.length - Math.floor((units.length) / 2)
-
-                for (let i = 0; i < len; i++) {
-
-                    let h = this.unit + i + 1
-                    if( h >= units.length ) h -= units.length
-                    
-                    bottom.push(units[h])
-                }
-
-                return {top, bottom}
-            }
+            
         },
         mounted() {
             const vm = this
 
             window.addEventListener('mousemove', function(event) {
                 vm.valueMouseMove(event)
+                vm.unitMouseMove(event)
             }, false)
 
             window.addEventListener('mouseup', function(event) {
                 vm.valueMouseUp(event)
+                vm.unitMouseUp(event)
             }, false)
         },
         watch: {
@@ -87,66 +77,86 @@
         methods: {
             valueMouseDown(event) {
                 this.isValueMouseDown = true
-                this.start = event.clientY
+                this.valueStart = event.clientY
             },
+
+            unitMouseDown(event) {
+                this.isUnitMouseDown = true
+                
+                console.log(event.clientX - event.offsetX + this.$refs.unit.clientWidth / 2)
+                this.unitStartX = event.clientX - event.offsetX + this.$refs.unit.clientWidth / 2
+                this.unitStartY = event.clientY - event.offsetY + this.$refs.unit.clientHeight / 2
+            },
+
+
 
             valueMouseMove(event) {
                 if( this.isValueMouseDown )
                 {
                     
-                    if( !this.isDragging && Math.abs(this.start - event.clientY) > 25 )
+                    if( !this.isValueDragging && Math.abs(this.valueStart - event.clientY) > 25 )
                     {
-                        this.isDragging = true
-                        this.start = event.clientY
-                        this.temp = parseInt(this.value_)
+                        this.isValueDragging = true
+                        this.valueStart = event.clientY
+                        this.valueTemp = parseInt(this.value_)
                     }
 
-                    if( this.isDragging )
+                    if( this.isValueDragging )
                     {
-                        this.value_ = this.temp + Math.round((this.start - event.clientY) * .4)
-                        this.limitValue()
+                        this.value_ = this.valueTemp + Math.round((this.valueStart - event.clientY) * .4)
                     }
                 }
             },
+
+            unitMouseMove(event) {
+                if( this.isUnitMouseDown )
+                {
+                    let diffX = this.unitStartX - event.clientX
+                    let diffY = this.unitStartY - event.clientY
+                    let itemDeg = 360 / this.units.length
+
+                    // this is just pythagoras - dont worry
+                    this.unitLen = Math.floor(Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2) ))
+                    this.unitDeg = Math.floor(Math.atan2(diffY, diffX) / Math.PI * 180) * (-1) + 180
+
+                    if( this.unitLen > 30 )
+                    {
+                        let deg = this.unitDeg
+
+                        deg += itemDeg / 2
+                        if( deg > 360 ) deg -= 360
+                        this.unit_ = (deg - deg % itemDeg) / itemDeg
+                    }
+
+                }
+            },
+
+
 
             valueMouseUp() {
                 this.isValueMouseDown = false
 
-                if( this.isDragging )
+                if( this.isValueDragging )
                 {
                     this.$refs.input.blur()
-                    this.isDragging = false
+                    this.isValueDragging = false
                 }
             },
+
+            unitMouseUp() {
+                this.isUnitMouseDown = false
+            },
+
+
 
             selectAll() {
                 // TODO: check if already has focus
                 this.$refs.input.select()
             },
 
-            valueBlur() {
-                this.limitValue()
-            },
-
             limitValue() {
                 if( parseInt(this.value_) > 999999 ) this.value_ = 999999
                 else if( parseInt(this.value_) < this.min ) this.value_ = this.min
-            },
-
-
-
-            scrollUnit(event) {
-                if( event.wheelDelta > 0 )
-                {
-                    this.unit--
-                }
-                else
-                {
-                    this.unit++
-                }
-
-                if( this.unit >= this.units.length ) this.unit = 0
-                else if( this.unit < 0 ) this.unit = this.units.length - 1
             },
         },
     }
@@ -208,40 +218,118 @@
             position: relative
             cursor: default
 
-            .list
-                line-height: 20px
-                width: 100%
+        .unit-wheel
+            height: 140px
+            width: 140px
+            border-radius: 100%
+            background: var(--dark-background)
+            position: absolute
+            top: 50%
+            right: 25px
+            transform: translate(50%, -50%)
+            z-index: 1
+            filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.3))
+            user-select: none
+
+            &::after
+                content: ''
+                height: 60px
+                width: 60px
+                border-radius: 100%
+                background: var(--darker-background)
                 position: absolute
-                left: 0
-                pointer-events: none
-                opacity: 0
-                transition: opacity 100ms
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+
+            .knob
+                height: 0
+                width: 0
+                position: absolute
+                left: 50%
+                top: 50%
+
+                &::after
+                    content: ''
+                    height: 6px
+                    width: 6px
+                    border-radius: 3px
+                    background: var(--color-bright)
+                    position: absolute
+                    top: -3px
+                    left: 24px
+            
+            .center
+                width: 60px
+                text-align: center
+                height: 40px
+                line-height: 40px
+                font-size: 13px
+                font-weight: 800
+                position: absolute
+                left: 50%
+                top: 50%
+                color: var(--color-bright)
+                transform: translate(-50%, -50%)
+                text-transform: uppercase
+
+            .item
+                height: 20px
+                line-height: 20px
+                font-size: 9px
+                font-weight: 300
+                letter-spacing: 1px
+                position: absolute
+                z-index: 1
+                color: var(--color-light)
+                text-transform: uppercase
+
+                &.selected
+                    color: var(--blue)
+                    font-size: 11px
+                    font-weight: 800
 
                 &.top
-                    bottom: var(--h)
-                    .item:first-of-type
-                        border-radius: 5px 5px 0 0
-                    .item:last-of-type
-                        border-bottom-right-radius: 5px
+                    top: 10px
+                    left: 50%
+                    transform: translateX(-50%)
+
+                &.top-left
+                    top: 26%
+                    left: 23%
+                    transform: translate(-50%, -50%)
+
+                &.left
+                    top: 50%
+                    left: 0
+                    transform: translateY(-50%)
+                    width: 40px
+                    text-align: center
+
+                &.bottom-left
+                    bottom: 26%
+                    left: 23%
+                    transform: translate(-50%, 50%)
 
                 &.bottom
-                    top: var(--h)
-                    .item:last-of-type
-                        border-radius: 0 0 5px 5px
-                    .item:first-of-type
-                        border-top-right-radius: 5px
+                    bottom: 10px
+                    left: 50%
+                    transform: translateX(-50%)
 
-                .item
-                    height: 20px
-                    line-height: 20px
-                    background: var(--dark-background)
-                    font-size: 10px
-                    width: 100%
-                    font-weight: 300
-                    letter-spacing: 0px
+                &.bottom-right
+                    bottom: 26%
+                    right: 23%
+                    transform: translate(50%, 50%)
 
-            &:hover
-                .list
-                    pointer-events: all
-                    opacity: 1
+                &.right
+                    top: 50%
+                    right: 0
+                    transform: translateY(-50%)
+                    width: 40px
+                    text-align: center
+
+                &.top-right
+                    top: 26%
+                    right: 23%
+                    transform: translate(50%, -50%)
 </style>

@@ -4,8 +4,8 @@
             <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
         </div>
         <div class="container">
-            <drag-unit label="w" :min="0"></drag-unit>
-            <drag-unit label="h" :min="0"></drag-unit>
+            <drag-unit class="test-1" label="w" :min="0"></drag-unit>
+            <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container" style="height: 100vh">
 
@@ -65,6 +65,8 @@
     }
 </script>
 <style lang="sass" scoped>
+    .test-1
+        margin-right: 10px
     .styling-panel
         grid-area: styling_panel
         position: relative

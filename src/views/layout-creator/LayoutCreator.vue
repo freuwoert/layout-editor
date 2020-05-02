@@ -6,6 +6,9 @@
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
+            <div class="button" @click="setSettingsUI(true)">
+                <div class="icon">&#62611;</div> Settings
+            </div>
             <div class="account">
                 <div class="sign-in" v-show="!userInfo.online">
                     <div class="text">Sign In</div>
@@ -25,14 +28,15 @@
         <div class="tool-panel">
             <div class="tool" title="Search">&#62281;</div>
             <div class="divider">&#62281;</div>
-            <div class="tool" draggable="true" title="Div-Box" @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">&#63651;</div>
-            <div class="tool" draggable="true" title="Text" @drag="dragStructure($event, 'VU:DEFAULT:TEXT:0')">&#62964;</div>
-            <div class="tool" draggable="true" title="Link" @drag="dragStructure($event, 'W3:DEFAULT:A:0')">&#62265;</div>
-            <div class="tool" draggable="true" title="Span" @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">&#63912;</div>
-            <div class="tool" draggable="true" title="Paragraph" @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#63911;</div>
-            <div class="tool" draggable="true" title="Image" @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
-            <div class="tool" draggable="true" title="Video" @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
-            <div class="tool" draggable="true" title="Headline 1" @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
+            <div class="tool" draggable="true" title="Div-Box"      @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">&#63651;</div>
+            <div class="tool" draggable="true" title="Text"         @drag="dragStructure($event, 'VU:DEFAULT:TEXT:0')">&#62964;</div>
+            <div class="tool" draggable="true" title="Link"         @drag="dragStructure($event, 'W3:DEFAULT:A:0')">&#62265;</div>
+            <div class="tool" draggable="true" title="Icon"         @drag="dragStructure($event, 'VU:DEFAULT:ICON:0')">&#63984;</div>
+            <div class="tool" draggable="true" title="Span"         @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">&#63912;</div>
+            <div class="tool" draggable="true" title="Paragraph"    @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#63911;</div>
+            <div class="tool" draggable="true" title="Image"        @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
+            <div class="tool" draggable="true" title="Video"        @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
+            <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
         </div>
 
         <div class="structure-panel">
@@ -100,6 +104,7 @@
             ...mapActions([
                 'setViewOfTab',
                 'setDraggedElement',
+                'setSettingsUI',
             ]),
             dragStructure(event, elementId) {
                 this.setDraggedElement({type: 'structure', element: elementId})

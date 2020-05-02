@@ -13,6 +13,7 @@ const state = {
 
 const getters = {
     GENERAL_UI: (state) => state,
+    settings_ui: (state) => state.settings,
     loadDelay: (state) => state.loadDelay,
     dragElement: (state) => state.dragElement,
     selectedStructures: (state) => state.selectedStructures,
@@ -32,6 +33,12 @@ const actions = {
 
         commit('setSelectedStructures_', { trace: payload.trace })
     },
+
+    setSettingsUI({ commit }, payload) {
+        if( payload === false || payload === true) {
+            commit('setSettingsUI_', payload)
+        }
+    },
 }
 
 const mutations = {
@@ -42,6 +49,9 @@ const mutations = {
     setSelectedStructures_: (state, param) => {
         state.selectedStructures = [param.trace.toString()]
     },
+    setSettingsUI_: (state, param) => {
+        state.settings = param
+    }
 }
 
 export default {

@@ -37,6 +37,8 @@
         </div>
 
         <router-view/>
+
+        <settings v-show="settings_ui"></settings>
     </div>
 </template>
 
@@ -45,22 +47,25 @@
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
+    import Settings from './views/settings/Settings.vue'
 
-export default {
-    computed: {
-        ...mapGetters([
-            'allTabHandles',
-            'activeTabID',
-        ]),
-    },
-    methods: {
-        ...mapActions([
-            'addTab',
-            'selectTab',
-        ]),
-    },
-    created () {},
-    mounted () {},
-}
+    export default {
+        computed: {
+            ...mapGetters([
+                'allTabHandles',
+                'settings_ui',
+                'activeTabID',
+            ]),
+        },
+        methods: {
+            ...mapActions([
+                'addTab',
+                'selectTab',
+            ]),
+        },
+        components: {
+            Settings,
+        }
+    }
 </script>
