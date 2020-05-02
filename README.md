@@ -26,9 +26,9 @@ Listed below are some of the upcomming / planned features:
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
 ## Watch it in action - kinda
-Lately I've been streeming a lot of the progress I'm making with this project.
-Tune in to my Twitch @ https://www.twitch.tv/morriis_
-(It's mostly german though)
+Lately I've been streeming a lot of the progress I'm making with this project.  
+Tune in to my Twitch @ https://www.twitch.tv/morriis_  
+(It's mostly german though)  
 
 ## Roadmap for this Project in 2020/2021
 <img src="https://i.imgur.com/M0oI5lf.png" width="100%">
