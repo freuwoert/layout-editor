@@ -1,8 +1,15 @@
 <template>
     <div class="styling-panel">
-        <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
-        <drag-unit></drag-unit>
-        <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STYLE"></focus-indicator> -->
+        <div class="container">
+            <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
+        </div>
+        <div class="container">
+            <drag-unit label="w" :min="0"></drag-unit>
+            <drag-unit label="h" :min="0"></drag-unit>
+        </div>
+        <div class="container" style="height: 100vh">
+
+        </div>
     </div>
 </template>
 <script>
@@ -61,19 +68,25 @@
     .styling-panel
         grid-area: styling_panel
         position: relative
-        display: flex
-        flex-direction: column
-        background: var(--background)
+        overflow-y: auto
         margin: 5px 0
         background: var(--background)
         border-radius: 5px 0 0 5px
 
+        .container
+            border-top: 5px solid var(--dark-background)
+            width: 100%
+            padding: 10px
+            text-align: left
+
+            &:first-of-type
+                border: none
+
         .text-field
-            width: calc(100% - 20px)
+            width: 100%
             height: 150px
             border-radius: 5px
-            background: var(--dark-background)
-            margin: 10px 
+            background: var(--darker-background)
             border: none
             resize: none
             padding: 10px

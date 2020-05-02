@@ -57,7 +57,7 @@
     "vudesigner"
   ],
   "author": "Maurice Freuwört",
-  "license": "",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/freuwoert/vudesigner/issues"
   },
@@ -104,6 +104,7 @@
     "last 2 versions"
   ],
   "resolutions": {
-    "minimist": "^1.2.5"
+    "minimist": "1.2.5",
+    "yargs-parser": "18.1.2"
   }
 }

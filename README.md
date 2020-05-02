@@ -8,10 +8,11 @@ Currently under reconstruction
 ## What's this software supposed to solve?
 TL;DR a software for efficient web based UI creation.  
 
-VuDesigner is a software development tool written in Node.js (Electron.js) specifically designed for efficient web based UI creation through autocompletion and prefabricated assets. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern. This will be achieved and accompanied by a full keyboard-shortcut control over the most important parts of the software and a range of quality-of-life features listed below:
+VuDesigner is a software development tool written in Node.js (Electron.js) specifically designed for efficient web based UI creation through autocompletion and prefabricated assets. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern.
+Listed below are some of the upcomming / planned features:
 * Autocompletion including favorised assets
 * An asset marketplace for intricate user generated assets
-* ✔ Live preview with custom viewport size support
+* Live preview with custom viewport size support
 * Quick project launch - meaning one-click setup for custom folder structures + git initialization
 * On-the-fly sass and scss compilation with sophisticated output configurator
 * Cloud saving assets, files and settings
@@ -23,6 +24,11 @@ VuDesigner is a software development tool written in Node.js (Electron.js) speci
 * ... and more
 
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
+
+## Watch it in action - kinda
+Lately I've been streeming a lot of the progress I'm making with this project.
+Tune in to my Twitch @ https://www.twitch.tv/morriis_
+(It's mostly german though)
 
 ## Roadmap for this Project in 2020/2021
 <img src="https://i.imgur.com/M0oI5lf.png" width="100%">

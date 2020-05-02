@@ -2,7 +2,7 @@
     <div class="view" id="layout-editor-view">
 
         <div class="option-panel">
-            <div class="icon-button leave" title="Leave to overview">&#61517;</div>
+            <div class="leave-button" title="Leave to overview">&#61517;</div>
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
