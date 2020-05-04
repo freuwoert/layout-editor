@@ -1,5 +1,13 @@
 <template>
     <div class="colorpicker">
+        <img class="eyedropper-image" @click="eyedropperOff()" :src="eyedropperImageSrc" v-show="eyedropper">
+        <div class="eyedropper-magnifier" v-show="eyedropper" :style="'top:'+magnifyY+'px; left:'+magnifyX+'px;'">
+            <div class="magnify-circle">
+                <img class="zoom-image" :src="eyedropperImageSrc" :style="'transform-origin: '+magnifyX+'px '+magnifyY+'px ; top:'+(-1-magnifyY)+'px; left:'+(-1-magnifyX)+'px;'">
+            </div>
+            <div class="color" :style="'background: '+eyedropperColor"></div>
+        </div>
+
         <div class="container">
             <div class="mode-selector">
                 <div class="mode" @mousedown="switchMode('PLAIN')" :class="{'active': mode === 'PLAIN'}">
@@ -15,7 +23,9 @@
                     <div class="text">Radial</div>
                 </div>
             </div>
-            <div class="eyedropper">&#61962;</div>
+            
+            <div class="eyedropper" @click="eyedropperOn()" :class="{'active': eyedropper}">&#61962;</div>
+
             <div class="picker-container" draggable="false">
                 <div class="main-picker" @mousedown="mainMouseDown($event)" :style="'background:' + internalBaseColor">
                     <div class="handle" draggable="false" :style="'left: '+handlePos.mainX+'px; top: '+handlePos.mainY+'px;'"></div>
@@ -28,42 +38,48 @@
                     <div class="handle" draggable="false" :style="'top: '+handlePos.alpha+'px;'"></div>
                 </div>
             </div>
+
             <div class="output-container">
-                <!-- <drop-down class="selector-input" label="RGB"></drop-down>
-                <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[0]" :max="255" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[1]" :max="255" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[2]" :max="255" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit>
-
-                <drop-down class="selector-input" label="HSB"></drop-down>
-                <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[0]" :max="360" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[1]" :max="100" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[2]" :max="100" :min="0" nounit></drag-unit>
-                <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit> -->
-
-                <drop-down class="selector-input" label="HEX"></drop-down>
-                <text-field class="text-input"  @input="setColor('HEX')" v-model="output.hex"></text-field>
-                <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit>
-            </div>
-            <div class="divider"></div>
-            <div class="swatches-container">
-                <div class="swatch-paginator">
-                    <div class="arrow left">&#61761;</div>
-                    <div class="title">{{swatches[1].vendor}} - {{swatches[1].name}}</div>
-                    <div class="arrow right">&#61762;</div>
+                <drop-down class="selector-input" :options="{'HEX':'HEX', 'RGB':'RGB', 'HSB':'HSB'}" v-model="selectedOutput"></drop-down>
+                
+                <div class="group" v-show="selectedOutput === 'RGB'">
+                    <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[0]" :max="255" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[1]" :max="255" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setColor('RGB')" v-model="output.rgb[2]" :max="255" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit>
                 </div>
+
+                <div class="group" v-show="selectedOutput === 'HSB'">
+                    <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[0]" :max="360" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[1]" :max="100" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setColor('HSB')" v-model="output.hsb[2]" :max="100" :min="0" nounit></drag-unit>
+                    <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit>
+                </div>
+
+                <div class="group" v-show="selectedOutput === 'HEX'">
+                    <text-field class="text-input"  @input="setColor('HEX')" v-model="output.hex"></text-field>
+                    <drag-unit class="number-input" @input="setAlpha()" v-model="output.alpha" :max="100" :min="0" nounit></drag-unit>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="swatches-container">
+                <drop-down class="selector-input" :options="swatchOptions" v-model="swatchPalette"></drop-down>
                 <div class="swatches">
-                    <!-- <div class="swatch add-button">
+                    <div class="swatch" v-for="(swatch ,i) in swatches[swatchPalette].swatches" @contextmenu="copyColor('HEX', swatch)" @click="setColor('HEX',swatch)" :key="i" :style="'background:' + swatch"></div>
+                    <div class="swatch add-button">
                         <div class="icon">&#62485;</div>
-                    </div> -->
-                    <div class="swatch" v-for="(swatch ,i) in swatches[1].swatches" :key="i" :style="'background:' + swatch"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    const win = require('electron').remote.getCurrentWindow()
     import { mapGetters, mapActions } from 'vuex'
+    import { clipboard } from 'electron'
     import colorConvert from 'color-convert'
     import DropDown from '../components/DropDown.vue'
     import DragUnit from '../components/DragUnitInput.vue'
@@ -74,8 +90,15 @@
         data() {
             return {
                 mode: 'PLAIN',
+                eyedropper: false,
+
+                magnifyX: 0,
+                magnifyY: 0,
+                eyedropperImageSrc: '',
+                eyedropperCanvas: null,
+                eyedropperColor: '#ffffff',
                 
-                selectedOutput: 'rgba',
+                selectedOutput: 'HEX',
                 output: {
                     rgb: [0,0,0],
                     alpha: 0,
@@ -112,6 +135,8 @@
                     mainY: 0,
                     alpha: 0,
                 },
+
+                swatchPalette: 0,
             }
         },
         mounted() {
@@ -126,6 +151,7 @@
 
             window.addEventListener('mousemove', function(event) {
                 vm.mouseMove(event)
+                vm.magnifyMouseMove(event)
             }, false)
 
             window.addEventListener('mouseup', function(event) {
@@ -136,6 +162,16 @@
             ...mapGetters([
                 'swatches',
             ]),
+
+            swatchOptions() {
+                let ret = {}
+
+                for (let i = 0; i < this.swatches.length; i++) {
+                    ret[i] = this.swatches[i].vendor + ' ∙ ' + this.swatches[i].name
+                }
+
+                return ret
+            }
         },
         methods: {
             ...mapActions([]),
@@ -143,6 +179,51 @@
             switchMode(mode) {
                 if( ['PLAIN','LINEAR','RADIAL'].includes(mode) ) this.mode = mode
             },
+
+            eyedropperOn() {
+                win.capturePage().then((img)=>{
+                    
+                    this.eyedropperImageSrc = img.toDataURL()
+                    this.eyedropper = true
+
+                    this.eyedropperCanvas = document.createElement('CANVAS')
+                    let ctx = this.eyedropperCanvas.getContext('2d')
+
+                    ctx.canvas.width = window.innerWidth
+                    ctx.canvas.height = window.innerHeight
+                     
+                    let image = new Image()
+
+                    image.onload = function() {
+                        ctx.drawImage(image, 0, 0, window.innerWidth, window.innerHeight)
+                    }
+
+                    image.src = this.eyedropperImageSrc
+                })
+            },
+
+            eyedropperOff() {
+                this.eyedropper = false
+                this.eyedropperImageSrc = ''
+                this.setColor('HEX', this.eyedropperColor)
+            },
+
+            magnifyMouseMove(e) {
+                if( this.eyedropper)
+                {
+                    this.magnifyX = e.screenX
+                    this.magnifyY = e.screenY
+                    let pixel = this.getPixel(this.magnifyX, this.magnifyY)
+
+                    this.eyedropperColor = '#'+colorConvert.rgb.hex([pixel[0],pixel[1],pixel[2]])
+                }
+            },
+
+            getPixel(x = 0, y = 0) {
+                return this.eyedropperCanvas.getContext('2d').getImageData(x, y, 1, 1).data
+            },
+
+
 
             hueMouseDown(e) {
                 this.grabbed.hue = true
@@ -245,6 +326,8 @@
                 return value
             },
 
+
+
             setAlpha(value = this.output.alpha) {
 
                 if( value !== this.output.alpha ) this.output.alpha = value
@@ -266,7 +349,7 @@
 
                 if( base === 'HEX' )
                 {
-                    value = value ? value : this.output.hex
+                    value = value ? value.toUpperCase() : this.output.hex
 
                     hex = value
                     rgb = colorConvert.hex.rgb(value)
@@ -316,7 +399,18 @@
     
                     this.updateInternalColors()
                 }
-            }
+            },
+            
+            copyColor(base, value) {
+                if( base === 'HEX' )
+                {
+                    value = value.toUpperCase()
+                    value = value.replace(/[^A-F0-9]/g, '')
+                    value = '#' + value
+                }
+
+                clipboard.writeText(value)
+            },
         },
         components: {
             DropDown,
@@ -327,14 +421,82 @@
 </script>
 <style lang="sass" scoped>
     .colorpicker
+        .eyedropper-image
+            height: 100vh
+            width: 100vw
+            position: fixed
+            top: 0
+            left: 0
+            z-index: 10000
+            background: black
+            -webkit-app-region: no-drag
+            cursor: none
+
+        .eyedropper-magnifier
+            --eyeh: 100px
+            height: var(--eyeh)
+            width: var(--eyeh)
+            position: fixed
+            z-index: 10001
+            transform: translate(-50%,-50%)
+            pointer-events: none
+
+            .magnify-circle
+                height: 100%
+                width: 100%
+                border-radius: 100%
+                background: rgba(0,0,0,0.2)
+                border: 1px solid black
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%,-50%)
+                overflow: hidden
+
+                &::before
+                    height: 2px
+                    width: 10px
+                    content: ''
+                    position: absolute
+                    top: calc(50% - 1px)
+                    left: calc(50% - 5px)
+                    z-index: 1
+                    backdrop-filter: invert(100)
+
+                &::after
+                    height: 10px
+                    width: 2px
+                    content: ''
+                    position: absolute
+                    top: calc(50% - 5px)
+                    left: calc(50% - 1px)
+                    z-index: 1
+                    backdrop-filter: invert(100)
+
+                .zoom-image
+                    height: 100vh
+                    width: 100vw
+                    position: fixed
+                    image-rendering: pixelated
+                    transform: translate(calc(var(--eyeh) / 2), calc(var(--eyeh) / 2)) scale(5)
+                    top: 0
+                    left: 0
+
+            .color
+                height: calc(100% - 30px)
+                width: 10px
+                border-radius: 3px
+                background: var(--accent)
+                border: 1px solid black
+                position: absolute
+                top: 15px
+                right: -15px
+
         .container
             width: 370px
             border-radius: 5px
             background: var(--background)
             filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
-            position: fixed
-            top: 40%
-            right: 40%
             z-index: 1
             text-align: left
 
@@ -372,6 +534,8 @@
 
                 &:hover
                     color: var(--color-bright)
+                &.active
+                    color: var(--primary)
 
             .mode-selector
                 width: calc(100% - 50px)
@@ -506,57 +670,29 @@
                 .selector-input
                     width: 80px
                     margin-right: 10px
+                
+                .group
+                    width: calc(100% - 90px)
+                    vertical-align: top
 
-                .number-input
-                    width: 50px
-                    text-align: center
-                    margin-left: 10px
+                    .number-input
+                        width: 50px
+                        text-align: center
+                        margin-left: 10px
 
-                .text-input
-                    width: 170px
-                    text-align: center
-                    margin-left: 10px
+                    .text-input
+                        width: 170px
+                        text-align: center
+                        margin-left: 10px
             
             .swatches-container
                 width: 100%
                 padding: 10px
                 user-select: none
 
-                .swatch-paginator
+                .selector-input
                     width: calc(100% - 20px)
                     margin: 10px
-                    height: 30px
-                    text-align: center
-
-                    .title
-                        text-align: center
-                        font-size: 13px
-                        height: 30px
-                        line-height: 30px
-                        text-transform: uppercase
-                        font-weight: 800
-                        letter-spacing: 1px
-                        color: var(--color)
-
-                    .arrow
-                        height: 30px
-                        line-height: 30px
-                        width: 30px
-                        text-align: center
-                        border-radius: 5px
-                        font-family: 'Material Icons'
-                        font-size: 20px
-                        color: var(--color-bright)
-                        cursor: pointer
-
-                        &:hover
-                            color: var(--color-bright)
-                            background: var(--color-dimm)
-
-                        &.left
-                            float: left
-                        &.right
-                            float: right
 
                 .swatches
                     width: 100%
@@ -567,9 +703,14 @@
                         padding-bottom: calc(100% / 8 - 12px)
                         margin: 5px
                         border-radius: 5px
-                        background: var(--primary)
-                        border: 1px solid var(--darker-background)
+                        background: var(--darker-background)
+                        border: 1px solid var(--dark-background)
                         vertical-align: top
+                        cursor: pointer
+                        transition: all 40ms
+
+                        &:hover
+                            border-color: var(--color-light)
 
                         &.add-button
                             background: transparent

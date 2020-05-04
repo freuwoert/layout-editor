@@ -60,26 +60,11 @@
                         </div>
                     </div>
                     <div class="unit-container">
-                        <div class="unit">cm</div>
-                        <div class="unit">mm</div>
-                        <div class="unit">in</div>
-                        <div class="unit">px</div>
-                        <div class="unit">pc</div>
-                        <div class="unit">em</div>
-                        <div class="unit">ex</div>
-                        <div class="unit">ch</div>
-                        <div class="unit">vw</div>
-                        <div class="unit">vh</div>
-                        <div class="unit">vmin</div>
-                        <div class="unit">vmax</div>
-                        <div class="unit">rem</div>
-                        <div class="unit">pt</div>
-                        <div class="unit">%</div>
-                        <div class="unit">auto</div>
+                        <div class="unit" v-for="(unit, i) in availableUnits" :key="i">{{unit}}</div>
                     </div>
                     <div class="one-liner">
                         <div class="label">Default CSS Unit</div>
-                        <drop-down class="input-element" label="PX"></drop-down>
+                        <drop-down class="input-element unit-selector" :options="availableUnits"></drop-down>
                     </div>
                 </div>
             </div>
@@ -92,6 +77,28 @@
     import DropDown from '../components/DropDown.vue'
 
     export default {
+        data() {
+            return {
+                availableUnits: {
+                    'cm':'CM',
+                    'mm':'MM',
+                    'in':'IN',
+                    'px':'PX',
+                    'pc':'PC',
+                    'em':'EM',
+                    'ex':'EX',
+                    'ch':'CH',
+                    'vw':'VW',
+                    'vh':'VH',
+                    'vmin':'VMIN',
+                    'vmax':'VMAX',
+                    'rem':'REM',
+                    'pt':'PT',
+                    '%':'%',
+                    'auto':'AUTO',
+                }
+            }
+        },
         methods: {
             ...mapActions([
                 'setSettingsUI',
@@ -312,6 +319,9 @@
 
             .option-unit
                 padding: 10px 0
+
+                .unit-selector
+                    width: 100px
 
                 .circle
                     height: 250px
