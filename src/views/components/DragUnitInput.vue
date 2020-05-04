@@ -1,14 +1,15 @@
 <template>
-    <div class="input">
+    <div class="input" :class="{'has-label': label, 'has-unit': hasUnit}">
         <div class="label" @dragstart.prevent v-if="label">{{label}}</div>
         
         <input @click="selectAll()" @dragstart.prevent @mousedown="valueMouseDown($event)" ref="input" type="number" class="number-input" v-model="value_">
         
-        <div class="unit" ref="unit" @dragstart.prevent @mousedown="unitMouseDown($event)">
-            {{units[unit_]}}
+        <div class="unit" ref="unit" @dragstart.prevent @mousedown="unitMouseDown($event)" v-if="hasUnit">
+            <span v-show="units[unit_] !== 'auto'">{{units[unit_]}}</span>
+            <span v-show="units[unit_] === 'auto'">-</span>
         </div>
 
-        <div class="unit-wheel" v-show="isUnitMouseDown">
+        <div class="unit-wheel" v-show="isUnitMouseDown" v-if="hasUnit">
             <div class="center">{{units[unit_]}}</div>
             <div class="knob" :style="'transform: rotate('+(-1)*unitDeg+'deg)'"></div>
 
@@ -26,25 +27,33 @@
 <script>
     export default {
         props: {
-            value: {
-                type: Object
-            },
+            value: {},
             label: {
                 type: String
             },
+            max: {
+                type: Number,
+                default: 999999
+            },
             min: {
-                type: Number
+                type: Number,
+                default: 0
+            },
+            nounit: {
+                type: Boolean
             }
         },
         data() {
             return {
+                hasUnit: true,
+                
                 isValueMouseDown: false,
                 isValueDragging: false,
                 valueStart: 0,
                 value_: 0,
                 valueTemp: 0,
 
-                units: ['cm','auto','px','%','vm','vh','em','rem'],
+                units: ['cm','auto','px','%','vm','vh','em','vmin'],
                 unit_: 2,
                 isUnitMouseDown: false,
                 unitStartX: 0,
@@ -52,9 +61,6 @@
                 unitDeg: 0,
                 unitLen: 0,
             }
-        },
-        computed: {
-            
         },
         mounted() {
             const vm = this
@@ -68,10 +74,30 @@
                 vm.valueMouseUp(event)
                 vm.unitMouseUp(event)
             }, false)
+
+            if( this.nounit || this.nounit !== undefined && this.nounit !== false )
+            {
+                this.hasUnit = false
+            }
         },
         watch: {
+            value() {
+                if( this.hasUnit )
+                {
+                    this.value_ = parseInt(this.value.value)
+                }
+                else
+                {
+                    this.value_ = parseInt(this.value)
+                }
+                
+            },
             value_() {
-                this.limitValue()
+                this.limitValue_()
+
+                let ret = this.hasUnit ? {value: this.value_, unit: this.units[this.unit_]} : this.value_
+
+                this.$emit('input', ret)
             }
         },
         methods: {
@@ -83,7 +109,6 @@
             unitMouseDown(event) {
                 this.isUnitMouseDown = true
                 
-                console.log(event.clientX - event.offsetX + this.$refs.unit.clientWidth / 2)
                 this.unitStartX = event.clientX - event.offsetX + this.$refs.unit.clientWidth / 2
                 this.unitStartY = event.clientY - event.offsetY + this.$refs.unit.clientHeight / 2
             },
@@ -154,9 +179,9 @@
                 this.$refs.input.select()
             },
 
-            limitValue() {
-                if( parseInt(this.value_) > 999999 ) this.value_ = 999999
-                else if( parseInt(this.value_) < this.min ) this.value_ = this.min
+            limitValue_() {
+                if( this.value_ > this.max ) this.value_ = this.max
+                else if( this.value_ < this.min ) this.value_ = this.min
             },
         },
     }
@@ -166,9 +191,12 @@
         --h: 30px
         --br: 5px
         height: var(--h)
+        width: 130px
         background: rgba(0,0,0,0.3)
         border-radius: var(--br)
         position: relative
+        text-align: right
+        vertical-align: top
 
         .label
             text-transform: uppercase
@@ -184,7 +212,7 @@
             pointer-events: none
         
         .number-input
-            width: 80px
+            width: 100%
             height: var(--h)
             line-height: var(--h)
             background: transparent
@@ -195,14 +223,21 @@
             letter-spacing: 1px
             font-family: 'Muli'
             vertical-align: top
-            padding-left: 24px
-            text-align: right
+            text-align: inherit
+            padding-left: 10px
+            padding-right: 10px
 
-            &.no-select
-                user-select: none !important
+        &.has-label
+            .number-input
+                padding-left: 24px
+
+        &.has-unit
+            .number-input
+                padding-right: 0px
+                width: calc(100% - 44px)
 
         .unit
-            width: 50px
+            width: 44px
             line-height: calc(var(--h) + 1px)
             height: var(--h)
             text-align: center
@@ -225,7 +260,7 @@
             background: var(--dark-background)
             position: absolute
             top: 50%
-            right: 25px
+            right: 22px
             transform: translate(50%, -50%)
             z-index: 1
             filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.3))

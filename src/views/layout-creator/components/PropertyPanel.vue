@@ -8,7 +8,7 @@
             <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container" style="height: 100vh">
-
+            <colorpicker></colorpicker>
         </div>
     </div>
 </template>
@@ -16,6 +16,7 @@
     import { mapGetters, mapActions } from 'vuex'
     import { EventBus } from '../../../assets/js/event-bus'
     import DragUnit from '../../components/DragUnitInput.vue'
+    import Colorpicker from '../../components/Colorpicker.vue'
 
     export default {
         computed: {
@@ -61,6 +62,7 @@
         },
         components: {
             DragUnit,
+            Colorpicker,
         }
     }
 </script>

@@ -18,7 +18,6 @@ const Prism = require('prismjs')
 const Toast = require('@/assets/js/modules/toast.js')
 const settings = require('electron-settings')
 const Mousetrap = require('mousetrap')
-const colorConvert = require('color-convert')
 const remote = require('electron').remote
 const { dialog } = require('electron').remote
 const { ipcRenderer } = require('electron')

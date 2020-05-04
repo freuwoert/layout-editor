@@ -4,6 +4,7 @@ import AppInfo from './modules/AppInfo'
 import Document from './modules/Document'
 import Structures from './modules/Structures'
 import Styles from './modules/Styles'
+import Swatches from './modules/Swatches'
 import Tabs from './modules/Tabs'
 import UI from './modules/UI'
 import UserInfo from './modules/UserInfo'
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         UI,
         Styles,
         Structures,
+        Swatches,
         Tabs,
         Views,
     }

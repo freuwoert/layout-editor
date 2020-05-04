@@ -31,9 +31,7 @@
 
         <div id="preloader">
             <div class="logo"></div>
-            <svg class="spinner" viewBox="0 0 50 50">
-                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
-            </svg>
+            <spinner class="spinner" color="white" stroke="4"></spinner>
         </div>
 
         <router-view/>
@@ -49,6 +47,8 @@
 <script>
     import { mapGetters, mapActions } from 'vuex'
     import Settings from './views/settings/Settings.vue'
+    import ReleaseNotes from './views/dialogs/ReleaseNotes.vue'
+    import Spinner from './views/components/Spinner.vue'
 
     export default {
         computed: {
@@ -66,6 +66,8 @@
         },
         components: {
             Settings,
+            ReleaseNotes,
+            Spinner,
         }
     }
 </script>

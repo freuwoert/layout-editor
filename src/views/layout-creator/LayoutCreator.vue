@@ -6,9 +6,6 @@
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
-            <div class="button" @click="setSettingsUI(true)">
-                <div class="icon">&#62611;</div> Settings
-            </div>
             <div class="account">
                 <div class="sign-in" v-show="!userInfo.online">
                     <div class="text">Sign In</div>
@@ -37,6 +34,7 @@
             <div class="tool" draggable="true" title="Image"        @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
             <div class="tool" draggable="true" title="Video"        @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
             <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
+            <div class="tool settings" title="Settings" @click="setSettingsUI(true)">&#62611;</div>
         </div>
 
         <div class="structure-panel">
@@ -120,4 +118,322 @@
     }
 </script>
 <style lang="sass" scoped>
+    #layout-editor-view
+        background: var(--dark-background)
+        display: grid
+        grid-template-columns: 50px 400px auto 400px
+        grid-template-rows: 40px auto 30px
+        grid-template-areas: "option_panel option_panel option_panel option_panel" "tool_panel structure_panel workspace styling_panel" "status_panel status_panel status_panel status_panel"
+
+        .option-panel
+            grid-area: option_panel
+            background: var(--background)
+            position: relative
+            text-align: left
+
+            .leave-button
+                width: 50px
+                height: 32px
+                line-height: 32px
+                margin: 4px 0
+                font-family: 'Material Icons'
+                font-size: 20px
+                color: var(--red)
+                text-align: center
+                border-radius: 5px
+                cursor: pointer
+                user-select: none
+
+                &:hover
+                    background: var(--color-dimm)
+
+            .button, .icon-button
+                margin: 7px
+                margin-right: 0
+                background: transparent
+                color: var(--color)
+
+                &:hover
+                    background: var(--color-dimm)
+                    color: var(--color-bright)
+
+            .account
+                position: absolute
+                top: 0
+                right: 0
+                height: 100%
+                line-height: 40px
+                padding: 3px 10px
+                user-select: none
+
+                .sign-in, .online
+                    height: 34px
+                    border-radius: 40px
+                    background: var(--dark-background)
+                    cursor: pointer
+                    color: var(--color)
+
+                    &:hover
+                        color: var(--color-bright)
+
+                .text
+                    height: 28px
+                    line-height: 28px
+                    font-size: 12px
+                    padding: 3px 8px 3px 15px
+                    letter-spacing: 1px
+                    vertical-align: top
+
+                .image
+                    height: 30px
+                    width: 30px
+                    margin: 2px
+                    border-radius: 40px
+                    background: var(--background)
+                    overflow: hidden
+                    vertical-align: top
+
+                    .icon
+                        height: 100%
+                        width: 100%
+                        line-height: 30px
+                        text-align: center
+                        font-family: 'Material Icons'
+                        font-size: 22px
+                        color: var(--color-light)
+
+                    img
+                        height: 100%
+                        width: 100%
+
+        .tool-panel
+            grid-area: tool_panel
+            position: relative
+            display: flex
+            flex-direction: column
+            margin: 5px 0
+            background: var(--background)
+            border-radius: 0 5px 5px 0
+
+            .tool
+                height: 50px
+                width: 50px
+                position: relative
+                border-radius: 5px
+                background: var(--background)
+                text-align: center
+                line-height: 50px
+                color: rgba(255, 255, 255, 0.7)
+                font-size: 24px
+                font-family: 'Material Icons'
+                user-select: none
+                cursor: pointer
+
+                &.settings
+                    position: absolute
+                    bottom: 0
+                    left: 0
+
+                &:hover
+                    background: rgba(255, 255, 255, 0.05)
+                    color: white
+            
+            .divider
+                height: 0
+                width: calc(100% - 10px)
+                margin: 0 5px
+                border-bottom: 1px solid var(--color-lighter)
+
+        .structure-panel
+            grid-area: structure_panel
+            position: relative
+            display: flex
+            flex-direction: column
+            background: var(--background)
+            margin: 5px
+            margin-right: 0
+            border-radius: 5px
+
+            .structure-container
+                width: calc(100% - 10px)
+                margin: 5px
+                flex: 1 1 0px
+                overflow-y: auto
+
+        .workspace
+            grid-area: workspace
+            background: var(--dark-background)
+            overflow: hidden
+            position: relative
+
+            .controls
+                position: absolute
+                top: 0
+                left: 50%
+                transform: translateX(-50%)
+                height: 50px
+                padding: 10px 5px
+                border-radius: 0 0 10px 10px
+                background: var(--background)
+                user-select: none
+                white-space: nowrap
+
+                &:before
+                    content: ''
+                    height: 100%
+                    width: 10px
+                    border-radius: 0 10px 0 0
+                    background: var(--dark-background)
+                    position: absolute
+                    top: 0
+                    left: -10px
+                    box-shadow: 0 -10px var(--background)
+
+                &:after
+                    content: ''
+                    height: 100%
+                    width: 10px
+                    border-radius: 10px 0 0 0
+                    background: var(--dark-background)
+                    position: absolute
+                    top: 0
+                    right: -10px
+                    box-shadow: 0 -10px var(--background)
+
+                .control-icon-btn
+                    height: 30px
+                    width: 30px
+                    line-height: 30px
+                    border-radius: 3px
+                    overflow: hidden
+                    margin: 0 5px
+                    color: rgba(255, 255, 255, 0.7)
+                    font-size: 21px
+                    font-family: 'Material Icons'
+                    vertical-align: top
+                    text-align: center
+                    cursor: pointer
+
+                    &:hover
+                        background: rgba(255, 255, 255, 0.05)
+                        color: white
+
+                    &.active
+                        background: var(--dark-background)
+                        color: var(--primary)
+
+                .control-input
+                    position: relative
+                    background: var(--darker-background)
+                    text-align: left
+                    height: 30px
+                    width: 70px
+                    border-radius: 3px
+                    cursor: text
+                    overflow: hidden
+                    margin: 0 5px
+
+                    .icon
+                        width: 28px
+                        text-align: center
+                        line-height: 30px
+                        color: var(--color)
+                        font-size: 17px
+                        font-family: 'Material Icons'
+                        vertical-align: top
+
+                    .input
+                        border: none
+                        height: 30px
+                        width: calc(100% - 28px)
+                        position: absolute
+                        top: 0
+                        left: 30px
+                        padding-right: 8px
+                        background: transparent
+                        color: var(--color-bright)
+                        font-family: 'SCP'
+                        font-size: 12px
+                        text-align: right
+                        letter-spacing: 0.5px
+
+                        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+                            -webkit-appearance: none
+                            margin: 0
+
+            .center
+                position: absolute
+                top: 50px
+                left: 0
+                width: 100%
+                height: calc(100% - 50px)
+                padding-top: 50px
+                text-align: center
+
+                .decoupled-viewport
+                    position: absolute
+                    top: calc(50%)
+                    left: 0
+                    width: 100%
+                    height: 140px
+                    transform: translateY(-50%)
+
+                    .icon
+                        height: 140px
+                        width: 140px
+                        border-radius: 100%
+                        line-height: 140px
+                        text-align: center
+                        margin-right: 20px
+                        color: var(--dark-background)
+                        background: rgba(255,255,255, 0.05)
+                        font-size: 90px
+                        font-family: 'Material Icons'
+                        vertical-align: middle
+
+                    .text
+                        color: rgba(255,255,255, 0.2)
+                        font-size: 17px
+                        letter-spacing: 1px
+                        line-height: 22px
+                        text-align: left
+                        vertical-align: middle
+
+                        strong
+                            font-weight: 800
+
+        .status-panel
+            grid-area: status_panel
+            background: var(--background)
+            text-align: left
+
+            .savepath
+                height: 30px
+                line-height: 30px
+                color: var(--color)
+                user-select: none
+                cursor: pointer
+                border-radius: 4px
+                padding-right: 5px
+
+                &:hover
+                    color: var(--color-bright)
+                    background: var(--color-dimm)
+
+                .icon
+                    height: 28px
+                    line-height: 28px
+                    width: 28px
+                    text-align: center
+                    font-size: 16px
+                    font-family: 'Material Icons'
+                    vertical-align: top
+
+                .label
+                    font-size: 10px
+                    vertical-align: top
+                    line-height: 28px
+                    padding-left: 2px
+                    padding-right: 5px
+                    letter-spacing: 0.5px
 </style>
