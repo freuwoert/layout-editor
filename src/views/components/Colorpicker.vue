@@ -3,7 +3,7 @@
         <img class="eyedropper-image" @click="eyedropperOff()" :src="eyedropperImageSrc" v-show="eyedropper">
         <div class="eyedropper-magnifier" v-show="eyedropper" :style="'top:'+magnifyY+'px; left:'+magnifyX+'px;'">
             <div class="magnify-circle">
-                <img class="zoom-image" :src="eyedropperImageSrc" :style="'transform-origin: '+magnifyX+'px '+magnifyY+'px ; top:'+(-1-magnifyY)+'px; left:'+(-1-magnifyX)+'px;'">
+                <canvas class="zoom-image" id="zoomed-image"></canvas>
             </div>
             <div class="color" :style="'background: '+eyedropperColor"></div>
         </div>
@@ -78,6 +78,7 @@
 </template>
 <script>
     const win = require('electron').remote.getCurrentWindow()
+
     import { mapGetters, mapActions } from 'vuex'
     import { clipboard } from 'electron'
     import colorConvert from 'color-convert'
@@ -95,8 +96,11 @@
                 magnifyX: 0,
                 magnifyY: 0,
                 eyedropperImageSrc: '',
-                eyedropperCanvas: null,
                 eyedropperColor: '#ffffff',
+                eyedropperCanvas: null,
+                eyedropperCanvasCTX: null,
+                eyedropperCanvasZoomed: null,
+                eyedropperCanvasZoomedCTX: null,
                 
                 selectedOutput: 'HEX',
                 output: {
@@ -146,6 +150,15 @@
             this.setAlpha(100)
             this.setColor('HEX','#FF0000')
 
+            // Init Eyedropper
+            this.eyedropperCanvas = document.createElement('CANVAS')
+            this.eyedropperCanvasCTX = this.eyedropperCanvas.getContext('2d')
+
+            this.eyedropperCanvasZoomed = document.getElementById('zoomed-image')
+            this.eyedropperCanvasZoomedCTX = this.eyedropperCanvasZoomed.getContext('2d')
+            this.eyedropperCanvasZoomed.width = 13
+            this.eyedropperCanvasZoomed.height = 13
+
             // MouseMove & MouseUp Events
             const vm = this
 
@@ -171,7 +184,11 @@
                 }
 
                 return ret
-            }
+            },
+
+            zoomedCanvas() {
+                return this.eyedropperCanvasCTX.getImageData(this.magnifyX-6, this.magnifyY-6, 13, 13)
+            },
         },
         methods: {
             ...mapActions([]),
@@ -183,19 +200,15 @@
             eyedropperOn() {
                 win.capturePage().then((img)=>{
                     
-                    this.eyedropperImageSrc = img.toDataURL()
-                    this.eyedropper = true
-
-                    this.eyedropperCanvas = document.createElement('CANVAS')
-                    let ctx = this.eyedropperCanvas.getContext('2d')
-
-                    ctx.canvas.width = window.innerWidth
-                    ctx.canvas.height = window.innerHeight
-                     
                     let image = new Image()
-
-                    image.onload = function() {
-                        ctx.drawImage(image, 0, 0, window.innerWidth, window.innerHeight)
+                    
+                    this.eyedropper = true
+                    this.eyedropperImageSrc = img.toDataURL()
+                    this.eyedropperCanvas.width = window.innerWidth
+                    this.eyedropperCanvas.height = window.innerHeight
+                    
+                    image.onload = () => {
+                        this.eyedropperCanvasCTX.drawImage(image, 0, 0, window.innerWidth, window.innerHeight)
                     }
 
                     image.src = this.eyedropperImageSrc
@@ -213,38 +226,36 @@
                 {
                     this.magnifyX = e.screenX
                     this.magnifyY = e.screenY
-                    let pixel = this.getPixel(this.magnifyX, this.magnifyY)
 
+                    this.eyedropperCanvasZoomedCTX.putImageData(this.zoomedCanvas, 0, 0)
+
+                    let pixel = this.eyedropperCanvasCTX.getImageData(this.magnifyX, this.magnifyY, 1, 1).data
                     this.eyedropperColor = '#'+colorConvert.rgb.hex([pixel[0],pixel[1],pixel[2]])
                 }
             },
 
-            getPixel(x = 0, y = 0) {
-                return this.eyedropperCanvas.getContext('2d').getImageData(x, y, 1, 1).data
-            },
 
 
-
-            hueMouseDown(e) {
+            hueMouseDown(event) {
                 this.grabbed.hue = true
-                this.handleStartPos.hue = this.getCoords(e.target).top
-                this.mouseMove(e)
+                this.handleStartPos.hue = this.getCoords(event.target).top
+                this.mouseMove(event)
             },
 
-            mainMouseDown(e) {
+            mainMouseDown(event) {
                 this.grabbed.main = true
-                this.handleStartPos.mainX = this.getCoords(e.target).left
-                this.handleStartPos.mainY = this.getCoords(e.target).top
-                this.mouseMove(e)
+                this.handleStartPos.mainX = this.getCoords(event.target).left
+                this.handleStartPos.mainY = this.getCoords(event.target).top
+                this.mouseMove(event)
             },
 
-            alphaMouseDown(e) {
+            alphaMouseDown(event) {
                 this.grabbed.alpha = true
-                this.handleStartPos.alpha = this.getCoords(e.target).top
-                this.mouseMove(e)
+                this.handleStartPos.alpha = this.getCoords(event.target).top
+                this.mouseMove(event)
             },
 
-            mouseUp(e) {
+            mouseUp() {
                 this.grabbed.hue = false
                 this.grabbed.main = false
                 this.grabbed.alpha = false
@@ -302,8 +313,8 @@
                 this.internalFullColor = 'rgba(' + this.output.rgb.join(',') + ', '+ this.output.alpha / 100 +')'
             },
 
-            getCoords(elem) {
-                var box = elem.getBoundingClientRect()
+            getCoords(element) {
+                var box = element.getBoundingClientRect()
             
                 var body = document.body
                 var docEl = document.documentElement
@@ -342,6 +353,7 @@
             },
 
             setColor(base, value = false) {
+                
                 let rgb = null
                 let hsb = null
                 let hex = null
@@ -373,9 +385,9 @@
                 {
                     value = value ? value : this.output.hsb
 
+                    hsb = value
                     rgb = colorConvert.hsv.rgb(value)
                     hex = '#'+colorConvert.rgb.hex(rgb)
-                    hsb = value
 
                     hasRun = true
                 }
@@ -421,6 +433,9 @@
 </script>
 <style lang="sass" scoped>
     .colorpicker
+        // position: fixed
+        // right: 
+        // z-index: 1
         .eyedropper-image
             height: 100vh
             width: 100vw
@@ -454,31 +469,21 @@
                 overflow: hidden
 
                 &::before
-                    height: 2px
-                    width: 10px
+                    height: calc(100% / 13 - 2px)
+                    width: calc(100% / 13 - 2px)
                     content: ''
                     position: absolute
-                    top: calc(50% - 1px)
-                    left: calc(50% - 5px)
+                    top: calc(50%)
+                    left: calc(50%)
+                    transform: translate(-50%, -50%)
                     z-index: 1
-                    backdrop-filter: invert(100)
-
-                &::after
-                    height: 10px
-                    width: 2px
-                    content: ''
-                    position: absolute
-                    top: calc(50% - 5px)
-                    left: calc(50% - 1px)
-                    z-index: 1
-                    backdrop-filter: invert(100)
+                    border: 1px solid gray
 
                 .zoom-image
-                    height: 100vh
-                    width: 100vw
+                    height: 100%
+                    width: 100%
                     position: fixed
                     image-rendering: pixelated
-                    transform: translate(calc(var(--eyeh) / 2), calc(var(--eyeh) / 2)) scale(5)
                     top: 0
                     left: 0
 

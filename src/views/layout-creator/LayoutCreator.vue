@@ -49,32 +49,26 @@
 
         <div class="workspace">
             <div class="controls">
-                <div class="control-input">
-                    <div class="icon">&#63565;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="activeTab.VIEWPORT.X">
-                </div>
-                <div class="control-input">
-                    <div class="icon">&#63566;</div>
-                    <input class="input" tabindex="-1" min="0" max="9999" maxlength="4" type="number" v-model="activeTab.VIEWPORT.Y">
-                </div>
                 <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
-                <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : activeTab.VIEWPORT.DECOUPLED}">&#61516;</div>
+                <!-- <drag-unit class="control-input" label="W" :min="40" :max="9999" nounit v-model="activeTab.VIEWPORT.X"></drag-unit>
+                <drag-unit class="control-input" label="H" :min="40" :max="9999" nounit v-model="activeTab.VIEWPORT.Y"></drag-unit>
+                <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : activeTab.VIEWPORT.DECOUPLED}">&#61516;</div> -->
             </div>
 
             <div class="center">
-                <div class="decoupled-viewport" v-show="activeTab.VIEWPORT.DECOUPLED">
+                <div class="decoupled-viewport" v-show="true">
                     <div class="icon">&#63880;</div>
                     <div class="text">
                         The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
                     </div>
                 </div>
 
-                <viewport :content="activeTab.VIEWPORT.CONTENT" :x="activeTab.VIEWPORT.X" :y="activeTab.VIEWPORT.Y" @update:x="activeTab.VIEWPORT.X = $event" @update:y="activeTab.VIEWPORT.Y = $event" v-show="!activeTab.VIEWPORT.DECOUPLED"></viewport>
+                <!-- <viewport :content="activeTab.VIEWPORT.CONTENT" :x="activeTab.VIEWPORT.X" :y="activeTab.VIEWPORT.Y" @update:x="activeTab.VIEWPORT.X = $event" @update:y="activeTab.VIEWPORT.Y = $event" v-show="!activeTab.VIEWPORT.DECOUPLED"></viewport> -->
             </div>
         </div>
 
         <div class="status-panel">
-            <div class="savepath" :title="activeTab.SAVE_PATH">
+            <div class="savepath" :title="'TabsSavePath'">
                 <div class="icon">&#63343;</div>
                 <div class="label" v-show="false">{{'savePathName'}}</div>
                 <div class="label" v-show="!false">Set file location</div>
@@ -88,11 +82,11 @@
     import Viewport from './components/Viewport'
     import StructureTree from './components/StructureTree'
     import PropertyPanel from './components/PropertyPanel'
+    import DragUnit from '../components/DragUnitInput'
 
     export default {
         computed: {
             ...mapGetters([
-                'activeTab',
                 'docStructures',
                 'dragElement',
                 'userInfo',
@@ -100,7 +94,7 @@
         },
         methods: {
             ...mapActions([
-                'setViewOfTab',
+                'setView',
                 'setDraggedElement',
                 'setSettingsUI',
             ]),
@@ -114,6 +108,7 @@
             Viewport,
             StructureTree,
             PropertyPanel,
+            DragUnit,
         }
     }
 </script>
@@ -325,7 +320,7 @@
                 .control-input
                     position: relative
                     background: var(--darker-background)
-                    text-align: left
+                    text-align: right
                     height: 30px
                     width: 70px
                     border-radius: 3px

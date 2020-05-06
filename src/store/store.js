@@ -1,25 +1,33 @@
+// Defaults
 import Vue from 'vue'
 import Vuex from 'vuex'
-import AppInfo from './modules/AppInfo'
+
+// Read / Write
 import Document from './modules/Document'
-import Structures from './modules/Structures'
-import Swatches from './modules/Swatches'
 import Tabs from './modules/Tabs'
+import User from './modules/User'
 import UI from './modules/UI'
-import UserInfo from './modules/UserInfo'
-import Views from './modules/Views'
+
+// Read only
+import Structures from './modules/readonly/Structures'
+import Styles from './modules/readonly/Styles'
+import Swatches from './modules/readonly/Swatches'
+import Software from './modules/readonly/Software'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        AppInfo,
+        // Read / Write
         Document,
-        UserInfo,
-        UI,
-        Structures,
-        Swatches,
         Tabs,
-        Views,
+        User,
+        UI,
+
+        // Read only
+        Software,
+        Structures,
+        Styles,
+        Swatches,
     }
 })

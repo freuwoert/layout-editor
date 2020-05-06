@@ -116,6 +116,7 @@
             max-height: 300px
             overflow-y: auto
             text-align: left
+            z-index: 111
 
             .drop-option
                 height: 30px

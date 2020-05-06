@@ -1,86 +1,79 @@
-import router from '../../router'
-import Tab from '../../classes/Tab'
+const uuid = require('uuid')
+const startUUID = uuid.v4()
+
+import TabPrototype from '../../classes/TabPrototype'
 
 const state = {
-    ACTIVE_TAB: 0,
-    TABS: [ new Tab() ],
+    activeUUID: startUUID,
+    tabs: [new TabPrototype(startUUID)],
 }
 
 const getters = {
     allTabHandles: (state) => {
         let handles = []
 
-        for ( const tab of state.TABS ) {
+        for (const tab of state.tabs)
+        {
             handles.push({
-                NAME: tab.NAME,
-                CHANGED: tab.CHANGED,
+                name: tab.meta.name,
+                changed: tab.meta.changed,
+                UUID: tab.UUID
             })
         }
 
         return handles
     },
-    tabs: (state) => state.TABS,
-    activeTab: (state) => state.TABS[state.ACTIVE_TAB],
-    activeTabID: (state) => state.ACTIVE_TAB,
-    prototypeTab: (state) => state.TAB_PROTOTYPE,
-    tab: (state) => state.TAB
+    activeTab: () => {
+        return false
+    },
+    activeTabID: (state) => state.activeUUID,
 }
 
 const actions = {
-    addTab({ commit }, callback) {
-        commit( 'addTabs_', {
-            tabs: [new Tab()],
-            callback: (ID) => {
-                callback(ID)
-            }
-        })
-    },
-    selectTab({ commit, getters}, ID) {
-        if(ID < getters.allTabHandles.length)
-        {
-            let tab = getters.tabs[ID]
-            commit('setActiveTab_', { ID })
+    addTab({ commit }, payload) {
+        let uuid = require('uuid').v4()
+        let tab = new TabPrototype(uuid)
 
-            if( router.currentRoute.name !== tab.VIEW )
-            {
-                if( getters.allViewHandles.includes(tab.VIEW) )
-                {
-                    router.push({name: tab.VIEW})
-                }
-            }
+        commit('addTabs_', [tab])
+
+        if( payload.selectOnCreation )
+        {
+            commit('setActiveTab_', uuid)
         }
     },
-    setTabView({ commit, getters}, payload) {
-        commit('setTabView_', { VIEW: payload.view, ID: payload.ID })
 
-        if( router.currentRoute.name !== payload.view )
+    selectTab({ commit, state, getters }, payload) {
+
+        commit('loadTab_', getters.__FLUSH_DOCUMENT__)
+
+        for (let i = 0; i < state.tabs.length; i++)
         {
-            if( getters.allViewHandles.includes(payload.view) )
+            if( state.tabs[i].UUID === payload)
             {
-                router.push({name: payload.view})
+                commit('FLOOD_DOCUMENT', JSON.parse(JSON.stringify(state.tabs[i])))
+                return
             }
         }
     },
 }
 
 const mutations = {
-    addTabs_: (state, param) => {
-        state.TABS.push( ...param.tabs )
-        param.callback( state.TABS.length-1 )
+    addTabs_: (state, params) => {
+        state.tabs.push( ...params )
     },
-    setActiveTab_: (state, param) => {
-        state.ACTIVE_TAB = param.ID
+    loadTab_: (state, params) => {
+        for (let i = 0; i < state.tabs.length; i++)
+        {
+            if( state.tabs[i].UUID === state.activeUUID)
+            {
+                state.tabs[i] = JSON.parse(JSON.stringify(params))
+                console.log(params)
+                return
+            }
+        }
     },
-    setTabView_: (state, param) => {
-        state.TABS[param.ID].VIEW = param.VIEW
-    },
-    setViewport_: (state, param) => {
-        console.log('__')
-        if(param.X)         state.TABS[param.ID].VIEWPORT.X = param.X
-        if(param.Y)         state.TABS[param.ID].VIEWPORT.Y = param.Y
-        if(param.SCALE)     state.TABS[param.ID].VIEWPORT.SCALE = param.SCALE
-        if(param.CONTENT)   state.TABS[param.ID].VIEWPORT.CONTENT = param.CONTENT
-        if(param.DECOUPLED) state.TABS[param.ID].VIEWPORT.DECOUPLED = param.DECOUPLED
+    setActiveTab_: (state, params) => {
+        state.activeUUID = params
     },
 }
 

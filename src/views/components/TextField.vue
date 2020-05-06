@@ -2,7 +2,7 @@
     <div class="input">
         <div class="label" @dragstart.prevent v-if="label">{{label}}</div>
         
-        <input @click="selectAll()" :placeholder="label" ref="input" type="text" class="text-input" v-model="value_">
+        <input @click="selectAll()" @focus="focused = true" @blur="focused = false" :placeholder="label" ref="input" type="text" class="text-input" v-model="value_">
     </div>
 </template>
 <script>
@@ -18,6 +18,7 @@
         data() {
             return {
                 value_: '',
+                focused: false,
             }
         },
         watch: {
@@ -25,7 +26,9 @@
                 this.value_ = this.value
             },
             value_() {
-                this.$emit('input', this.value_)
+                if( this.focused ){
+                    this.$emit('input', this.value_)
+                }
             }
         },
         methods: {

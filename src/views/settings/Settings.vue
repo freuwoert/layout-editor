@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="unit-container">
-                        <div class="unit" v-for="(unit, i) in availableUnits" :key="i">{{unit}}</div>
+                        <div class="unit" draggable="true" v-for="(unit, i) in availableUnits" :key="i">{{unit}}</div>
                     </div>
                     <div class="one-liner">
                         <div class="label">Default CSS Unit</div>

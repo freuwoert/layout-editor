@@ -1,5 +1,5 @@
 const state = {
-    AVAILABLE_STYLES: []
+    avalableStyles: []
 }
 
 const getters = {}

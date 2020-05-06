@@ -1,22 +1,18 @@
-import { EventBus } from '../../assets/js/event-bus'
-
-
 const state = {
+    
     loadDelay: 0,
-    settings: false,
+    
     releaseNote: false,
+    settings: false,
     activeSetting: 'INFO',
-    dragElement: { type: 'structure', element: 'div' },
-    selectedStructures: [],
-    focusedStructure: '',
+    dragElement: { type: '', element: '' },
 }
 
 const getters = {
     GENERAL_UI: (state) => state,
-    settings_ui: (state) => state.settings,
+    settingsUI: (state) => state.settings,
     loadDelay: (state) => state.loadDelay,
     dragElement: (state) => state.dragElement,
-    selectedStructures: (state) => state.selectedStructures,
 }
 
 const actions = {
@@ -26,16 +22,9 @@ const actions = {
         commit('setDraggedElement_', { type: payload.type, element: payload.element })
     },
 
-    setSelectedStructures({ commit }, payload) {
-        if( !payload.trace.toString() ) return
-
-        EventBus.$emit('structure-selected', [payload.trace])
-
-        commit('setSelectedStructures_', { trace: payload.trace })
-    },
-
     setSettingsUI({ commit }, payload) {
-        if( payload === false || payload === true) {
+        if( payload === false || payload === true)
+        {
             commit('setSettingsUI_', payload)
         }
     },
@@ -46,12 +35,9 @@ const mutations = {
         state.dragElement.type = param.type
         state.dragElement.element = param.element
     },
-    setSelectedStructures_: (state, param) => {
-        state.selectedStructures = [param.trace.toString()]
-    },
     setSettingsUI_: (state, param) => {
         state.settings = param
-    }
+    },
 }
 
 export default {

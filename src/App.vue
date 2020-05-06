@@ -4,12 +4,12 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
-                        <div class="tab" :key="id" v-for="(tab, id) in allTabHandles" :class="{'active' : id == activeTabID}">
-                            <div class="change-dot" :class="{'active' : tab.CHANGED}"></div>
-                            <span class="title" @click="selectTab(id)">{{tab.NAME}}</span>
-                            <div class="close" :onclick="'closeTab('+id+')'">&#61782;</div>
+                        <div class="tab" :key="i" v-for="(tab, i) in allTabHandles" :class="{'active' : tab.UUID === activeTabID}">
+                            <div class="change-dot" :class="{'active' : tab.changed}"></div>
+                            <span class="title" @click="selectTab(tab.UUID)">{{tab.name}}</span>
+                            <div class="close" :onclick="'closeTab('+tab.UUID+')'">&#61782;</div>
                         </div>
-                        <div class="create" @click="addTab((ID)=>{selectTab(ID)})">&#62485;</div>
+                        <div class="create" @click="addTab({selectOnCreation: true})">&#62485;</div>
                     </div>
                 </div>
                 <div class="window-controls">
@@ -29,14 +29,20 @@
             </div>
         </header>
 
+        <!-- Preloader -->
         <div id="preloader">
             <div class="logo"></div>
             <spinner class="spinner" color="white" stroke="4"></spinner>
         </div>
 
-        <router-view/>
+        <!-- Views -->
+        <view-landing v-if="view === 'LANDING'"></view-landing>
+        <view-asset-store v-if="view === 'ASSET_STORE'"></view-asset-store>
+        <view-layout-creator v-if="view === 'LAYOUT_CREATOR'"></view-layout-creator>
+        <view-project-manager v-if="view === 'PROJECT_MANAGER'"></view-project-manager>
 
-        <settings v-show="settings_ui"></settings>
+        <!-- Overlays / Popups -->
+        <settings v-show="settingsUI"></settings>
     </div>
 </template>
 
@@ -50,11 +56,17 @@
     import ReleaseNotes from './views/dialogs/ReleaseNotes.vue'
     import Spinner from './views/components/Spinner.vue'
 
+    import ViewLanding from './views/landing/Landing.vue'
+    import ViewAssetStore from './views/asset-store/AssetStore.vue'
+    import ViewLayoutCreator from './views/layout-creator/LayoutCreator.vue'
+    import ViewProjectManager from './views/project-manager/ProjectManager.vue'
+
     export default {
         computed: {
             ...mapGetters([
                 'allTabHandles',
-                'settings_ui',
+                'settingsUI',
+                'view',
                 'activeTabID',
             ]),
         },
@@ -68,6 +80,12 @@
             Settings,
             ReleaseNotes,
             Spinner,
+
+            // Views
+            ViewLanding,
+            ViewAssetStore,
+            ViewLayoutCreator,
+            ViewProjectManager,
         }
     }
 </script>

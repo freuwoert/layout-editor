@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store/store.js'
 
 import { mapGetters, mapActions } from 'vuex'
 
 // GLOBAL REQUIREMENTS
 const $ = require('jquery')
-const _ = require('lodash')
-const fs = require('fs')
 const path = require('path')
 const emmet = require('emmet')
 const Fuse = require('fuse.js')
@@ -26,11 +23,11 @@ const { ipcRenderer } = require('electron')
 
 
 
+
 Vue.config.productionTip = false
 
 const app = new Vue({
     el: '#app',
-    router,
     store,
     methods: {
         ...mapActions([])
@@ -41,39 +38,6 @@ const app = new Vue({
             'GENERAL_UI'
         ]),
     },
-    created(){
-    },
-    // watch: {
-    //     'TAB': {
-    //         deep: true,
-    //         handler(){
-    //             if(this.ACTIVE_TAB < this.TABS.length)
-    //             {
-    //                 if(this.TAB.VIEW == 'EDIT')
-    //                 {
-    //                     this.TAB.NAME = (this.TAB.SAVE_PATH != null) ? path.parse(this.TAB.SAVE_PATH).name : 'Untitled Layout'
-    //                 }
-
-    //                 this.TABS[this.ACTIVE_TAB] = unlink(this.TAB)
-    //             }
-    //         }
-    //     },
-    //     'TAB.DOCUMENT': {
-    //         deep: true,
-    //         handler(){
-    //             this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
-    //             this.TAB.CSS_OL = flattenObject(this.TAB.DOCUMENT.CSS.children)
-    //             updateCoupledViewport()
-    //             //console.log('CHANGED')
-    //         }
-    //     },
-    // },
-    // mounted() {
-    //     this.TAB.HTML_OL = flattenObject(this.TAB.DOCUMENT.HTML.children)
-    //     this.TAB.CSS_OL = flattenObject(this.TAB.DOCUMENT.CSS.children)
-
-    //     this.AVAILABLE_STRUCTURES.push(...HTML_ROOT_STRUCTURES)
-    // },
     render: h => h(App)
 })
 

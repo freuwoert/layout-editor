@@ -6,6 +6,18 @@ const state = {
         { vendor: 'Discord', name: 'Theme', swatches: [
             '#7289DA','#FFFFFF','#99AAB5','#2C2F33','#23272A',
         ]},
+        { vendor: 'Adobe', name: 'Theme', swatches: [
+            '#26C9FF','#FF7D02','#FF26BE','#EF1C06','#FF4393','#3DF0F0','#E472FF','#D1A3FF',
+            '#061E26','#261300','#2E001F','#351916','#26000F','#022326','#2A0033','#1D0E34',
+            '#3CF2A6','#00E6BE','#9E8FFE','#BF80FF','#B6F200','#FEBB00','#42F500','#FE3F1D',
+            '#00261A','#002620','#0C004C','#260D40','#1D2600','#261C00','#092600','#260600',
+        ]},
+        { vendor: 'Twitch', name: 'Theme', swatches: [
+            '#6441a5','#b9a3e3','#262626','#f1f1f1',
+        ]},
+        { vendor: 'Microsoft', name: 'Office Theme', swatches: [
+            '#B7472A','#217346','#2B579A','#106EBE','#F3F3F3',
+        ]},
         { vendor: 'One Dark Pro', name: 'Classic', swatches: [
             '#c678dd','#f44747','#e06c75','#d19a66','#e5c07b','#7f848e','#5c6370','#61afef',
             '#98c379','#56b6c2','#ffffff',

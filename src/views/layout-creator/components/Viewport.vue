@@ -1,21 +1,20 @@
 <template>
-    <div class="viewport-container">
-        <div class="viewport-controls">
-            <iframe ref="coupledViewport" class="viewport" :style="'width: '+x+'px; height:'+y+'px;'"></iframe>
-            <div class="horizontal-handle" @mousedown="mouseDown($event, 'HORIZONTAL')">
-                <div class="icon">&#61917;</div>
-            </div>
-            <div class="vertical-handle" @mousedown="mouseDown($event, 'VERTICAL')">
-                <div class="icon">&#61916;</div>
-            </div>
-            <div class="diagonal-handle" @mousedown="mouseDown($event, 'BOTH')">
-                <div class="icon">&#62557;</div>
-            </div>
+    <div class="viewport-controls">
+        <iframe ref="coupledViewport" class="viewport" :style="'width: '+activeTab.VIEWPORT.X+'px; height:'+activeTab.VIEWPORT.Y+'px;'"></iframe>
+        <div class="horizontal-handle" @mousedown="mouseDown($event, 'HORIZONTAL')">
+            <div class="icon">&#61917;</div>
+        </div>
+        <div class="vertical-handle" @mousedown="mouseDown($event, 'VERTICAL')">
+            <div class="icon">&#61916;</div>
+        </div>
+        <div class="diagonal-handle" @mousedown="mouseDown($event, 'BOTH')">
+            <div class="icon">&#62557;</div>
         </div>
     </div>
 </template>
-
 <script>
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         name: 'Viewport',
         props: ['x', 'y', 'content'],
@@ -35,19 +34,27 @@
                 y_: 0
             }
         },
+        computed: {
+            ...mapGetters([
+                'activeTab',
+            ]),
+        },
         watch: {
             'content': function() {
                 this.setContent(this.content)
             },
-            'x': function() {
-                this.x_ = this.x
+            'activeTab.VIEWPORT.X': function() {
+                this.x_ = this.activeTab.VIEWPORT.X
             },
-            'y': function() {
-                this.y_ = this.y
+            'activeTab.VIEWPORT.Y': function() {
+                this.y_ = this.activeTab.VIEWPORT.Y
             },
         },
         mounted() {
             const vm = this
+
+            this.x_ = this.activeTab.VIEWPORT.X
+            this.y_ = this.activeTab.VIEWPORT.Y
 
             window.addEventListener('mousemove', function(event) {
                 vm.mouseMove(event)
@@ -82,10 +89,10 @@
                     {
                         this.y_ = parseInt(this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000))
                     }
-    
-                    this.$emit('update:x', this.x_)
-                    this.$emit('update:y', this.y_)
                 }
+
+                this.activeTab.VIEWPORT.X = this.x_
+                this.activeTab.VIEWPORT.Y = this.y_
             },
 
             mouseUp: function(e){
@@ -108,10 +115,6 @@
 </script>
 
 <style lang="sass" scoped>
-    .viewport-container
-        .event-plane
-            cursor: grabbing
-
     .viewport-controls
         display: inline-grid
         overflow: hidden

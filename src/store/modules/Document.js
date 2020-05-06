@@ -1,18 +1,13 @@
-const state = {
-    structures: {
-        children: [
-            {tag: 'div', classes: ['teet'], id: 'test_1', children: []},
-            {tag: 'div', classes: ['container'], id: 'test_2', children: []},
-            {tag: 'div', classes: ['bridge','timer'], id: 'test_3', children: [
-                {tag: 'div', classes: [], id: 'test_3_1', children: []},
-                {tag: 'div', classes: [], id: 'test_3_2', children: []},
-                {tag: 'div', classes: [], id: 'test_3_3', children: []},
-            ]},
-        ]
-    }
-}
+import { EventBus } from '../../assets/js/event-bus'
+import TabPrototype from '../../classes/TabPrototype'
+
+const state = new TabPrototype()
 
 const getters = {
+
+    // FLUSH give back the entire state
+    __FLUSH_DOCUMENT__: (state) => state,
+
     docStructures: (state) => {
         return state.structures
     },
@@ -21,6 +16,7 @@ const getters = {
 
         let getFromTrace = (trace) => {
 
+            trace = trace.toString()
             trace = trace.split('-')
 
             for (let i = 0; i < trace.length; i++)
@@ -42,9 +38,19 @@ const getters = {
 
         return getFromTrace(trace)
     },
+    selectedStructures: (state) => state.ui.selectedStructures,
+    view: (state) => state.ui.view,
 }
 
 const actions = {
+
+    // FLOOD is used to change the active tab
+    __FLOOD_DOCUMENT__({ commit }, payload) {
+
+        // TODO: validation for payload
+        commit('FLOOD_DOCUMENT', payload)
+    },
+
     insertStructure({ commit, state }, payload) {
 
         let path = state.structures
@@ -84,6 +90,7 @@ const actions = {
 
         let reformTrace = (trace) => {
 
+            trace = trace.toString()
             trace = trace.split('-')
 
             for (let i = 0; i < trace.length; i++)
@@ -103,10 +110,28 @@ const actions = {
                 commit('setPropertyText_', { trace: reformTrace(trace), text: payload.text })
             }
         }
+    },
+
+    setSelectedStructures({ commit }, payload) {
+        if( !payload.trace.toString() ) return
+
+        EventBus.$emit('structure-selected', [payload.trace])
+
+        commit('setSelectedStructures_', { trace: payload.trace })
+    },
+
+    setView({ commit }, payload) {
+        commit('setView_', payload)
     }
 }
 
 const mutations = {
+
+    FLOOD_DOCUMENT: (state, param) => {
+        state = param
+        console.log(param)
+    },
+
     insertStructure_: (state, param) => {
 
         let path = 'state.structures'
@@ -140,6 +165,14 @@ const mutations = {
             structure.text = param.text
         }
     },
+
+    setSelectedStructures_: (state, param) => {
+        state.ui.selectedStructures = [param.trace.toString()]
+    },
+
+    setView_: (state, params) => {
+        state.ui.view = params.view
+    }
 }
 
 export default {

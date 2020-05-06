@@ -2,7 +2,7 @@
     <div class="input" :class="{'has-label': label, 'has-unit': hasUnit}">
         <div class="label" @dragstart.prevent v-if="label">{{label}}</div>
         
-        <input @click="selectAll()" @dragstart.prevent @mousedown="valueMouseDown($event)" ref="input" type="number" class="number-input" v-model="value_">
+        <input @click="selectAll()" @focus="valueFocused = true" @blur="valueFocused = false" @dragstart.prevent @mousedown="valueMouseDown($event)" ref="input" type="number" class="number-input" v-model="value_">
         
         <div class="unit" ref="unit" @dragstart.prevent @mousedown="unitMouseDown($event)" v-if="hasUnit">
             <span v-show="units[unit_] !== 'auto'">{{units[unit_]}}</span>
@@ -47,12 +47,14 @@
             return {
                 hasUnit: true,
                 
+                valueFocused: false,
                 isValueMouseDown: false,
                 isValueDragging: false,
                 valueStart: 0,
                 value_: 0,
                 valueTemp: 0,
 
+                unitFocused: false,
                 units: ['cm','auto','px','%','vm','vh','em','vmin'],
                 unit_: 2,
                 isUnitMouseDown: false,
@@ -97,17 +99,21 @@
 
                 let ret = this.hasUnit ? {value: this.value_, unit: this.units[this.unit_]} : this.value_
 
-                this.$emit('input', ret)
+                if( this.valueFocused || this.unitFocused ){
+                    this.$emit('input', ret)
+                }
             }
         },
         methods: {
             valueMouseDown(event) {
                 this.isValueMouseDown = true
+                this.valueFocused = true
                 this.valueStart = event.clientY
             },
 
             unitMouseDown(event) {
                 this.isUnitMouseDown = true
+                this.unitFocused = true
                 
                 this.unitStartX = event.clientX - event.offsetX + this.$refs.unit.clientWidth / 2
                 this.unitStartY = event.clientY - event.offsetY + this.$refs.unit.clientHeight / 2
@@ -128,6 +134,7 @@
 
                     if( this.isValueDragging )
                     {
+                        this.valueFocused = true
                         this.value_ = this.valueTemp + Math.round((this.valueStart - event.clientY) * .4)
                     }
                 }
@@ -143,6 +150,8 @@
                     // this is just pythagoras - dont worry
                     this.unitLen = Math.floor(Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2) ))
                     this.unitDeg = Math.floor(Math.atan2(diffY, diffX) / Math.PI * 180) * (-1) + 180
+
+                    this.unitFocused = true
 
                     if( this.unitLen > 30 )
                     {
@@ -160,6 +169,7 @@
 
             valueMouseUp() {
                 this.isValueMouseDown = false
+                this.valueFocused = false
 
                 if( this.isValueDragging )
                 {
@@ -169,6 +179,7 @@
             },
 
             unitMouseUp() {
+                this.unitFocused = false
                 this.isUnitMouseDown = false
             },
 
