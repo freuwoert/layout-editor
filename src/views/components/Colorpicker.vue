@@ -434,7 +434,8 @@
 <style lang="sass" scoped>
     .colorpicker
         // position: fixed
-        // right: 
+        // right: 415px
+        // top: 100px
         // z-index: 1
         .eyedropper-image
             height: 100vh

@@ -1,6 +1,6 @@
 <template>
     <div class="viewport-controls">
-        <iframe ref="coupledViewport" class="viewport" :style="'width: '+activeTab.VIEWPORT.X+'px; height:'+activeTab.VIEWPORT.Y+'px;'"></iframe>
+        <iframe ref="coupledViewport" class="viewport" :style="'width: '+viewport.x+'px; height:'+viewport.y+'px;'"></iframe>
         <div class="horizontal-handle" @mousedown="mouseDown($event, 'HORIZONTAL')">
             <div class="icon">&#61917;</div>
         </div>
@@ -36,25 +36,25 @@
         },
         computed: {
             ...mapGetters([
-                'activeTab',
+                'viewport',
             ]),
         },
         watch: {
             'content': function() {
                 this.setContent(this.content)
             },
-            'activeTab.VIEWPORT.X': function() {
-                this.x_ = this.activeTab.VIEWPORT.X
+            'viewport.x': function() {
+                this.x_ = this.viewport.x
             },
-            'activeTab.VIEWPORT.Y': function() {
-                this.y_ = this.activeTab.VIEWPORT.Y
+            'viewport.y': function() {
+                this.y_ = this.viewport.y
             },
         },
         mounted() {
             const vm = this
 
-            this.x_ = this.activeTab.VIEWPORT.X
-            this.y_ = this.activeTab.VIEWPORT.Y
+            this.x_ = this.viewport.x
+            this.y_ = this.viewport.y
 
             window.addEventListener('mousemove', function(event) {
                 vm.mouseMove(event)
@@ -65,6 +65,10 @@
             }, false)
         },
         methods: {
+
+            ...mapActions([
+                'setViewportSize',
+            ]),
 
             mouseDown: function(e, direction = 'BOTH'){
                 this.grabbed = true
@@ -89,10 +93,8 @@
                     {
                         this.y_ = parseInt(this.limit(this.startSize.y + (e.y - this.startPos.y), 40, 20000))
                     }
+                    this.setViewportSize({x: this.x_, y: this.y_})
                 }
-
-                this.activeTab.VIEWPORT.X = this.x_
-                this.activeTab.VIEWPORT.Y = this.y_
             },
 
             mouseUp: function(e){

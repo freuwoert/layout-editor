@@ -49,21 +49,21 @@
 
         <div class="workspace">
             <div class="controls">
-                <div class="control-icon-btn" onclick="rotateCoupledViewport()">&#62581;</div>
-                <!-- <drag-unit class="control-input" label="W" :min="40" :max="9999" nounit v-model="activeTab.VIEWPORT.X"></drag-unit>
-                <drag-unit class="control-input" label="H" :min="40" :max="9999" nounit v-model="activeTab.VIEWPORT.Y"></drag-unit>
-                <div class="control-icon-btn" onclick="decoupleViewport()" :class="{'active' : activeTab.VIEWPORT.DECOUPLED}">&#61516;</div> -->
+                <drag-unit class="control-input" label="W" :min="40" :max="9999" nounit :value="viewport.x" @input="setViewportSize({x: $event, y: null})"></drag-unit>
+                <drag-unit class="control-input" label="H" :min="40" :max="9999" nounit :value="viewport.y" @input="setViewportSize({x: null, y: $event})"></drag-unit>
+                <div class="control-icon-btn" @click="rotateCoupledViewport()">&#62581;</div>
+                <div class="control-icon-btn" @click="toggleDecoupleViewport()" :class="{'active' : viewport.decoupled}">&#61516;</div>
             </div>
 
             <div class="center">
-                <div class="decoupled-viewport" v-show="true">
+                <div class="decoupled-viewport" v-show="viewport.decoupled">
                     <div class="icon">&#63880;</div>
                     <div class="text">
                         The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
                     </div>
                 </div>
 
-                <!-- <viewport :content="activeTab.VIEWPORT.CONTENT" :x="activeTab.VIEWPORT.X" :y="activeTab.VIEWPORT.Y" @update:x="activeTab.VIEWPORT.X = $event" @update:y="activeTab.VIEWPORT.Y = $event" v-show="!activeTab.VIEWPORT.DECOUPLED"></viewport> -->
+                <viewport :content="viewport.content" v-show="!viewport.decoupled"></viewport>
             </div>
         </div>
 
@@ -89,6 +89,7 @@
             ...mapGetters([
                 'docStructures',
                 'dragElement',
+                'viewport',
                 'userInfo',
             ]),
         },
@@ -96,6 +97,9 @@
             ...mapActions([
                 'setView',
                 'setDraggedElement',
+                'setViewportSize',
+                'rotateCoupledViewport',
+                'toggleDecoupleViewport',
                 'setSettingsUI',
             ]),
             dragStructure(event, elementId) {

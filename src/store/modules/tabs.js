@@ -1,11 +1,10 @@
 const uuid = require('uuid')
-const startUUID = uuid.v4()
 
-import TabPrototype from '../../classes/TabPrototype'
+import Tab from '../../classes/TabPrototype'
 
 const state = {
-    activeUUID: startUUID,
-    tabs: [new TabPrototype(startUUID)],
+    activeUUID: null,
+    tabs: [],
 }
 
 const getters = {
@@ -30,50 +29,98 @@ const getters = {
 }
 
 const actions = {
-    addTab({ commit }, payload) {
-        let uuid = require('uuid').v4()
-        let tab = new TabPrototype(uuid)
+    addTab({ commit, dispatch }, payload) {
+        const uuid = require('uuid').v4()
+        let tab = new Tab(uuid).getStruct()
 
         commit('addTabs_', [tab])
 
         if( payload.selectOnCreation )
         {
-            commit('setActiveTab_', uuid)
+            dispatch('selectTab', uuid)
         }
     },
 
-    selectTab({ commit, state, getters }, payload) {
-
-        commit('loadTab_', getters.__FLUSH_DOCUMENT__)
+    deleteTab({ commit, dispatch }, payload) {
+        let index = false
 
         for (let i = 0; i < state.tabs.length; i++)
         {
             if( state.tabs[i].UUID === payload)
             {
-                commit('FLOOD_DOCUMENT', JSON.parse(JSON.stringify(state.tabs[i])))
-                return
+                index = i
+                break
             }
+        }
+
+        if(state.activeUUID === payload && state.tabs.length <= 1)
+        {
+            console.log('Close App')
+            commit('deleteTab_', index)
+        }
+        else
+        {
+            commit('deleteTab_', index)
+
+            if(state.activeUUID === payload)
+            {
+                let newIndex = index > 0 ? index - 1 : 0
+                dispatch('selectTab', state.tabs[newIndex].UUID)
+            }
+        }
+    },
+
+    selectTab({ commit, state, getters }, payload) {
+
+        let oldIndex = false
+        let newIndex = false
+
+        for (let i = 0; i < state.tabs.length; i++)
+        {
+            if( !oldIndex && state.tabs[i].UUID === state.activeUUID) oldIndex = i
+            if( !newIndex && state.tabs[i].UUID === payload) newIndex = i
+        }
+
+        if( oldIndex !== false )
+        {
+            // Saves all progress of the document module to it's counterpart in the tabs array
+            commit('documentToBackground_', {
+                index: oldIndex,
+                data: getters.__FLUSH_DOCUMENT__,
+            })
+        }
+
+        if( newIndex !== false )
+        {
+            // Loads all data of a chosen tab in the tabs array into the document
+            // ref: Document module
+            commit('documentToForeground_', {
+                data: state.tabs[newIndex],
+            })
+            
+            // Vuex does not allow me to make this private so here's a note:
+            // DO NOT USE setActiveUUID__ ANYWHERE ELSE!!!
+            commit('setActiveUUID__', state.tabs[newIndex].UUID)
         }
     },
 }
 
 const mutations = {
-    addTabs_: (state, params) => {
-        state.tabs.push( ...params )
+    addTabs_: (state, param) => {
+        state.tabs.push( ...param )
     },
-    loadTab_: (state, params) => {
-        for (let i = 0; i < state.tabs.length; i++)
+    deleteTab_: (state, param) => {
+        state.tabs.splice(param, 1)
+    },
+    documentToBackground_: (state, param) => {
+        let cloneDeep = require('lodash.clonedeep')
+        if( param.data.meta.isGhost === false )
         {
-            if( state.tabs[i].UUID === state.activeUUID)
-            {
-                state.tabs[i] = JSON.parse(JSON.stringify(params))
-                console.log(params)
-                return
-            }
+            state.tabs[param.index] = cloneDeep(param.data)
         }
     },
-    setActiveTab_: (state, params) => {
-        state.activeUUID = params
+    setActiveUUID__: (state, param) => {
+        if( typeof param === 'string' ) state.activeUUID = param
     },
 }
 

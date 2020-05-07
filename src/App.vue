@@ -7,7 +7,7 @@
                         <div class="tab" :key="i" v-for="(tab, i) in allTabHandles" :class="{'active' : tab.UUID === activeTabID}">
                             <div class="change-dot" :class="{'active' : tab.changed}"></div>
                             <span class="title" @click="selectTab(tab.UUID)">{{tab.name}}</span>
-                            <div class="close" :onclick="'closeTab('+tab.UUID+')'">&#61782;</div>
+                            <div class="close"  @click="deleteTab(tab.UUID)">&#61782;</div>
                         </div>
                         <div class="create" @click="addTab({selectOnCreation: true})">&#62485;</div>
                     </div>
@@ -34,6 +34,8 @@
             <div class="logo"></div>
             <spinner class="spinner" color="white" stroke="4"></spinner>
         </div>
+
+        <span>{{view + ':VIEW'}}</span>
 
         <!-- Views -->
         <view-landing v-if="view === 'LANDING'"></view-landing>
@@ -74,6 +76,7 @@
             ...mapActions([
                 'addTab',
                 'selectTab',
+                'deleteTab',
             ]),
         },
         components: {
