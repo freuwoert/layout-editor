@@ -15,7 +15,6 @@ const Toast = require('@/assets/js/modules/toast.js')
 const settings = require('electron-settings')
 const Mousetrap = require('mousetrap')
 const remote = require('electron').remote
-const { ipcRenderer } = require('electron')
 
 
 
@@ -30,6 +29,7 @@ const app = new Vue({
     methods: {
         ...mapActions([
             'addTab',
+            'saveFile',
         ])
     },
     computed: {
@@ -42,6 +42,15 @@ const app = new Vue({
         this.addTab({selectOnCreation: true})
     },
     render: h => h(App)
+})
+
+// keyboard events
+Mousetrap.bind(['ctrl+s','command+s'], function(){
+    app.saveFile()
+})
+
+Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
+    app.saveFile({force: true})
 })
 
 

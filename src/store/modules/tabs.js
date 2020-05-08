@@ -266,22 +266,13 @@ const actions = {
     // Mixes //
     ///////////
 
-    async saveFile({ commit, state }, payload) {
+    async saveFile({ commit, state, getters }, payload) {
 
         if( !payload ) payload = { uuid: false, savePath: false, force: false }
 
-        let index = false
+        let index = getters.activeIndex
         let uuid = payload.uuid ? payload.uuid : state.activeUUID
         let isActive = state.activeUUID === uuid ? true : false
-        
-        for (let i = 0; i < state.tabs.length; i++)
-        {
-            if(state.tabs[i].UUID === uuid)
-            {
-                index = i
-                break
-            }
-        }
 
         let savePath = payload.savePath ? payload.savePath : state.tabs[index].meta.savePath
 
@@ -303,6 +294,14 @@ const actions = {
         catch(error) {
             console.error(error)
         }
+    },
+
+    async chooseSavePath({ commit, getters }) {
+        let index = getters.activeIndex
+        let savePath = await Dialog.saveDialog()
+
+        commit('setBackgroundSavePath_', {index, savePath})
+        commit('setSavePath_', savePath)
     },
 }
 
