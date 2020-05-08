@@ -30,6 +30,22 @@ const getters = {
         return handles
     },
 
+    activeIndex: (state) => {
+
+        let index = false
+        // get active index
+        for (let i = 0; i < state.tabs.length; i++)
+        {
+            if(state.tabs[i].UUID === state.activeUUID)
+            {
+                index = i
+                break
+            }
+        }
+
+        return index
+    },
+
 
 
     //////////////
@@ -118,7 +134,7 @@ const actions = {
         }
     },
 
-    selectTab({ commit, state, getters }, payload) {
+    selectTab({ commit, state }, payload) {
 
         let oldIndex = false
         let newIndex = false
@@ -134,7 +150,7 @@ const actions = {
             // Saves all progress of the document module to it's counterpart in the tabs array
             commit('documentToBackground_', {
                 index: oldIndex,
-                data: getters.__FLUSH_DOCUMENT__,
+                data: state.document,
             })
         }
 
@@ -154,7 +170,7 @@ const actions = {
     // Document //
     //////////////
 
-    insertStructure({ commit, state }, payload) {
+    insertStructure({ commit, state, getters }, payload) {
 
         let path = state.document.structures
         let isValid = true
@@ -185,11 +201,13 @@ const actions = {
 
         if( isValid )
         {
+            commit('setChanged_', true)
+            commit('setBackgroundChanged_', {index: getters.activeIndex , changed: true})
             commit('insertStructure_', { trace: payload.trace, position: payload.position, element: payload.element })
         }
     },
 
-    setProperty({ commit }, payload) {
+    setProperty({ commit, getters }, payload) {
 
         let reformTrace = (trace) => {
 
@@ -212,6 +230,9 @@ const actions = {
             {
                 commit('setPropertyText_', { trace: reformTrace(trace), text: payload.text })
             }
+
+            commit('setChanged_', true)
+            commit('setBackgroundChanged_', {index: getters.activeIndex , changed: true})
         }
     },
 
@@ -323,10 +344,7 @@ const mutations = {
 
     documentToForeground_: (state, param) => {
         let cloneDeep = require('lodash.clonedeep')
-        for (const prop of Object.keys(param.data))
-        {
-            state.document[prop] = cloneDeep(param.data[prop])
-        }
+        state.document = cloneDeep(param.data)
         if( typeof param.data.UUID === 'string' ) state.activeUUID = param.data.UUID
     },
 
