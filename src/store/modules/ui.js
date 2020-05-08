@@ -1,7 +1,5 @@
 const state = {
-    
     loadDelay: 0,
-    
     releaseNote: false,
     settings: false,
     activeSetting: 'INFO',

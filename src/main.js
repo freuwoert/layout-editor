@@ -6,7 +6,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 // GLOBAL REQUIREMENTS
 const $ = require('jquery')
-const path = require('path')
 const emmet = require('emmet')
 const Fuse = require('fuse.js')
 const anime = require('animejs')
@@ -16,7 +15,6 @@ const Toast = require('@/assets/js/modules/toast.js')
 const settings = require('electron-settings')
 const Mousetrap = require('mousetrap')
 const remote = require('electron').remote
-const { dialog } = require('electron').remote
 const { ipcRenderer } = require('electron')
 
 
@@ -30,13 +28,18 @@ const app = new Vue({
     el: '#app',
     store,
     methods: {
-        ...mapActions([])
+        ...mapActions([
+            'addTab',
+        ])
     },
     computed: {
         ...mapGetters([
             'vAppInfo',
             'GENERAL_UI'
         ]),
+    },
+    mounted() {
+        this.addTab({selectOnCreation: true})
     },
     render: h => h(App)
 })

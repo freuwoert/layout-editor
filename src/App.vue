@@ -4,7 +4,7 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
-                        <div class="tab" :key="i" v-for="(tab, i) in allTabHandles" :class="{'active' : tab.UUID === activeTabID}">
+                        <div class="tab" :key="i" v-for="(tab, i) in tabHandles" :class="{'active' : tab.UUID === activeUUID}">
                             <div class="change-dot" :class="{'active' : tab.changed}"></div>
                             <span class="title" @click="selectTab(tab.UUID)">{{tab.name}}</span>
                             <div class="close"  @click="deleteTab(tab.UUID)">&#61782;</div>
@@ -66,10 +66,10 @@
     export default {
         computed: {
             ...mapGetters([
-                'allTabHandles',
+                'tabHandles',
                 'settingsUI',
                 'view',
-                'activeTabID',
+                'activeUUID',
             ]),
         },
         methods: {

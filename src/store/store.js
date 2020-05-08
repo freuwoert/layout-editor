@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Read / Write
-import Document from './modules/Document'
+//import Document from './modules/Document'
 import Tabs from './modules/Tabs'
 import User from './modules/User'
 import UI from './modules/UI'
@@ -19,7 +19,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         // Read / Write
-        Document,
+        //Document,
         Tabs,
         User,
         UI,

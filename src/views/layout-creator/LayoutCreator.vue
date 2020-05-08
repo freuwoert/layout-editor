@@ -6,6 +6,9 @@
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
+            <div class="button" @click="saveFile()">
+                <div class="icon">&#62903;</div> Temp Save
+            </div>
             <div class="account">
                 <div class="sign-in" v-show="!userInfo.online">
                     <div class="text">Sign In</div>
@@ -38,8 +41,6 @@
         </div>
 
         <div class="structure-panel">
-            <!-- <focus-indicator :when="TAB.FOCUSED_PANEL" equals="STRUCTURE"></focus-indicator> -->
-
             <div class="structure-container">
                 <structure-tree :key="id" v-for="(child, id) in docStructures.children" :structure="child" :trace="id"></structure-tree>
             </div>
@@ -68,10 +69,10 @@
         </div>
 
         <div class="status-panel">
-            <div class="savepath" :title="'TabsSavePath'">
+            <div class="savepath" :title="savePath">
                 <div class="icon">&#63343;</div>
-                <div class="label" v-show="false">{{'savePathName'}}</div>
-                <div class="label" v-show="!false">Set file location</div>
+                <div class="label" v-show="savePath">{{savePathName}}</div>
+                <div class="label" v-show="!savePath">Set file location</div>
             </div>
         </div>
     </div>
@@ -79,10 +80,11 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex'
-    import Viewport from './components/Viewport'
+    import path from 'path'
     import StructureTree from './components/StructureTree'
     import PropertyPanel from './components/PropertyPanel'
     import DragUnit from '../components/DragUnitInput'
+    import Viewport from './components/Viewport'
 
     export default {
         computed: {
@@ -90,8 +92,13 @@
                 'docStructures',
                 'dragElement',
                 'viewport',
+                'savePath',
                 'userInfo',
             ]),
+
+            savePathName() {
+                return this.savePath ? path.basename(this.savePath) : false
+            }
         },
         methods: {
             ...mapActions([
@@ -101,6 +108,7 @@
                 'rotateCoupledViewport',
                 'toggleDecoupleViewport',
                 'setSettingsUI',
+                'saveFile',
             ]),
             dragStructure(event, elementId) {
                 this.setDraggedElement({type: 'structure', element: elementId})
