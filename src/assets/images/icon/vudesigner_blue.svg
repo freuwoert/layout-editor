@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <clipPath id="clip-vudesigner_blue">
+      <rect width="500" height="500"/>
+    </clipPath>
+  </defs>
+  <g id="vudesigner_blue" clip-path="url(#clip-vudesigner_blue)">
+    <g id="vudesigner_logo_white" transform="translate(-62.739 -147.749)">
+      <path id="Pfad_6" data-name="Pfad 6" d="M461.5,534.3l52.7-91.07h48.519a37.162,37.162,0,0,0,32.175-18.576l31.124-53.917a18.577,18.577,0,0,0-16.089-27.867H470.934l47.227-81.761h131.5c64.368,0,104.592,69.692,72.39,125.426L662.679,489.384A89.8,89.8,0,0,1,584.92,534.3Z" transform="translate(-170.655 -0.013)" fill="#0984e3" opacity="0.8"/>
+      <path id="Pfad_7" data-name="Pfad 7" d="M220.737,534.289,378.462,261.08H294.768a37.163,37.163,0,0,0-32.177,18.573l-41.854,72.5-41.853-72.493a37.164,37.164,0,0,0-32.178-18.576H63Z" transform="translate(0 0)" fill="#0984e3"/>
+    </g>
+  </g>
+</svg>

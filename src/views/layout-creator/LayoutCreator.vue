@@ -6,9 +6,7 @@
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
-            <div class="button" @click="saveFile()">
-                <div class="icon">&#62903;</div> Temp Save
-            </div>
+
             <div class="account">
                 <div class="sign-in" v-show="!userInfo.online">
                     <div class="text">Sign In</div>
@@ -377,6 +375,7 @@
                 height: calc(100% - 50px)
                 padding-top: 50px
                 text-align: center
+                user-select: none
 
                 .decoupled-viewport
                     position: absolute
