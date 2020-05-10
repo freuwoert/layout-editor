@@ -116,7 +116,7 @@
 <style lang="sass" scoped>
     .container
         z-index: 1000
-        background: var(--background)
+        background: var(--dark-background)
         grid-template-columns: 300px auto
         grid-template-rows: 40px auto
         grid-template-areas: "header_panel header_panel" "menu_panel content_panel"
@@ -124,6 +124,7 @@
         .header-panel
             grid-area: header_panel
             position: relative
+            background: var(--background)
         
             .exit
                 height: var(--header-height)
@@ -165,10 +166,14 @@
             grid-area: menu_panel
             position: relative
             user-select: none
+            margin-top: 5px
+            border-radius: 0 5px 0 0 
+            background: var(--background)
 
             .account-container
                 width: 100%
                 text-align: center
+                margin-top: 20px
 
                 .image
                     height: 130px
@@ -266,8 +271,6 @@
                         color: var(--primary)
 
         .content-panel
-            background: var(--dark-background)
-            border-radius: 10px 0 0 0
             grid-area: content_panel
             text-align: left
             padding: 80px

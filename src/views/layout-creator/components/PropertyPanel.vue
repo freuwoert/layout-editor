@@ -8,7 +8,7 @@
             <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container">
-            <!-- <colorpicker></colorpicker> -->
+            <colorpicker></colorpicker>
         </div>
     </div>
 </template>

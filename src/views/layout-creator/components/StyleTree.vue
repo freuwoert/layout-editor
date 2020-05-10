@@ -1,28 +1,15 @@
 <template>
     <div class="structure-tree" :trace="trace" :class="[{'selected': (selectedStructures.includes(trace+''))}, insertPos]">
         <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="drapOver($event)" @dragenter="dragEnter('drag-insert')" @dragleave="dragLeave()">
-            <span class="tag" v-if="structure.tag">
-                {{structure.tag}}
-            </span>
-
-            <span class="tag id" v-if="structure.id">
-                {{structure.id}}
-            </span>
-
-            <span class="tag class" v-if="structure.classes && structure.classes.length">
-                <span v-for="(class_, i) in structure.classes" :key="i">{{class_}}</span>
-            </span>
-
-            <span class="attribute no-margin" v-if="structure.hasOwnProperty('text')">
-                <div class="attribute-value" v-show="!structure.text">∙ EMPTY ∙</div>
-                <div class="attribute-value" v-show="structure.text">{{structure.text}}</div>
+            <span class="tag" v-if="structure.selector">
+                {{structure.selector}}
             </span>
         </div>
 
 
 
         <div class="children-container" v-if="structure.children.length">
-            <structure-tree v-for="(child, id) in structure.children" :key="id" :trace="trace+'-'+id" :structure="child"></structure-tree>
+            <style-tree v-for="(child, id) in structure.children" :key="id" :trace="trace+'-'+id" :structure="child"></style-tree>
         </div>
     </div>
 </template>
@@ -30,7 +17,7 @@
     import { mapGetters, mapActions } from 'vuex'
 
     export default {
-        name: 'structure-tree',
+        name: 'style-tree',
         props: {
             structure: {
                 required: true,
@@ -97,43 +84,24 @@
             box-sizing: border-box
             height: 24px
             border-radius: 5px
-            padding-left: 3px
+            padding-left: 5px
             font-size: 0
             font-weight: 600
             position: relative
             white-space: nowrap
             overflow: hidden
+            border: 1px solid transparent
 
             &:hover
                 background: var(--dark-background)
 
             .tag
                 display: inline-block
-                line-height: 18px
-                margin: 3px 0
-                background: #ED4250
-                color: var(--color-bright)
-                text-transform: uppercase
-                letter-spacing: 0.5px
-                font-size: 11px
-                padding: 0 6px
+                line-height: 22px
+                color: var(--red)
+                text-transform: lowercase
+                font-size: 12px
                 pointer-events: none
-
-                &:first-child
-                    border-top-left-radius: 4px
-                    border-bottom-left-radius: 4px
-
-                &:last-child
-                    border-top-right-radius: 4px
-                    border-bottom-right-radius: 4px
-
-                &.class
-                    background: #2F3542
-                    color: var(--color)
-
-                &.id
-                    background: #57606F
-                    color: var(--color)
 
             .attribute
                 display: inline-block
@@ -175,16 +143,8 @@
             border-left: 1px solid rgba(255, 255, 255, 0.2)
 
         &.selected > .tag-container
-            &::after
-                content: ''
-                position: absolute
-                right: 8px
-                top: calc(50% - 4px)
-                height: 8px
-                width: 8px
-                background: var(--primary)
-                border-radius: 100%
-
+            background: rgba(255, 255, 255, 0.05)
+            border-color: rgba(255, 255, 255, 0.2)
         &.drag-insert > .tag-container
-            background: var(--darker-background)
+            background: rgba(255, 255, 255, 0.1)
 </style>

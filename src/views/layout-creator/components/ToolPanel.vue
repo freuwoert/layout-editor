@@ -1,0 +1,76 @@
+<template>
+    <div class="tool-panel">
+        <div class="tool" title="Search">&#62281;</div>
+        <div class="divider">&#62281;</div>
+        <div class="tool" draggable="true" title="Div-Box"      @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">&#63651;</div>
+        <div class="tool" draggable="true" title="Text"         @drag="dragStructure($event, 'VU:DEFAULT:TEXT:0')">&#62964;</div>
+        <div class="tool" draggable="true" title="Link"         @drag="dragStructure($event, 'W3:DEFAULT:A:0')">&#62265;</div>
+        <div class="tool" draggable="true" title="Icon"         @drag="dragStructure($event, 'VU:DEFAULT:ICON:0')">&#63984;</div>
+        <div class="tool" draggable="true" title="Span"         @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">&#63912;</div>
+        <div class="tool" draggable="true" title="Paragraph"    @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#63911;</div>
+        <div class="tool" draggable="true" title="Image"        @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#63861;</div>
+        <div class="tool" draggable="true" title="Video"        @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
+        <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
+
+        <div class="tool settings" title="Settings" @click="setSettingsUI(true)">&#62611;</div>
+    </div>
+</template>
+<script>
+    import { mapGetters, mapActions } from 'vuex'
+
+    export default {
+        computed: {
+            ...mapGetters([
+                'dragElement',
+            ]),
+        },
+        methods: {
+            ...mapActions([
+                'setDraggedElement',
+                'setSettingsUI',
+            ]),
+            dragStructure(event, elementId) {
+                this.setDraggedElement({type: 'structure', element: elementId})
+            },
+        },
+    }
+</script>
+<style lang="sass" scoped>
+    .tool-panel
+        grid-area: tool_panel
+        position: relative
+        display: flex
+        flex-direction: column
+        margin: 5px 0
+        background: var(--background)
+        border-radius: 0 5px 5px 0
+
+        .tool
+            height: 50px
+            width: 50px
+            position: relative
+            border-radius: 5px
+            background: var(--background)
+            text-align: center
+            line-height: 50px
+            color: rgba(255, 255, 255, 0.7)
+            font-size: 24px
+            font-family: 'Material Icons'
+            user-select: none
+            cursor: pointer
+
+            &.settings
+                position: absolute
+                bottom: 0
+                left: 0
+
+            &:hover
+                background: rgba(255, 255, 255, 0.05)
+                color: white
+        
+        .divider
+            height: 0
+            width: calc(100% - 10px)
+            margin: 0 5px
+            border-bottom: 1px solid var(--color-lighter)
+</style>

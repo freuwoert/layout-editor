@@ -14,7 +14,10 @@ export default class TabStruct {
             focusedStructure: '',
         }
         this.structures = {
-            children: [{tag: 'div', classes: ['container'], id: null, children: []}]
+            children: [{tag: 'div', classes: [], id: null, children: []}]
+        }
+        this.style = {
+            children: [{selector: '.container', children: []}]
         }
         this.viewport = {
             x: 300,
