@@ -2,7 +2,6 @@
     <div class="view" id="layout-editor-view">
 
         <div class="option-panel">
-            <div class="leave-button" title="Leave to overview">&#61517;</div>
             <div class="button">
                 <div class="icon">&#62903;</div> Build Code
             </div>
@@ -51,7 +50,7 @@
                 <drag-unit class="control-input" label="W" :min="40" :max="9999" nounit :value="viewport.x" @input="setViewportSize({x: $event, y: null})"></drag-unit>
                 <drag-unit class="control-input" label="H" :min="40" :max="9999" nounit :value="viewport.y" @input="setViewportSize({x: null, y: $event})"></drag-unit>
                 <div class="control-icon-btn" @click="rotateCoupledViewport()">&#62581;</div>
-                <div class="control-icon-btn" @click="toggleDecoupleViewport()" :class="{'active' : viewport.decoupled}">&#61516;</div>
+                <div class="control-icon-btn" @click="toggleDecoupleViewport()" :class="{'active' : viewport.decoupled}">{{viewport.decoupled ? '&#64876;' : '&#62329;'}}</div>
             </div>
 
             <div class="center">

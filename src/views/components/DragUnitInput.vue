@@ -9,7 +9,7 @@
             <span v-show="units[unit_] === 'auto'">-</span>
         </div>
 
-        <div class="unit-wheel" v-show="isUnitMouseDown" v-if="hasUnit">
+        <div class="unit-wheel" @dragstart.prevent v-show="isUnitMouseDown" v-if="hasUnit">
             <div class="center">{{units[unit_]}}</div>
             <div class="knob" :style="'transform: rotate('+(-1)*unitDeg+'deg)'"></div>
 
