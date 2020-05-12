@@ -189,7 +189,7 @@ export default {
                                 left: 50%
                                 top: 50%
                                 transform: translate(-50%, calc(-50% - 10px))
-                                transition: transform 200ms cubic-bezier(0, 0.88, 0, 0.99)
+                                transition: font-size 200ms cubic-bezier(0, 0.88, 0, 0.99)
                                 border-radius: 5px
                                 font-size: 140px
                                 font-family: 'Material Icons'
@@ -214,7 +214,7 @@ export default {
 
                             &:hover
                                 .icon
-                                    transform: translate(-50%, calc(-50% - 10px)) scale(1.1)
+                                    font-size: 160px
                                     color: var(--color-bright)
                                     filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.25))
 
