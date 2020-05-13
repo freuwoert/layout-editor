@@ -40,6 +40,8 @@ It's mostly german though.
 ## News
 12.05.2020:  
 Currently looking for a solution for the selection and structuring of the styling part of the editor - I think I got an efficient one. 😄  
+13.05.2020:  
+Okay, maybe not ._.  
 
 ## Disclaimer
 This idea came from my desire for a tool like this. I'm not working fulltime on Vudesigner nor am I capible of financially supporting it more than I do now. I simply cannot guarantee for a set list of features before I haven't decide on making Vudesigner into a commercial product. I will however do my absolute best to keep the promises listed above. And just to mention it: although this project may be openly available I do not support the altering or republishing of it. After all this is my 'brain child'. 😅  

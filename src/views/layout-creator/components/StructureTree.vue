@@ -111,7 +111,7 @@
                 display: inline-block
                 line-height: 18px
                 margin: 3px 0
-                background: #ED4250
+                background: var(--primary)
                 color: var(--color-bright)
                 text-transform: uppercase
                 letter-spacing: 0.5px
