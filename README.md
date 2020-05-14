@@ -39,7 +39,7 @@ It's mostly german though.
 
 ## News
 12.05.2020:  
-Currently looking for a solution for the selection and structuring of the styling part of the editor - I think I got an efficient one. 😄  
+Currently looking for a solution for the selection and structuring of the styling part of the editor - I think I got an efficient one.  
 13.05.2020:  
 Okay, maybe not ._.  
 
