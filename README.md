@@ -42,7 +42,7 @@ It's mostly german though.
 Currently looking for a solution for the selection and structuring of the styling part of the editor - I think I got an efficient one.  
 13.05.2020:  
 Okay, maybe not  
-15.05.2020:
+15.05.2020:  
 Okay, heres the deal: 50€ for a person finding a solution for the above mentioned css structure problem. 😂  
 But in all honesty, I'm still working on this problem with a friend of mine
 
