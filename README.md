@@ -18,7 +18,7 @@ Listed below are some of the upcomming / planned features:
 * Export options:
     * File export ( .html, .css, .sass )
     * Text export ( copy-paste the parts you need )
-* Embedded colorpicker with swatches
+* ✅ Embedded colorpicker with swatches
 * Embedded icon picker
 * ... and more
 
