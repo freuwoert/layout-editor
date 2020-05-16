@@ -10,6 +10,7 @@ import UI from './modules/UI'
 
 // Read only
 import Structures from './modules/readonly/Structures'
+import IconsMDI from './modules/readonly/IconsMDI'
 import Styles from './modules/readonly/Styles'
 import Swatches from './modules/readonly/Swatches'
 import Software from './modules/readonly/Software'
@@ -25,6 +26,7 @@ export default new Vuex.Store({
         UI,
 
         // Read only
+        IconsMDI,
         Software,
         Structures,
         Styles,

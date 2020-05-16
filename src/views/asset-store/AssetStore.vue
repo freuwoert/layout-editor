@@ -1,5 +1,5 @@
 <template>
-    <div class="view" id="home-view">
+    <div class="view">
         <div class="header">
             <div class="view-selector">
                 <div class="image-container">

@@ -8,7 +8,8 @@
             <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container">
-            <colorpicker></colorpicker>
+            <!-- <colorpicker></colorpicker> -->
+            <!-- <iconpicker></iconpicker> -->
         </div>
     </div>
 </template>
@@ -17,6 +18,7 @@
     import { EventBus } from '../../../assets/js/event-bus'
     import DragUnit from '../../components/DragUnitInput.vue'
     import Colorpicker from '../../components/Colorpicker.vue'
+    import Iconpicker from '../../components/Iconpicker.vue'
 
     export default {
         computed: {
@@ -63,6 +65,7 @@
         components: {
             DragUnit,
             Colorpicker,
+            Iconpicker,
         }
     }
 </script>
