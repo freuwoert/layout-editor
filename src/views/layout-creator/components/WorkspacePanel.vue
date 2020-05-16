@@ -3,13 +3,13 @@
         <div class="controls">
             <drag-unit class="control-input" label="W" :min="40" :max="9999" nounit :value="viewport.x" @input="setViewportSize({x: $event, y: null})"></drag-unit>
             <drag-unit class="control-input" label="H" :min="40" :max="9999" nounit :value="viewport.y" @input="setViewportSize({x: null, y: $event})"></drag-unit>
-            <div class="control-icon-btn" @click="rotateCoupledViewport()">&#62581;</div>
-            <div class="control-icon-btn" @click="toggleDecoupleViewport()" :class="{'active' : viewport.decoupled}">{{viewport.decoupled ? '&#64876;' : '&#62329;'}}</div>
+            <div class="control-icon-btn" @click="rotateCoupledViewport()">&#984181;</div>
+            <div class="control-icon-btn" @click="toggleDecoupleViewport()" :class="{'active' : viewport.decoupled}">{{viewport.decoupled ? '&#986512;' : '&#983929;'}}</div>
         </div>
 
         <div class="center">
             <div class="decoupled-viewport" v-show="viewport.decoupled">
-                <div class="icon">&#63880;</div>
+                <div class="icon">&#985481;</div>
                 <div class="text">
                     The Viewport is <strong>decoupled</strong> and<br>shown in a seperate window.
                 </div>

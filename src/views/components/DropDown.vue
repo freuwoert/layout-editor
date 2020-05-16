@@ -2,7 +2,7 @@
     <div class="dropdown">
         <div class="container" @click="openList()">
             <div class="text">{{label_}}</div>
-            <div class="icon">&#61760;</div>
+            <div class="icon">&#983360;</div>
         </div>
         <div class="drop-list" v-show="isOpen">
             <div class="drop-option" v-for="(option, i) in options" @click="chooseItem(i)" :key="i" :class="{'selected': i.toString() === value_.toString()}">{{option}}</div>

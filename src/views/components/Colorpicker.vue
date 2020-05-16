@@ -11,20 +11,20 @@
         <div class="container">
             <div class="mode-selector">
                 <div class="mode" @mousedown="switchMode('PLAIN')" :class="{'active': mode === 'PLAIN'}">
-                    <div class="icon">&#61742;</div>
+                    <div class="icon">&#983342;</div>
                     <div class="text">Plain</div>
                 </div>
                 <div class="mode" @mousedown="switchMode('LINEAR')" :class="{'active': mode === 'LINEAR'}">
-                    <div class="icon">&#61622;</div>
+                    <div class="icon">&#983222;</div>
                     <div class="text">Linear</div>
                 </div>
                 <div class="mode" @mousedown="switchMode('RADIAL')" :class="{'active': mode === 'RADIAL'}">
-                    <div class="icon">&#61621;</div>
+                    <div class="icon">&#983221;</div>
                     <div class="text">Radial</div>
                 </div>
             </div>
             
-            <div class="eyedropper" @click="eyedropperOn()" :class="{'active': eyedropper}">&#61962;</div>
+            <div class="eyedropper" @click="eyedropperOn()" :class="{'active': eyedropper}">&#983562;</div>
 
             <div class="picker-container" draggable="false">
                 <div class="main-picker" @mousedown="mainMouseDown($event)" :style="'background:' + internalBaseColor">
@@ -69,7 +69,7 @@
                 <div class="swatches">
                     <div class="swatch" v-for="(swatch ,i) in swatches[swatchPalette].swatches" @contextmenu="copyColor('HEX', swatch)" @click="setColor('HEX',swatch)" :key="i" :style="'background:' + swatch"></div>
                     <div class="swatch add-button">
-                        <div class="icon">&#62485;</div>
+                        <div class="icon">&#984085;</div>
                     </div>
                 </div>
             </div>

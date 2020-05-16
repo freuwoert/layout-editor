@@ -2,13 +2,13 @@
     <div class="viewport-controls">
         <iframe ref="coupledViewport" class="viewport" :style="'width: '+viewport.x+'px; height:'+viewport.y+'px;'"></iframe>
         <div class="horizontal-handle" @mousedown="mouseDown($event, 'HORIZONTAL')">
-            <div class="icon">&#61917;</div>
+            <div class="icon">&#983517;</div>
         </div>
         <div class="vertical-handle" @mousedown="mouseDown($event, 'VERTICAL')">
-            <div class="icon">&#61916;</div>
+            <div class="icon">&#983516;</div>
         </div>
         <div class="diagonal-handle" @mousedown="mouseDown($event, 'BOTH')">
-            <div class="icon">&#62557;</div>
+            <div class="icon">&#984157;</div>
         </div>
     </div>
 </template>

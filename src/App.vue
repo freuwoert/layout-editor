@@ -7,23 +7,23 @@
                         <div class="tab" :key="i" v-for="(tab, i) in tabHandles" :class="{'active' : tab.UUID === activeUUID}">
                             <div class="change-dot" :class="{'active' : tab.changed}"></div>
                             <span class="title" @click="selectTab(tab.UUID)">{{tab.name}}</span>
-                            <div class="close"  @click="deleteTab(tab.UUID)">&#61782;</div>
+                            <div class="close"  @click="deleteTab(tab.UUID)">&#983382;</div>
                         </div>
-                        <div class="create" @click="addTab({selectOnCreation: true})">&#62485;</div>
+                        <div class="create" @click="addTab({selectOnCreation: true})">&#984085;</div>
                     </div>
                 </div>
                 <div class="window-controls">
                     <div class="tb-button" id="min-button">
-                        <div class="icon">&#62324;</div>
+                        <div class="icon">&#983924;</div>
                     </div>
                     <div class="tb-button" id="max-button">
-                        <div class="icon">&#61745;</div>
+                        <div class="icon">&#983345;</div>
                     </div>
                     <div class="tb-button" id="restore-button">
-                        <div class="icon">&#61751;</div>
+                        <div class="icon">&#983351;</div>
                     </div>
                     <div class="tb-button" id="close-button">
-                        <div class="icon">&#61782;</div>
+                        <div class="icon">&#983382;</div>
                     </div>
                 </div>
             </div>

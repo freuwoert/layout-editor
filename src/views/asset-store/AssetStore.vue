@@ -16,11 +16,9 @@
         </div>
     </div>
 </template>
-
 <script>
-export default {
-    name: 'AssetStore',
-    components: {
+    export default {
+        components: {
+        }
     }
-}
 </script>

@@ -8,30 +8,30 @@
                         <img src="~@/assets/images/icon/vudesigner_logo_white.svg" class="logo">
                         <div class="name">VuDesigner</div>
                     </div>
-                    <div class="panel-button settings" @click="setSettingsUI(true)">&#62611;</div>
-                    <div class="panel-button info">&#62205;</div>
+                    <div class="panel-button settings" @click="setSettingsUI(true)">&#984211;</div>
+                    <div class="panel-button info">&#983805;</div>
                 </div>
                 <div class="button-wrapper">
                     <div class="project-button b1">
                         <div class="create-container" @click="setView({ view: 'PROJECT_MANAGER' })">
-                            <div class="icon">&#62027;</div>
+                            <div class="icon">&#983627;</div>
                             <div class="label">New Project</div>
                         </div>
-                        <div class="open-button" title="Open project">&#63343;</div>
+                        <div class="open-button" title="Open project">&#984944;</div>
                     </div>
                     <div class="project-button b2">
                         <div class="create-container" @click="setView({ view: 'LAYOUT_CREATOR' })">
-                            <div class="icon">&#63275;</div>
+                            <div class="icon">&#984876;</div>
                             <div class="label">New Page or Asset</div>
                         </div>
-                        <div class="open-button" title="Open page or asset">&#63343;</div>
+                        <div class="open-button" title="Open page or asset">&#984944;</div>
                     </div>
                     <div class="project-button b3">
                         <div class="create-container">
-                            <div class="icon">&#62185;</div>
+                            <div class="icon">&#983785;</div>
                             <div class="label">New Vector Image</div>
                         </div>
-                        <div class="open-button" title="Open image">&#63343;</div>
+                        <div class="open-button" title="Open image">&#984944;</div>
                     </div>
                 </div>
             </div>

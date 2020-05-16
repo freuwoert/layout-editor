@@ -1,7 +1,7 @@
 <template>
     <div class="status-panel">
         <div class="savepath" :title="savePath" @click="chooseSavePath()">
-            <div class="icon">&#63343;</div>
+            <div class="icon">&#984944;</div>
             <div class="label" v-show="savePath">{{savePathName}}</div>
             <div class="label" v-show="!savePath">Set file location</div>
         </div>

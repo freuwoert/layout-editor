@@ -16,28 +16,28 @@
 
             <div class="menu-container">
                 <div class="menu-item">
-                    <div class="icon">&#61449;</div>
+                    <div class="icon">&#983049;</div>
                     <div class="text">Account</div>
-                    <div class="chevron">&#61762;</div>
+                    <div class="chevron">&#983362;</div>
                 </div>
                 <div class="menu-item active">
-                    <div class="icon">&#62424;</div>
+                    <div class="icon">&#984024;</div>
                     <div class="text">Appearance</div>
-                    <div class="chevron">&#61762;</div>
+                    <div class="chevron">&#983362;</div>
                 </div>
                 <div class="menu-item">
-                    <div class="icon">&#64281;</div>
+                    <div class="icon">&#987586;</div>
                     <div class="text">Formatting</div>
-                    <div class="chevron">&#61762;</div>
+                    <div class="chevron">&#983362;</div>
                 </div>
                 <div class="menu-item">
-                    <div class="icon">&#62204;</div>
+                    <div class="icon">&#983805;</div>
                     <div class="text">Software</div>
-                    <div class="chevron">&#61762;</div>
+                    <div class="chevron">&#983362;</div>
                 </div>
             </div>
             <div class="menu-item logout">
-                <div class="icon red">&#62973;</div>
+                <div class="icon red">&#984573;</div>
                 <div class="text">Logout</div>
             </div>
         </div>

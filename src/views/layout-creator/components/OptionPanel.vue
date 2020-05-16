@@ -1,10 +1,10 @@
 <template>
     <div class="option-panel">
         <div class="action-button">
-            <div class="icon">&#62903;</div> Build Code
+            <div class="icon">&#984503;</div> Build Code
         </div>
 
-        <div class="more" @click="toggleMoreMenu()">&#61913;</div>
+        <div class="more" @click="toggleMoreMenu()">&#983513;</div>
 
         <div class="more-menu" v-show="moreMenu">
             <div class="account-container">
@@ -14,30 +14,15 @@
             </div>
             <div class="option-container">
                 <div class="option">
-                    <div class="icon">&#61449;</div>
+                    <div class="icon">&#983049;</div>
                     <div class="text">Account</div>
                 </div>
                 <div class="option" @click="setSettingsUI(true)">
-                    <div class="icon">&#62611;</div>
+                    <div class="icon">&#984211;</div>
                     <div class="text">Settings</div>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="account">
-            <div class="sign-in" v-show="!userInfo.online">
-                <div class="text">Sign In</div>
-                <div class="image">
-                    <div class="icon">&#64305;</div>
-                </div>
-            </div>
-            <div class="online" v-show="userInfo.online">
-                <div class="text">{{userInfo.displayName}}</div>    
-                <div class="image">
-                    <img :src="userInfo.displayImage" alt="">
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 <script>
