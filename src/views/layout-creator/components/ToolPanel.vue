@@ -12,7 +12,8 @@
         <div class="tool" draggable="true" title="Video"        @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#62823;</div>
         <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#62059;</div>
 
-        <div class="tool settings" title="Settings" @click="setSettingsUI(true)">&#62611;</div>
+        <div class="tool css" title="CSS View">&#62236;</div>
+        <div class="tool html" title="HTML View">&#62237;</div>
     </div>
 </template>
 <script>
@@ -59,9 +60,14 @@
             user-select: none
             cursor: pointer
 
-            &.settings
+            &.html
                 position: absolute
                 bottom: 0
+                left: 0
+
+            &.css
+                position: absolute
+                bottom: 50px
                 left: 0
 
             &:hover

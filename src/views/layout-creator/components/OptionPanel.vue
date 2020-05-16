@@ -1,10 +1,30 @@
 <template>
     <div class="option-panel">
-        <div class="button">
+        <div class="action-button">
             <div class="icon">&#62903;</div> Build Code
         </div>
 
-        <div class="account">
+        <div class="more" @click="toggleMoreMenu()">&#61913;</div>
+
+        <div class="more-menu" v-show="moreMenu">
+            <div class="account-container">
+                <div class="image-container">
+                    <div class="image"></div>
+                </div>
+            </div>
+            <div class="option-container">
+                <div class="option">
+                    <div class="icon">&#61449;</div>
+                    <div class="text">Account</div>
+                </div>
+                <div class="option" @click="setSettingsUI(true)">
+                    <div class="icon">&#62611;</div>
+                    <div class="text">Settings</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="account">
             <div class="sign-in" v-show="!userInfo.online">
                 <div class="text">Sign In</div>
                 <div class="image">
@@ -17,20 +37,31 @@
                     <img :src="userInfo.displayImage" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
     import { mapGetters, mapActions } from 'vuex'
 
     export default {
+        data() {
+            return {
+                moreMenu: false
+            }
+        },
         computed: {
             ...mapGetters([
                 'userInfo',
             ]),
         },
         methods: {
-            ...mapActions([]),
+            ...mapActions([
+                'setSettingsUI',
+            ]),
+
+            toggleMoreMenu() {
+                this.moreMenu = !this.moreMenu
+            },
         },
         components: {
 
@@ -44,78 +75,131 @@
         position: relative
         text-align: left
 
-        .leave-button
-            width: 50px
-            height: 32px
-            line-height: 32px
-            margin: 4px 0
-            font-family: 'Material Icons'
-            font-size: 20px
-            color: var(--red)
-            text-align: center
+        .action-button
+            height: 30px
+            line-height: 30px
+            margin: 5px 0
+            margin-left: 10px
+            color: var(--color)
             border-radius: 5px
+            font-size: 11px
+            font-weight: 800
+            letter-spacing: 1px
+            text-transform: uppercase
             cursor: pointer
             user-select: none
+            padding-left: 4px
+            padding-right: 15px
 
-            &:hover
-                background: var(--color-dimm)
-
-        .button, .icon-button
-            margin: 7px
-            margin-right: 0
-            background: transparent
-            color: var(--color)
+            .icon
+                color: inherit
+                font-family: 'Material Icons'
+                font-size: 16px
+                height: 30px
+                width: 30px
+                text-align: center
+                line-height: 30px
+                font-weight: normal
+                vertical-align: top
 
             &:hover
                 background: var(--color-dimm)
                 color: var(--color-bright)
 
-        .account
-            position: absolute
-            top: 0
-            right: 0
-            height: 100%
-            line-height: 40px
-            padding: 3px 10px
+        .more
+            width: 32px
+            height: 32px
+            line-height: 32px
+            text-align: center
+            float: right
+            margin: 4px 8px
+            color: var(--color)
+            font-family: 'Material Icons'
+            font-size: 20px
             user-select: none
+            cursor: pointer
+            border-radius: 40px
 
-            .sign-in, .online
-                height: 34px
-                border-radius: 40px
+            &:hover
+                color: var(--color-bright)
+                background: var(--color-dimm)
+
+        .more-menu
+            position: absolute
+            top: 45px
+            right: 10px
+            width: 300px
+            background: var(--background)
+            border-radius: 5px 4px 5px 5px
+            z-index: 2
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
+
+            &:before
+                content: ''
+                position: absolute
+                top: -14px
+                right: 4px
+                height: 0
+                width: 0
+                border: 10px solid transparent
+                border-top-width: 7px
+                border-bottom-width: 7px
+                border-bottom-color: var(--background)
+
+            .account-container
+                width: calc(100% - 10px)
+                border-radius: 5px 4px 5px 5px
                 background: var(--dark-background)
-                cursor: pointer
-                color: var(--color)
+                margin: 5px
+                margin-bottom: 10px
 
-                &:hover
-                    color: var(--color-bright)
+                .image-container
+                    height: 60px
+                    width: 60px
+                    margin: 10px
+                    border-radius: 100px
+                    background: var(--background)
+                    padding: 2px
 
-            .text
-                height: 28px
-                line-height: 28px
-                font-size: 12px
-                padding: 3px 8px 3px 15px
-                letter-spacing: 1px
-                vertical-align: top
+                    .image
+                        height: 100%
+                        width: 100%
+                        border-radius: 100%
+                        background: var(--green)
 
-            .image
-                height: 30px
-                width: 30px
-                margin: 2px
-                border-radius: 40px
-                background: var(--background)
-                overflow: hidden
-                vertical-align: top
+            .option-container
+                width: 100%
+                margin-bottom: 10px
 
-                .icon
-                    height: 100%
+                .option
                     width: 100%
-                    line-height: 30px
-                    text-align: center
-                    font-family: 'Material Icons'
-                    font-size: 22px
-                    color: var(--color-light)
+                    height: 40px
+                    border-radius: 5px
+                    user-select: none
+                    cursor: pointer
+                    color: var(--color)
 
-                img
-                    height: 100%
-                    width: 100%
+                    .icon
+                        width: 50px
+                        height: 40px
+                        line-height: 40px
+                        text-align: center
+                        color: var(--color-lighter)
+                        font-family: 'Material Icons'
+                        font-size: 20px
+                        vertical-align: top
+
+                    .text
+                        height: 40px
+                        line-height: 40px
+                        font-size: 11px
+                        font-weight: 800
+                        color: inherit
+                        letter-spacing: 1px
+                        text-transform: uppercase
+                        vertical-align: top
+
+                    &:hover
+                        color: var(--color-bright)
+                        background: var(--color-dimm)
 </style>

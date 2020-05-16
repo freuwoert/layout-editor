@@ -1,7 +1,7 @@
 const state = {
     availableStructures: {
         'W3:DEFAULT:A:0': { children: [], classes: null, id: null, tag: 'a' },
-        'W3:DEFAULT:P:0': { children: [], classes: 'test', id: null, tag: 'p' },
+        'W3:DEFAULT:P:0': { children: [], classes: null, id: null, tag: 'p' },
         'W3:DEFAULT:H1:0': { children: [], classes: null, id: null, tag: 'h1' },
         'W3:DEFAULT:H2:0': { children: [], classes: null, id: null, tag: 'h2' },
         'W3:DEFAULT:H3:0': { children: [], classes: null, id: null, tag: 'h3' },
