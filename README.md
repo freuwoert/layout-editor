@@ -32,7 +32,7 @@ _"Does it look like a bitch?"_
 
 <img src="https://i.imgur.com/5a7yGxv.png" width="100%">
 
-## Watch it in action - kinda
+## See it in action - kinda
 Lately I've been streaming a lot of the progress I'm making with this project.  
 Tune in to my Twitch at [twitch.com/morriis_](https://www.twitch.tv/morriis_)  
 It's mostly german though.  
