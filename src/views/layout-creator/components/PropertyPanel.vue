@@ -3,14 +3,14 @@
         <div class="container">
             <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
         </div>
-        <div class="container">
-            <drag-unit class="test-1" label="w" :min="0"></drag-unit>
-            <drag-unit class="test-1" label="h" :min="0"></drag-unit>
+        <!-- <div class="container">
+            <checkbox></checkbox> <drag-unit class="test-1" label="w" :min="0"></drag-unit>
+            <checkbox></checkbox> <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container">
-            <!-- <colorpicker></colorpicker> -->
-            <!-- <iconpicker></iconpicker> -->
-        </div>
+            <colorpicker></colorpicker>
+            <iconpicker></iconpicker>
+        </div> -->
     </div>
 </template>
 <script>
@@ -19,6 +19,7 @@
     import DragUnit from '../../components/DragUnitInput.vue'
     import Colorpicker from '../../components/Colorpicker.vue'
     import Iconpicker from '../../components/Iconpicker.vue'
+    import Checkbox from '../../components/Checkbox.vue'
 
     export default {
         computed: {
@@ -66,12 +67,14 @@
             DragUnit,
             Colorpicker,
             Iconpicker,
+            Checkbox,
         }
     }
 </script>
 <style lang="sass" scoped>
     .test-1
-        margin-right: 10px
+        margin: 0 10px
+
     .styling-panel
         grid-area: styling_panel
         position: relative

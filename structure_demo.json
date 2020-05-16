@@ -1,0 +1,14 @@
+{
+    "html": {
+        "children": [{"tag": "div", "styles": {}, "classes": [], "id": null, "children": []}]
+    },
+    "selectors": {
+        "id_45236": ".testttt",
+        "id_45223": "#testttt"
+    },
+    "css": {
+        "children": [{"selector": ["id_45223", ":hover"], "styles": {"width":"100px"}, "children": [
+            {"selector": ["id_45223", ":hover"], "styles": {"width":"100px"}, "children": []}
+        ]}]
+    }
+}

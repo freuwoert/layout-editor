@@ -234,6 +234,8 @@ const actions = {
             commit('setChanged_', true)
             commit('setBackgroundChanged_', {index: getters.activeIndex , changed: true})
         }
+
+        
     },
 
     setSelectedStructures({ commit }, payload) {
@@ -351,17 +353,33 @@ const mutations = {
 
         let path = 'state.document.structures'
         let location = null
+        let injectPosition = 0
 
+        // Get inject position if element shall be inserted below
+        if( param.position === 'below' )
+        {
+            injectPosition = param.trace.pop()
+        }
+
+        // Build JS path
         for (const i of param.trace) 
         {
             path += '.children['+i+']'
         }
 
+        // Evaluate it
         location = eval(path)
 
+        // Inject routine if inserted in element
+        // TODO: needs check for closed tags
         if(param.position === 'insert')
         {
             location.children.unshift(JSON.parse(JSON.stringify(param.element)))
+        }
+        // Inject routine if inserted below element
+        else if(param.position === 'below')
+        {
+            location.children.splice(injectPosition+1, 0, JSON.parse(JSON.stringify(param.element)))
         }
     },
 

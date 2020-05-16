@@ -1,6 +1,6 @@
 <template>
-    <div class="structure-tree" :trace="trace" :class="[{'selected': (selectedStructures.includes(trace+''))}, insertPos]">
-        <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="drapOver($event)" @dragenter="dragEnter('drag-insert')" @dragleave="dragLeave()">
+    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(trace+'')}, insertPos]">
+        <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
             <span class="tag" v-if="structure.tag">
                 {{structure.tag}}
             </span>
@@ -24,6 +24,8 @@
         <div class="children-container" v-if="structure.children.length">
             <structure-tree v-for="(child, id) in structure.children" :key="id" :trace="trace+'-'+id" :structure="child"></structure-tree>
         </div>
+
+        <div class="insert-bar" @drop="drop($event)" @dragover="dragOver($event, 'below')" @dragleave="dragLeave()"></div>
     </div>
 </template>
 <script>
@@ -40,7 +42,7 @@
         },
         data() {
             return {
-                insertPos: null
+                insertPos: null,
             }
         },
         computed: {
@@ -62,16 +64,14 @@
 
                     if( this.availableStructures.hasOwnProperty(elementId) )
                     {
-                        this.insertStructure({trace: this.trace+'', position: 'insert', element: this.availableStructures[elementId]})
+                        this.insertStructure({trace: this.trace+'', position: this.insertPos, element: this.availableStructures[elementId]})
+                        this.insertPos = null
                     }
                 }
 
-                this.insertPos = null
             },
-            drapOver(event) {
+            dragOver(event, pos) {
                 event.preventDefault()
-            },
-            dragEnter(pos) {
                 this.insertPos = pos
             },
             dragLeave() {
@@ -90,6 +90,7 @@
         width: 100%
         user-select: none
         font-family: 'SCP'
+        position: relative
 
         .tag-container
             text-align: left
@@ -174,6 +175,12 @@
             margin: 0 0 0 5px
             border-left: 1px solid rgba(255, 255, 255, 0.2)
 
+        .insert-bar
+            width: 100%
+            height: 8px
+            background: transparent
+            border-radius: 3px
+
         &.selected > .tag-container
             &::after
                 content: ''
@@ -185,6 +192,9 @@
                 background: var(--primary)
                 border-radius: 100%
 
-        &.drag-insert > .tag-container
-            background: var(--darker-background)
+        &.insert > .tag-container
+            background: var(--light-background)
+        &.below > .insert-bar
+            opacity: 1
+            background: var(--light-background)
 </style>

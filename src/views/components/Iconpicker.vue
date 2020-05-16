@@ -144,7 +144,7 @@
                             color: var(--color-lighter)
                             position: relative
                             font-family: 'Material Icons'
-                            font-size: 20px
+                            font-size: 18px
                             font-weight: normal
                             vertical-align: top
 
