@@ -4,12 +4,15 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
+                        <div class="tab active">
+                            <div class="change-dot"></div>
+                            <div class="title">Untitled Project</div>
+                        </div>
                         <div class="tab" :key="i" v-for="(tab, i) in tabHandles" :class="{'active' : tab.UUID === activeUUID}">
                             <div class="change-dot" :class="{'active' : tab.changed}"></div>
-                            <span class="title" @click="selectTab(tab.UUID)">{{tab.name}}</span>
-                            <div class="close"  @click="deleteTab(tab.UUID)">&#983382;</div>
+                            <div class="title" @click="selectTab(tab.UUID)">{{tab.name}}</div>
+                            <div class="close" @click="deleteTab(tab.UUID)">&#983382;</div>
                         </div>
-                        <div class="create" @click="addTab({selectOnCreation: true})">&#984085;</div>
                     </div>
                 </div>
                 <div class="window-controls">
@@ -35,10 +38,9 @@
             <spinner class="spinner" color="white" stroke="4"></spinner>
         </div>
 
-        <span>{{view + ':VIEW'}}</span>
-
         <!-- Views -->
-        <view-landing v-if="view === 'LANDING'"></view-landing>
+        <view-landing v-if="!activeUUID"></view-landing>
+
         <view-asset-store v-if="view === 'ASSET_STORE'"></view-asset-store>
         <view-layout-creator v-if="view === 'LAYOUT_CREATOR'"></view-layout-creator>
         <view-project-manager v-if="view === 'PROJECT_MANAGER'"></view-project-manager>
@@ -89,6 +91,8 @@
             ViewAssetStore,
             ViewLayoutCreator,
             ViewProjectManager,
-        }
+        },
+        mounted() {
+        },
     }
 </script>

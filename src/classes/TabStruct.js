@@ -3,7 +3,6 @@ export default class TabStruct {
     constructor(uuid = '') {
         this.UUID = uuid
         this.meta = {
-            isGhost: true,
             changed: false,
             name: null,
             savePath: null,
@@ -14,10 +13,13 @@ export default class TabStruct {
             focusedStructure: '',
         }
         this.structures = {
-            children: [{tag: 'div', style: {}, classes: [], id: null, children: []}]
+            children: []
+        }
+        this.selectors = {
+
         }
         this.style = {
-            children: [{selector: '.container', children: []}]
+            children: []
         }
         this.viewport = {
             x: 300,

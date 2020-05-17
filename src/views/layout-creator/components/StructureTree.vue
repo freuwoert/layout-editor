@@ -25,7 +25,7 @@
             <structure-tree v-for="(child, id) in structure.children" :key="id" :trace="trace+'-'+id" :structure="child"></structure-tree>
         </div>
 
-        <div class="insert-bar" @drop="drop($event)" @dragover="dragOver($event, 'below')" @dragleave="dragLeave()"></div>
+        <div class="drag-below" @drop="drop($event)" @dragover="dragOver($event, 'below')" @dragleave="dragLeave()"></div>
     </div>
 </template>
 <script>
@@ -175,11 +175,14 @@
             margin: 0 0 0 5px
             border-left: 1px solid rgba(255, 255, 255, 0.2)
 
-        .insert-bar
+        .drag-below
             width: 100%
             height: 8px
             background: transparent
             border-radius: 3px
+            position: absolute
+            left: 0
+            bottom: 0
 
         &.selected > .tag-container
             &::after
@@ -194,7 +197,7 @@
 
         &.insert > .tag-container
             background: var(--light-background)
-        &.below > .insert-bar
+        &.below > .drag-below
             opacity: 1
             background: var(--light-background)
 </style>

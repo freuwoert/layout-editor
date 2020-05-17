@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 
 // Read / Write
 //import Document from './modules/Document'
-import Tabs from './modules/Tabs'
+import Project from './modules/Project'
 import User from './modules/User'
 import UI from './modules/UI'
 
@@ -20,8 +20,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         // Read / Write
-        //Document,
-        Tabs,
+        Project,
         User,
         UI,
 

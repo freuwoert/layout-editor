@@ -13,14 +13,14 @@
                 </div>
                 <div class="button-wrapper">
                     <div class="project-button b1">
-                        <div class="create-container" @click="setView({ view: 'PROJECT_MANAGER' })">
+                        <div class="create-container" @click="addTab({ selectOnCreation: true, view: 'LAYOUT_CREATOR' })">
                             <div class="icon">&#983627;</div>
                             <div class="label">New Project</div>
                         </div>
                         <div class="open-button" title="Open project">&#984944;</div>
                     </div>
                     <div class="project-button b2">
-                        <div class="create-container" @click="setView({ view: 'LAYOUT_CREATOR' })">
+                        <div class="create-container" @click="addTab({ selectOnCreation: true, view: 'LAYOUT_CREATOR' })">
                             <div class="icon">&#984876;</div>
                             <div class="label">New Page or Asset</div>
                         </div>
@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         ...mapActions([
-            'setView',
+            'addTab',
             'setSettingsUI',
         ]),
     },

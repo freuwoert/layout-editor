@@ -3,19 +3,19 @@
         <div class="container">
             <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
         </div>
-        <!-- <div class="container">
+        <div class="container">
             <checkbox></checkbox> <drag-unit class="test-1" label="w" :min="0"></drag-unit>
             <checkbox></checkbox> <drag-unit class="test-1" label="h" :min="0"></drag-unit>
         </div>
         <div class="container">
             <colorpicker></colorpicker>
-            <iconpicker></iconpicker>
-        </div> -->
+            <!-- <iconpicker></iconpicker> -->
+        </div>
     </div>
 </template>
 <script>
     import { mapGetters, mapActions } from 'vuex'
-    import { EventBus } from '../../../assets/js/event-bus'
+    import { EventBus } from '@/assets/js/event-bus'
     import DragUnit from '../../components/DragUnitInput.vue'
     import Colorpicker from '../../components/Colorpicker.vue'
     import Iconpicker from '../../components/Iconpicker.vue'
@@ -53,7 +53,6 @@
                     this.textField = ''
                 }
             })
-
         },
         watch: {
             textField() {

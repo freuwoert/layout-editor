@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from './store/store.js'
+import store from '@/store/store'
+import { EventBus } from '@/assets/js/event-bus'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -26,33 +27,35 @@ Vue.config.productionTip = false
 const app = new Vue({
     el: '#app',
     store,
-    methods: {
-        ...mapActions([
-            'addTab',
-            'saveFile',
-        ])
-    },
     computed: {
         ...mapGetters([
             'vAppInfo',
-            'GENERAL_UI'
+            'GENERAL_UI',
         ]),
     },
+    methods: {
+        ...mapActions([
+            'saveFile',
+        ])
+    },
     mounted() {
-        this.addTab({selectOnCreation: true})
+        EventBus.$on('save', () => {
+            this.saveFile()
+        })
+        EventBus.$on('force-save', () => {
+            this.saveFile({force: true})
+        })
     },
     render: h => h(App)
 })
 
-// keyboard events
-Mousetrap.bind(['ctrl+s','command+s'], function(){
-    app.saveFile()
-})
+/////////////////////
+// keyboard events //
+/////////////////////
 
-Mousetrap.bind(['ctrl+shift+s','command+shift+s'], function(){
-    app.saveFile({force: true})
-})
-
+Mousetrap.bind(['ctrl+s','command+s'],                  function(){ EventBus.$emit('save') })
+Mousetrap.bind(['ctrl+shift+s','command+shift+s'],      function(){ EventBus.$emit('force-save') })
+Mousetrap.bind(['del','backspace'],                     function(){ EventBus.$emit('delete') })
 
 
 // When document has loaded, initialise

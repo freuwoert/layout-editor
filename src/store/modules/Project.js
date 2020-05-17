@@ -5,7 +5,8 @@ import { promises as fs } from 'fs'
 
 const state = {
     activeUUID: null,
-    tabs: [],
+    history: [],
+    tabs: [], // TODO: rename to editors
     document: new TabStruct().getStruct()
 }
 
@@ -97,6 +98,11 @@ const actions = {
         const uuid = require('uuid').v4()
         let tab = new TabStruct(uuid).getStruct()
 
+        if( payload.view )
+        {
+            tab.ui.view = payload.view
+        }
+
         commit('addTabs_', [tab])
 
         if( payload.selectOnCreation )
@@ -175,22 +181,34 @@ const actions = {
         let path = state.document.structures
         let isValid = true
 
-        if( !payload.trace ) return
 
+
+        // Checks for trace but still continous because of inserion methods start / end
+        if( !payload.trace )
+        {
+            isValid = false
+            payload.trace = ''
+        }
+
+
+
+        // String to array
         payload.trace = payload.trace.split('-')
 
-        // convert strings to integers
-        for (let i = 0; i < payload.trace.length; i++)
+        // Cleans up Trace
+        if( ['start','end'].includes(payload.position) )
         {
-            payload.trace[i] = parseInt(payload.trace[i])
+            payload.trace = []
         }
+
+
 
         // check if trace is traverable
         for (const i of payload.trace)
         {
-            if( path.children && path.children[i] )
+            if( path.children && path.children[parseInt(i)] )
             {
-                path = path.children[i]
+                path = path.children[parseInt(i)]
             }
             else
             {
@@ -199,11 +217,38 @@ const actions = {
             }
         }
 
-        if( isValid )
+
+        // isValod or insertion method start / end
+        if( isValid || ['start','end'].includes(payload.position) )
         {
             commit('setChanged_', true)
             commit('setBackgroundChanged_', {index: getters.activeIndex , changed: true})
             commit('insertStructure_', { trace: payload.trace, position: payload.position, element: payload.element })
+        }
+    },
+
+    deleteStructures({ commit, state, getters }, payload) {
+        for (let trace of payload.traces)
+        {
+            let path = state.document.structures
+            let isValid = true
+
+            // String to array
+            trace = trace.split('-')
+
+            // check if trace is traverable
+            for (const i of trace)
+            {
+                if( path.children && path.children[parseInt(i)] )
+                {
+                    path = path.children[parseInt(i)]
+                }
+                else
+                {
+                    isValid = false
+                    break
+                }
+            }
         }
     },
 
@@ -376,10 +421,23 @@ const mutations = {
         {
             location.children.unshift(JSON.parse(JSON.stringify(param.element)))
         }
+
         // Inject routine if inserted below element
         else if(param.position === 'below')
         {
             location.children.splice(injectPosition+1, 0, JSON.parse(JSON.stringify(param.element)))
+        }
+
+        // Inject routine if inserted at start of document
+        else if(param.position === 'start')
+        {
+            location.children.unshift(JSON.parse(JSON.stringify(param.element)))
+        }
+
+        // Inject routine if inserted at end of document
+        else if(param.position === 'end')
+        {
+            location.children.push(JSON.parse(JSON.stringify(param.element)))
         }
     },
 
