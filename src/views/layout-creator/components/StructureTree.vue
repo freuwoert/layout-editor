@@ -1,5 +1,5 @@
 <template>
-    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(trace+'')}, insertPos]">
+    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(trace+'')}, insertPos]" @drag="dragStructure()">
         <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
             <span class="tag" v-if="structure.tag">
                 {{structure.tag}}
@@ -57,16 +57,15 @@
                 'insertStructure',
                 'setSelectedStructures',
             ]),
+            dragStructure() {
+                console.log(this.structure)
+                this.setDraggedElement({type: 'structure', element: this.structure})
+            },
             drop(event) {
                 if( this.dragElement.type === 'structure' )
                 {
-                    let elementId = this.dragElement.element
-
-                    if( this.availableStructures.hasOwnProperty(elementId) )
-                    {
-                        this.insertStructure({trace: this.trace+'', position: this.insertPos, element: this.availableStructures[elementId]})
-                        this.insertPos = null
-                    }
+                    this.insertStructure({trace: this.trace+'', position: this.insertPos, element: this.dragElement.element})
+                    this.insertPos = null
                 }
 
             },

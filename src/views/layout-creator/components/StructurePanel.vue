@@ -29,7 +29,6 @@
             ...mapGetters([
                 'dragElement',
                 'docStructures',
-                'availableStructures',
                 'selectedStructures',
             ]),
         },
@@ -41,15 +40,9 @@
             drop(event) {
                 if( this.dragElement.type === 'structure' )
                 {
-                    let elementId = this.dragElement.element
-
-                    if( this.availableStructures.hasOwnProperty(elementId) )
-                    {
-                        this.insertStructure({trace: '', position: this.insertPos, element: this.availableStructures[elementId]})
-                        this.insertPos = null
-                    }
+                    this.insertStructure({trace: '', position: this.insertPos, element: this.dragElement.element})
+                    this.insertPos = null
                 }
-
             },
             dragOver(event, pos) {
                 event.preventDefault()

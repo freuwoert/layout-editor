@@ -2,15 +2,15 @@
     <div class="tool-panel">
         <div class="tool" title="Search">&#983881;</div>
         <div class="divider"></div>
-        <div class="tool" draggable="true" title="Div-Box"      @drag="dragStructure($event, 'W3:DEFAULT:DIV:0')">&#985252;</div>
-        <div class="tool" draggable="true" title="Text"         @drag="dragStructure($event, 'VU:DEFAULT:TEXT:0')">&#984564;</div>
-        <div class="tool" draggable="true" title="Link"         @drag="dragStructure($event, 'W3:DEFAULT:A:0')">&#983865;</div>
-        <div class="tool" draggable="true" title="Icon"         @drag="dragStructure($event, 'VU:DEFAULT:ICON:0')">&#985585;</div>
-        <div class="tool" draggable="true" title="Span"         @drag="dragStructure($event, 'W3:DEFAULT:SPAN:0')">&#985512;</div>
-        <div class="tool" draggable="true" title="Paragraph"    @drag="dragStructure($event, 'W3:DEFAULT:P:0')">&#985512;</div>
-        <div class="tool" draggable="true" title="Image"        @drag="dragStructure($event, 'W3:DEFAULT:IMAGE:0')">&#985462;</div>
-        <div class="tool" draggable="true" title="Video"        @drag="dragStructure($event, 'W3:DEFAULT:VIDEO:0')">&#984423;</div>
-        <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure($event, 'W3:DEFAULT:H1:0')">&#983659;</div>
+        <div class="tool" draggable="true" title="Div-Box"      @drag="dragStructure('W3:DEFAULT:DIV:0')">&#985252;</div>
+        <div class="tool" draggable="true" title="Text"         @drag="dragStructure('VU:DEFAULT:TEXT:0')">&#984564;</div>
+        <div class="tool" draggable="true" title="Link"         @drag="dragStructure('W3:DEFAULT:A:0')">&#983865;</div>
+        <div class="tool" draggable="true" title="Icon"         @drag="dragStructure('VU:DEFAULT:ICON:0')">&#985585;</div>
+        <div class="tool" draggable="true" title="Span"         @drag="dragStructure('W3:DEFAULT:SPAN:0')">&#985512;</div>
+        <div class="tool" draggable="true" title="Paragraph"    @drag="dragStructure('W3:DEFAULT:P:0')">&#985512;</div>
+        <div class="tool" draggable="true" title="Image"        @drag="dragStructure('W3:DEFAULT:IMAGE:0')">&#985462;</div>
+        <div class="tool" draggable="true" title="Video"        @drag="dragStructure('W3:DEFAULT:VIDEO:0')">&#984423;</div>
+        <div class="tool" draggable="true" title="Headline 1"   @drag="dragStructure('W3:DEFAULT:H1:0')">&#983659;</div>
 
         <div class="tool css" title="CSS View">&#983836;</div>
         <div class="tool html" title="HTML View">&#983837;</div>
@@ -23,6 +23,7 @@
         computed: {
             ...mapGetters([
                 'dragElement',
+                'availableStructures',
             ]),
         },
         methods: {
@@ -30,8 +31,11 @@
                 'setDraggedElement',
                 'setSettingsUI',
             ]),
-            dragStructure(event, elementId) {
-                this.setDraggedElement({type: 'structure', element: elementId})
+            dragStructure(elementId) {
+                if( this.availableStructures.hasOwnProperty(elementId) )
+                {
+                    this.setDraggedElement({type: 'structure', element: this.availableStructures[elementId]})
+                }
             },
         },
     }
