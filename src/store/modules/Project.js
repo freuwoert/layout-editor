@@ -177,7 +177,8 @@ const actions = {
     //////////////
 
     insertStructure({ commit, state, getters }, payload) {
-
+        
+        let uuidGen = require('uuid')
         let path = state.document.structures
         let isValid = true
 
@@ -217,6 +218,27 @@ const actions = {
             }
         }
 
+
+
+        // Recursively assign uuid if not already in place
+        let assignUUID = (element) => {
+
+            if( !element.uuid )
+            {
+                element.uuid = uuidGen.v4()
+            }
+
+            for (let i = 0; i < element.children.length; i++)
+            {
+                element.children[i] = assignUUID(element.children[i])
+            }
+
+            return element
+        }
+        
+        payload.element = assignUUID(payload.element)
+
+        
 
         // isValod or insertion method start / end
         if( isValid || ['start','end'].includes(payload.position) )
