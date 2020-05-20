@@ -306,11 +306,11 @@ const actions = {
     },
 
     setSelectedStructures({ commit }, payload) {
-        if( !payload.trace.toString() ) return
+        if( !payload.uuid ) return
 
-        EventBus.$emit('structure-selected', [payload.trace])
+        EventBus.$emit('structure-selected', [payload.uuid])
 
-        commit('setSelectedStructures_', { trace: payload.trace })
+        commit('setSelectedStructures_', { uuid: payload.uuid })
     },
 
     setView({ commit }, payload) {
@@ -481,7 +481,7 @@ const mutations = {
     },
 
     setSelectedStructures_: (state, param) => {
-        state.document.ui.selectedStructures = [param.trace.toString()]
+        state.document.ui.selectedStructures = [param.uuid]
     },
 
     setView_: (state, params) => {

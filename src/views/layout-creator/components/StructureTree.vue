@@ -1,5 +1,5 @@
 <template>
-    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(trace+'')}, insertPos]" @drag="dragStructure()">
+    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(structure.uuid+'')}, insertPos]" @drag="dragStructure()">
         <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
             <span class="tag" v-if="structure.tag">
                 {{structure.tag}}
@@ -77,7 +77,7 @@
                 this.insertPos = null
             },
             select() {
-                this.setSelectedStructures({trace: this.trace})
+                this.setSelectedStructures({uuid: this.structure.uuid})
             }
         },
         mounted() {
