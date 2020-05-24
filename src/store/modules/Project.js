@@ -53,31 +53,34 @@ const getters = {
     // Document //
     //////////////
 
-    getProperty: (state) => (trace) => {
+    getProperty: (state) => (uuids) => {
 
-        let getFromTrace = (trace) => {
+        let getStructures = (query, uuids) => {
 
-            trace = trace.toString()
-            trace = trace.split('-')
-
-            for (let i = 0; i < trace.length; i++)
+            let structures = []
+            
+            for (const child of query)
             {
-                trace[i] = parseInt(trace[i])
+
+                if( uuids.includes(child.uuid) )
+                {
+                    structures.push(child)
+                }
+
+                // ToDo: Optimize
+                // remove found uuid from uuids and check if uuids empty
+                // -> prevents unnecessary recursive calls
+
+                if( child.hasOwnProperty('children') )
+                {
+                    structures.push(getStructures(child.children, uuids))
+                }
             }
 
-            let path = 'state.document.structures'
-            let location = null
-
-            for (const i of trace) {
-                path += '.children['+i+']'
-            }
-
-            location = eval(path)
-
-            return location ? location : false
+            return structures
         }
 
-        return getFromTrace(trace)
+        return getStructures(state.document.structures.children, uuids)
     },
 
     activeUUID: (state) => state.document.UUID,

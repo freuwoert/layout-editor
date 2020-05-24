@@ -42,7 +42,7 @@
         mounted() {
 
             EventBus.$on('structure-selected', (traces) => {
-                let structure = this.getProperty(traces[0])
+                let structure = this.getProperty(traces)
 
                 if( structure.hasOwnProperty('text') )
                 {
