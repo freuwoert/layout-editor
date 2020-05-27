@@ -3,6 +3,8 @@ import Dialog from '../../assets/js/dialog'
 import TabStruct from '../../classes/TabStruct'
 import { promises as fs } from 'fs'
 
+const cloneDeep = require('lodash.clonedeep')
+
 const state = {
     activeUUID: null,
     history: [],
@@ -59,12 +61,20 @@ const getters = {
 
             let structures = []
             
-            for (const child of query)
+            for (let child of query)
             {
 
                 if( uuids.includes(child.uuid) )
                 {
-                    structures.push(child)
+                    // Removing nested children / flatten the return
+                    let modifiedChild = cloneDeep(child)
+
+                    if( modifiedChild.hasOwnProperty('children') )
+                    {
+                        delete modifiedChild.children
+                    }
+
+                    structures.push(modifiedChild)
                 }
 
                 // ToDo: Optimize
@@ -73,14 +83,19 @@ const getters = {
 
                 if( child.hasOwnProperty('children') )
                 {
-                    structures.push(getStructures(child.children, uuids))
+                    structures.push(...getStructures(child.children, uuids))
                 }
             }
 
             return structures
         }
 
-        return getStructures(state.document.structures.children, uuids)
+        let selections = getStructures(state.document.structures.children, uuids)
+        let properties = {}
+
+        // ToDo: compress selections into properties
+
+        return properties
     },
 
     activeUUID: (state) => state.document.UUID,
@@ -225,6 +240,10 @@ const actions = {
 
         // Recursively assign uuid if not already in place
         let assignUUID = (element) => {
+
+            // Am I stupid or is there just no
+            // other way to remove the observer
+            element = cloneDeep(element)
 
             if( !element.uuid )
             {
@@ -392,7 +411,6 @@ const mutations = {
     },
 
     documentToBackground_: (state, param) => {
-        let cloneDeep = require('lodash.clonedeep')
         if( param.data.meta.isGhost === false )
         {
             state.tabs[param.index] = cloneDeep(param.data)
@@ -414,7 +432,6 @@ const mutations = {
     //////////////
 
     documentToForeground_: (state, param) => {
-        let cloneDeep = require('lodash.clonedeep')
         state.document = cloneDeep(param.data)
         if( typeof param.data.UUID === 'string' ) state.activeUUID = param.data.UUID
     },

@@ -44,14 +44,14 @@
             EventBus.$on('structure-selected', (traces) => {
                 let structure = this.getProperty(traces)
 
-                if( structure.hasOwnProperty('text') )
-                {
-                    this.textField = structure.text
-                }
-                else
-                {
-                    this.textField = ''
-                }
+                // if( structure.hasOwnProperty('text') )
+                // {
+                //     this.textField = structure.text
+                // }
+                // else
+                // {
+                //     this.textField = ''
+                // }
             })
         },
         watch: {
