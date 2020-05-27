@@ -41,8 +41,8 @@
         },
         mounted() {
 
-            EventBus.$on('structure-selected', (traces) => {
-                let structure = this.getProperty(traces)
+            EventBus.$on('structure-selected', (uuids) => {
+                let structure = this.getProperty(uuids)
 
                 // if( structure.hasOwnProperty('text') )
                 // {

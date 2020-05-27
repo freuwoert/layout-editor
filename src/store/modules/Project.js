@@ -95,6 +95,35 @@ const getters = {
 
         // ToDo: compress selections into properties
 
+        // Datastructure of selections:
+        /*
+        [
+            {
+                style: {
+                    width: {value: 100, unit: 'someUnit'},
+                    background: {value: '#hexhexhe'},
+                },
+                classes: ['someClass'],
+                id: null,
+
+                tag: 'someTag'
+            }, ...
+        ]
+        */
+
+        // Datastructure of properties
+        /*
+        {
+            style: {
+                width: {value: 100, unit: '__INTERMEDIATE__'},
+                background: {value: '#ff00ff00'},
+            },
+            classes: ['someClass'],
+            id: null,
+            tag: 'someTag'
+        }
+        */
+
         return properties
     },
 
@@ -327,12 +356,38 @@ const actions = {
         
     },
 
-    setSelectedStructures({ commit }, payload) {
-        if( !payload.uuid ) return
+    setSelectedStructures({ commit, state }, payload) {
+        
+        if( !payload.uuids )
+        {
+            return
+        }
 
-        EventBus.$emit('structure-selected', [payload.uuid])
+        console.log(state.document.structures)
 
-        commit('setSelectedStructures_', { uuid: payload.uuid })
+        commit('selectStructures_', { uuids: [...payload.uuids], clearPrevious: true })
+    },
+
+    addSelectedStructures({ commit, state }, payload) {
+        
+        if( !payload.uuids )
+        {
+            return
+        }
+
+        commit('selectStructures_', { uuids: [...payload.uuids], clearPrevious: false })
+    },
+
+    deselectStructures({ commit, state }, payload) {
+        
+        if( !payload.uuids || payload.uuids.length === 0 )
+        {
+            commit('deselectStructures_', { deselectAll: true })
+        }
+        else
+        {
+            commit('deselectStructures_', { uuids: [...payload.uuids] })
+        }
     },
 
     setView({ commit }, payload) {
@@ -500,8 +555,36 @@ const mutations = {
         }
     },
 
-    setSelectedStructures_: (state, param) => {
-        state.document.ui.selectedStructures = [param.uuid]
+    selectStructures_: (state, param) => {
+        if( param.clearPrevious )
+        {
+            state.document.ui.selectedStructures = []
+        }
+
+        state.document.ui.selectedStructures.push(...param.uuids)
+
+        EventBus.$emit('structure-selected', state.document.ui.selectedStructures)
+    },
+
+    deselectStructures_: (state, param) => {
+
+        if( param.deselectAll === true )
+        {
+            state.document.ui.selectedStructures = []
+        }
+        else
+        {
+            for (const uuid of param.uuids) {
+                let i = state.document.ui.selectedStructures.indexOf(uuid)
+    
+                if( i >= 0 )
+                {
+                    state.document.ui.selectedStructures.splice(i, 1)
+                }
+            }
+        }
+
+        EventBus.$emit('structure-selected', state.document.ui.selectedStructures)
     },
 
     setView_: (state, params) => {

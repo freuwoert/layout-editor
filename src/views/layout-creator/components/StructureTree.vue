@@ -1,6 +1,6 @@
 <template>
-    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(structure.uuid+'')}, insertPos]" @drag="dragStructure()">
-        <div class="tag-container" :trace="trace" @click="select()" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
+    <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(structure.uuid)}, insertPos]" @drag="dragStructure()">
+        <div class="tag-container" :trace="trace" @click="select($event)" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
             <span class="tag" v-if="structure.tag">
                 {{structure.tag}}
             </span>
@@ -56,6 +56,8 @@
             ...mapActions([
                 'insertStructure',
                 'setSelectedStructures',
+                'addSelectedStructures',
+                'deselectStructures',
             ]),
             dragStructure() {
                 console.log(this.structure)
@@ -76,8 +78,24 @@
             dragLeave() {
                 this.insertPos = null
             },
-            select() {
-                this.setSelectedStructures({uuid: this.structure.uuid})
+            select(event) {
+                if( event.shiftKey )
+                {}
+                else if( event.ctrlKey )
+                {
+                    if( this.selectedStructures.includes(this.structure.uuid) )
+                    {
+                        this.deselectStructures({uuids: [this.structure.uuid]})
+                    }
+                    else
+                    {
+                        this.addSelectedStructures({uuids: [this.structure.uuid]})
+                    }
+                }
+                else
+                {
+                    this.setSelectedStructures({uuids: [this.structure.uuid]})
+                }
             }
         },
         mounted() {

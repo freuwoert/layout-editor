@@ -13,7 +13,42 @@ export default class TabStruct {
             focusedStructure: '',
         }
         this.structures = {
-            children: []
+            children: [
+                { 
+                    children: [],
+                    style: {
+                        width: {value: 100, unit: 'px'},
+                        background: {value: '#ffff45ff'},
+                    },
+                    classes: ['tom','peter'],
+                    id: null,
+                    tag: 'div',
+                    uuid: '39209887-167d-4ab6-ab00-eada0bf2a101',
+                },
+                { 
+                    children: [
+                        { 
+                            children: [],
+                            style: {
+                                width: {value: 75, unit: 'px'},
+                                background: {value: '#ffff45ff'},
+                            },
+                            classes: ['tom','peter'],
+                            id: null,
+                            tag: 'div',
+                            uuid: '65b6e0fa-ba88-4b2e-907b-e4f26f94673e',
+                        }
+                    ],
+                    style: {
+                        width: {value: 100, unit: '%'},
+                        background: {value: '#ffff45ff'},
+                    },
+                    classes: ['peter'],
+                    id: null,
+                    tag: 'div',
+                    uuid: '25fea364-929d-42c9-ba44-df45ed1c5919',
+                }
+            ]
         }
         this.selectors = {
 
