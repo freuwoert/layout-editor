@@ -93,36 +93,25 @@ const getters = {
         let selections = getStructures(state.document.structures.children, uuids)
         let properties = {}
 
-        // ToDo: compress selections into properties
-
-        // Datastructure of selections:
-        /*
-        [
-            {
-                style: {
-                    width: {value: 100, unit: 'someUnit'},
-                    background: {value: '#hexhexhe'},
-                },
-                classes: ['someClass'],
-                id: null,
-
-                tag: 'someTag'
-            }, ...
-        ]
-        */
-
-        // Datastructure of properties
-        /*
+        for (const selection of selections)
         {
-            style: {
-                width: {value: 100, unit: '__INTERMEDIATE__'},
-                background: {value: '#ff00ff00'},
-            },
-            classes: ['someClass'],
-            id: null,
-            tag: 'someTag'
+            for (const prop in selection)
+            {
+                if( !properties.hasOwnProperty(prop) )
+                {
+                    if( !['uuid', 'id'].includes(prop) )
+                    {
+                        properties[prop] = selection[prop]
+                    }
+                }
+                else
+                {
+
+                }
+            }
         }
-        */
+
+        console.log(properties)
 
         return properties
     },
@@ -362,8 +351,6 @@ const actions = {
         {
             return
         }
-
-        console.log(state.document.structures)
 
         commit('selectStructures_', { uuids: [...payload.uuids], clearPrevious: true })
     },

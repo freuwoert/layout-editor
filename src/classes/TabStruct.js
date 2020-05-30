@@ -22,6 +22,7 @@ export default class TabStruct {
                     },
                     classes: ['tom','peter'],
                     id: null,
+                    type: 'tag',
                     tag: 'div',
                     uuid: '39209887-167d-4ab6-ab00-eada0bf2a101',
                 },
@@ -35,6 +36,7 @@ export default class TabStruct {
                             },
                             classes: ['tom','peter'],
                             id: null,
+                            type: 'tag',
                             tag: 'div',
                             uuid: '65b6e0fa-ba88-4b2e-907b-e4f26f94673e',
                         }
@@ -45,7 +47,8 @@ export default class TabStruct {
                     },
                     classes: ['peter'],
                     id: null,
-                    tag: 'div',
+                    type: 'tag',
+                    tag: 'span',
                     uuid: '25fea364-929d-42c9-ba44-df45ed1c5919',
                 }
             ]

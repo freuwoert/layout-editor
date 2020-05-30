@@ -1,7 +1,9 @@
 <template>
     <div class="structure-tree" :trace="trace" :class="[{'selected': selectedStructures.includes(structure.uuid)}, insertPos]" @drag="dragStructure()">
+        
         <div class="tag-container" :trace="trace" @click="select($event)" @drop="drop($event)" @dragover="dragOver($event, 'insert')" @dragleave="dragLeave()">
-            <span class="tag" v-if="structure.tag">
+            
+            <span class="tag" v-if="structure.type === 'tag'">
                 {{structure.tag}}
             </span>
 
@@ -17,6 +19,7 @@
                 <div class="attribute-value" v-show="!structure.text">∙ EMPTY ∙</div>
                 <div class="attribute-value" v-show="structure.text">{{structure.text}}</div>
             </span>
+
         </div>
 
 
