@@ -74,7 +74,7 @@ const getters = {
                         delete modifiedChild.children
                     }
 
-                    structures.push(modifiedChild)
+                    structures.push(child)
                 }
 
                 // ToDo: Optimize
@@ -91,25 +91,64 @@ const getters = {
         }
 
         let selections = getStructures(state.document.structures.children, uuids)
-        let properties = {}
+        let properties = { type: null }
+        let propExclusion = ['uuid', 'children']
 
-        for (const selection of selections)
+
+
+        // Getting common type
+        for (let i = 0; i < selections.length; i++)
         {
-            for (const prop in selection)
+
+            if( i === 0 )
             {
-                if( !properties.hasOwnProperty(prop) )
+                properties.type = selections[0].type
+                continue
+            }
+
+            if( selections[i].type !== properties.type)
+            {
+                properties.type = 'intermediate'
+                break
+            }
+
+        }
+
+
+
+        // Complete propExclusion
+        if( selections.length > 1 )
+        {
+            propExclusion.push('id')
+        }
+
+
+
+        switch (properties.type)
+        {
+            case 'tag':
+
+                for (const selection of selections)
                 {
-                    if( !['uuid', 'id'].includes(prop) )
+                    for (const prop in selection)
                     {
-                        properties[prop] = selection[prop]
+                        if( !properties.hasOwnProperty(prop) )
+                        {
+                            // Disregard excluded props
+                            if( !propExclusion.includes(prop) )
+                            {
+                                properties[prop] = selection[prop]
+                            }
+                        }
+                        else
+                        {
+        
+                        }
                     }
                 }
-                else
-                {
-
-                }
-            }
+                break
         }
+
 
         console.log(properties)
 
