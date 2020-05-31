@@ -152,6 +152,12 @@
                     background: #2F3542
                     color: var(--color)
 
+                    span
+                        margin-right: 5px
+
+                        &:last-child
+                            margin: 0
+
                 &.id
                     background: #57606F
                     color: var(--color)

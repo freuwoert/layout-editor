@@ -23,7 +23,7 @@
         margin: 5px
         width: 20px
         height: 20px
-        margin: 5px 0
+        margin: 5px
         border: 2px solid var(--color-light)
         border-radius: 4px
         cursor: pointer

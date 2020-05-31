@@ -14,7 +14,7 @@ const state = {
         'W3:DEFAULT:VIDEO:0': { children: [], type: 'tag', style: {}, classes: null, id: null, tag: 'video' },
 
         'VU:DEFAULT:TEXT:0': { children: [], type: 'text', tag: '', text: '' },
-        'VU:DEFAULT:ICON:0': { children: [], type: 'icon', tag: '', icon: '' },
+        'VU:DEFAULT:ICON:0': { children: [], type: 'icon', tag: '', icon: null },
     }
 }
 

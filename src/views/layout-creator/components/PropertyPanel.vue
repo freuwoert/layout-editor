@@ -1,15 +1,19 @@
 <template>
     <div class="styling-panel">
-        <div class="container">
+        <div class="container" v-if="properties.hasOwnProperty('text')">
             <textarea rows="10" class="text-field" v-model="textField" placeholder="Text"></textarea>
         </div>
-        <div class="container">
-            <checkbox></checkbox> <drag-unit class="test-1" label="w" :min="0"></drag-unit>
-            <checkbox></checkbox> <drag-unit class="test-1" label="h" :min="0"></drag-unit>
-        </div>
-        <div class="container">
+
+        <div class="container" v-if="properties.style">
+            <checkbox></checkbox><drag-unit class="test-1" label="w" :min="0"></drag-unit>
+            <checkbox></checkbox><drag-unit class="test-1" label="h" :min="0"></drag-unit>
+
+
             <colorpicker></colorpicker>
-            <!-- <iconpicker></iconpicker> -->
+        </div>
+
+        <div class="container" v-if="properties.hasOwnProperty('icon')">
+            <iconpicker></iconpicker>
         </div>
     </div>
 </template>
@@ -36,13 +40,14 @@
         },
         data() {
             return {
-                textField: ''
+                properties: {},
+                textField: '',
             }
         },
         mounted() {
 
             EventBus.$on('structure-selected', (uuids) => {
-                let structure = this.getProperty(uuids)
+                this.properties = this.getProperty(uuids)
 
                 // if( structure.hasOwnProperty('text') )
                 // {
@@ -72,7 +77,12 @@
 </script>
 <style lang="sass" scoped>
     .test-1
+        width: 140px
         margin: 0 10px
+
+    .test-divider
+        height: 10px
+        width: 100%
 
     .styling-panel
         grid-area: styling_panel

@@ -8,7 +8,7 @@ const cloneDeep = require('lodash.clonedeep')
 const state = {
     activeUUID: null,
     history: [],
-    tabs: [], // TODO: rename to editors
+    tabs: [], // ToDo: rename to editors
     document: new TabStruct().getStruct()
 }
 
@@ -77,8 +77,8 @@ const getters = {
                     structures.push(child)
                 }
 
-                // ToDo: Optimize
-                // remove found uuid from uuids and check if uuids empty
+                // ToDo: optimize
+                // Remove found uuid from uuids and check if uuids empty
                 // -> prevents unnecessary recursive calls
 
                 if( child.hasOwnProperty('children') )
@@ -92,7 +92,6 @@ const getters = {
 
         let selections = getStructures(state.document.structures.children, uuids)
         let properties = { type: null }
-        let propExclusion = ['uuid', 'children']
 
 
 
@@ -108,50 +107,103 @@ const getters = {
 
             if( selections[i].type !== properties.type)
             {
-                properties.type = 'intermediate'
+                properties.type = '__intermediate__'
                 break
             }
 
         }
-
-
-
-        // Complete propExclusion
-        if( selections.length > 1 )
-        {
-            propExclusion.push('id')
-        }
-
-
-
-        switch (properties.type)
-        {
-            case 'tag':
-
-                for (const selection of selections)
-                {
-                    for (const prop in selection)
-                    {
-                        if( !properties.hasOwnProperty(prop) )
-                        {
-                            // Disregard excluded props
-                            if( !propExclusion.includes(prop) )
-                            {
-                                properties[prop] = selection[prop]
-                            }
-                        }
-                        else
-                        {
         
-                        }
-                    }
+
+
+        // ToDo: make this piece of code not be dirty af
+        if( properties.type === 'icon' )
+        {
+            for (let i = 0; i < selections.length; i++)
+            {
+
+                if( i === 0 )
+                {
+                    properties.icon = selections[0].icon
+                    continue
                 }
-                break
+
+                if( selections[i].icon !== properties.icon)
+                {
+                    properties.icon = '__intermediate__'
+                    break
+                }
+
+            }
         }
+
+        if( properties.type === 'text' )
+        {
+            for (let i = 0; i < selections.length; i++)
+            {
+
+                if( i === 0 )
+                {
+                    properties.text = selections[0].text
+                    continue
+                }
+
+                if( selections[i].text !== properties.text)
+                {
+                    properties.text = '__intermediate__'
+                    break
+                }
+
+            }
+        }
+
+        if( properties.type === 'tag' )
+        {
+            for (let i = 0; i < selections.length; i++)
+            {
+
+                if( i === 0 )
+                {
+                    properties.classes = selections[0].classes
+                    properties.styles = Object.keys(selections[0].style)
+                    properties.tag = selections[0].tag
+                    properties.id = selections[0].id
+                    continue
+                }
+
+                if( selections[i].tag !== properties.tag)
+                {
+                    properties.tag = '__intermediate__'
+                }
+
+                if( selections[i].id !== properties.id)
+                {
+                    properties.id = '__intermediate__'
+                }
+
+                // ToDo: we eventually want it to be union instead of intersect
+                // It's dangerous to go alone (without a link to a cool tutorial) - here take this:
+                // https://medium.com/@alvaro.saburido/set-theory-for-arrays-in-es6-eb2f20a61848
+                properties.classes = properties.classes.filter(x => selections[i].classes.includes(x))
+                properties.styles = properties.styles.filter(x => Object.keys(selections[i].style).includes(x))
+
+            }
+
+
+
+            properties.style = {}
+
+            // ToDo: make check for intermediate values
+            for (const style of properties.styles)
+            {
+                properties.style[style] = selections[0].style[style]
+            }
+
+            delete properties.styles
+        }
+
 
 
         console.log(properties)
-
         return properties
     },
 
