@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/ou9Y8gI.png?2" width="180">
+<img src="https://i.imgur.com/wReyqNy.png" width="180">
 
 # VuDesigner
 An experimental project by Maurice Freuwört  
@@ -24,12 +24,12 @@ Listed below are some of the upcomming / planned features:
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
 ## Roadmap for this Project in 2020/2021
-<img src="https://i.imgur.com/M0oI5lf.png" width="100%">
+<img src="https://i.imgur.com/a0k4NYH.png" width="100%">
 
 ## What does it look like?
 _"Does it look like a bitch?"_  
 
-<img src="https://i.imgur.com/5a7yGxv.png" width="100%">
+<img src="https://i.imgur.com/LBEzr4m.png" width="100%">
 
 ## See it in action - kinda
 Lately I've been streaming a lot of the progress I'm making with this project.  
