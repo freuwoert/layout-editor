@@ -160,7 +160,6 @@ h1,h2,h3,h4,h5,h6
                                 height: var(--header-height)
                                 width: 10px
                                 border-radius: 0 0 10px 0
-                                background: var(--dark-background)
                                 position: absolute
                                 top: 0
                                 left: -10px
@@ -171,11 +170,18 @@ h1,h2,h3,h4,h5,h6
                                 height: var(--header-height)
                                 width: 10px
                                 border-radius: 0 0 0 10px
-                                background: var(--dark-background)
                                 position: absolute
                                 top: 0
                                 right: -10px
                                 box-shadow: 0 10px var(--background)
+
+                        &.main-tab
+                            margin-right: 15px
+                            margin-left: 0px
+                            border-radius: 0 10px 0 0
+
+                            &:before
+                                display: none
 
                         .change-dot
                             height: 8px
@@ -254,7 +260,6 @@ h1,h2,h3,h4,h5,h6
                     height: var(--header-height)
                     width: 10px
                     border-radius: 0 0 10px 0
-                    background: var(--dark-background)
                     position: absolute
                     top: 0
                     left: -10px

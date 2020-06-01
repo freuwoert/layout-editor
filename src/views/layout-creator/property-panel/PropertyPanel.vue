@@ -5,11 +5,13 @@
         </div>
 
         <div class="container" v-if="properties.style">
-            <checkbox></checkbox><drag-unit class="test-1" label="w" :min="0"></drag-unit>
-            <checkbox></checkbox><drag-unit class="test-1" label="h" :min="0"></drag-unit>
+            <div class="wrapper">
+                <checkbox></checkbox><drag-unit class="test-1" label="w" :min="0"></drag-unit>
+                <checkbox></checkbox><drag-unit class="test-2" label="h" :min="0"></drag-unit>
+            </div>
 
-
-            <colorpicker></colorpicker>
+            <color-input label="Background Color"></color-input>
+            <color-input label="Color"></color-input>
         </div>
 
         <div class="container" v-if="properties.hasOwnProperty('icon')">
@@ -22,6 +24,7 @@
     import { EventBus } from '@/assets/js/event-bus'
     import DragUnit from '../../components/DragUnitInput.vue'
     import Colorpicker from '../../components/Colorpicker.vue'
+    import ColorInput from './components/ColorInput.vue'
     import Iconpicker from '../../components/Iconpicker.vue'
     import Checkbox from '../../components/Checkbox.vue'
 
@@ -70,15 +73,24 @@
         components: {
             DragUnit,
             Colorpicker,
+            ColorInput,
             Iconpicker,
             Checkbox,
         }
     }
 </script>
 <style lang="sass" scoped>
+    .wrapper
+        height: 30px
+        width: 100%
+        margin: 5px 0
     .test-1
-        width: 140px
-        margin: 0 10px
+        width: 145px
+        margin: 0 10px 0 10px
+
+    .test-2
+        width: 145px
+        margin: 0 0 0 10px
 
     .test-divider
         height: 10px
@@ -87,7 +99,7 @@
     .styling-panel
         grid-area: styling_panel
         position: relative
-        overflow-y: auto
+        // overflow-y: auto
         margin: 5px 0
         background: var(--background)
         border-radius: 5px 0 0 5px
@@ -95,7 +107,7 @@
         .container
             border-top: 5px solid var(--dark-background)
             width: 100%
-            padding: 10px
+            padding: 5px 10px
             text-align: left
 
             &:first-of-type

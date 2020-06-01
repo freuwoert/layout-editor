@@ -3,17 +3,14 @@
         <div class="container">
             <div class="iconset-panel">
                 <div class="iconset-container">
-                    <div class="iconset">
-                        <div class="icon">&#985478;</div>
-                        <div class="name">Material Icons</div>
+                    <div class="iconset" title="Material Icons">
+                        &#985478;
                     </div>
-                    <div class="iconset">
-                        <div class="icon">&#983098;</div>
-                        <div class="name">Font Awesome</div>
+                    <div class="iconset" title="Font Awesome">
+                        &#983098;
                     </div>
-                    <div class="iconset">
-                        <div class="icon">&#984787;</div>
-                        <div class="name">Feather</div>
+                    <div class="iconset" title="Feather">
+                        &#984787;
                     </div>
                 </div>
             </div>
@@ -85,14 +82,14 @@
         z-index: 1
 
         .container
-            width: 560px
+            width: 380px
             border-radius: 5px
             background: var(--background)
             filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3))
             z-index: 1
             text-align: left
             display: grid
-            grid-template-columns: 250px auto
+            grid-template-columns: 80px auto
             grid-template-rows: auto
             grid-template-areas: "iconset_panel icon_panel"
 
@@ -122,51 +119,27 @@
 
                 .iconset-container
                     width: calc(100% - 40px)
-                    height: 445px
+                    height: 440px
                     overflow: hidden
                     overflow-y: auto
                     margin: 20px
 
                     .iconset
-                        height: 30px
-                        width: 100%
+                        height: 40px
+                        width: 40px
+                        line-height: 40px
+                        text-align: center
                         border-radius: 5px
                         cursor: pointer
                         user-select: none
-                        white-space: nowrap
-
-                        .icon
-                            width: 30px
-                            height: 30px
-                            line-height: 30px
-                            text-align: center
-                            margin-right: 5px
-                            color: var(--color-lighter)
-                            position: relative
-                            font-family: 'Material Icons'
-                            font-size: 18px
-                            font-weight: normal
-                            vertical-align: top
-
-                        .name
-                            height: 30px
-                            line-height: 30px
-                            font-size: 13px
-                            letter-spacing: 1px
-                            color: var(--color)
-                            overflow: hidden
-                            text-overflow: ellipsis
-                            font-weight: normal
-                            vertical-align: top
+                        color: var(--color-light)
+                        font-family: 'Material Icons'
+                        font-size: 22px
+                        font-weight: normal
 
                         &:hover
                             background: var(--darker-background)
-
-                            .icon
-                                color: var(--color-bright)
-
-                            .name
-                                color: var(--color-bright)
+                            color: var(--color-bright)
 
             .icon-panel
                 grid-area: icon_panel

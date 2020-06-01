@@ -4,7 +4,7 @@
             <div class="drag-area">
                 <div class="window-title">
                     <div class="tab-container">
-                        <div class="tab active">
+                        <div class="tab active main-tab">
                             <div class="change-dot"></div>
                             <div class="title">Untitled Project</div>
                         </div>

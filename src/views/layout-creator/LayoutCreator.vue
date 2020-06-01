@@ -15,7 +15,7 @@
     import ToolPanel from './components/ToolPanel'
     import StructurePanel from './components/StructurePanel'
     import WorkspacePanel from './components/WorkspacePanel'
-    import PropertyPanel from './components/PropertyPanel'
+    import PropertyPanel from './property-panel/PropertyPanel'
     import StatusPanel from './components/StatusPanel'
 
     export default {

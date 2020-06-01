@@ -4,7 +4,7 @@
             <div class="icon">&#984503;</div> Build Code
         </div>
 
-        <div class="more" @click="toggleMoreMenu()">&#983513;</div>
+        <div class="more" @click="toggleMoreMenu()">&#983900;</div>
 
         <div class="more-menu" v-show="moreMenu">
             <div class="account-container">

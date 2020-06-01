@@ -3,6 +3,7 @@
         <img class="eyedropper-image" @click="eyedropperOff()" :src="eyedropperImageSrc" v-show="eyedropper">
         <div class="eyedropper-magnifier" v-show="eyedropper" :style="'top:'+magnifyY+'px; left:'+magnifyX+'px;'">
             <div class="magnify-circle">
+                <!-- ToDo: fix multiple colorpicker bug caused by id selector -->
                 <canvas class="zoom-image" id="zoomed-image"></canvas>
             </div>
             <div class="color" :style="'background: '+eyedropperColor"></div>
@@ -410,6 +411,7 @@
                     }
     
                     this.updateInternalColors()
+                    this.$emit('input', this.output.hex)
                 }
             },
             

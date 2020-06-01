@@ -24,8 +24,8 @@
         width: 20px
         height: 20px
         margin: 5px
-        border: 2px solid var(--color-light)
-        border-radius: 4px
+        border: 2px solid var(--color-lighter)
+        border-radius: 5px
         cursor: pointer
         position: relative
         vertical-align: middle

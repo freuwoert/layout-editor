@@ -150,6 +150,7 @@
 
                 &.class
                     background: #2F3542
+                    text-transform: initial
                     color: var(--color)
 
                     span
@@ -160,6 +161,7 @@
 
                 &.id
                     background: #57606F
+                    text-transform: initial
                     color: var(--color)
 
             .attribute
