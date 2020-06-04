@@ -3,23 +3,23 @@
 </p>
 <h1 align="center">VuDesigner</h1>
 <p align="center">
-   A passion project by Maurice Freuwört  
-   Started: <b>15. January 2020</b>  
-</p> 
+   A passion project by Maurice Freuwört<br>
+   Started: <b>15. January 2020</b>
+</p><br>
 
 ## About this software?
 TL;DR VuDesigner is a software for efficient UI creation and code generation.  
 
 VuDesigner is a software development tool written in electron.js designed for efficient UI creation. I often times describe it as a combination of Adobe XD and Webflow. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern by generating usable, ready-to-copy code.
 Listed below are some of the upcomming and planned features:
-* An asset marketplace for intricate user generated assets
-* Live preview - that is basically a requirement in 2020
-* Quick project initiation - meaning one-click setup for custom folder structures + git initialization and so on
-* Cloud saving assets, files and settings
-* Export as file or copy to clipboard
-* ✔ Embedded colorpicker
-* ✔ Embedded icon picker
-* CMS functionalities
+* [ ] An asset marketplace for intricate user generated assets
+* [ ] Live preview - that is basically a requirement in 2020
+* [ ] Quick project initiation - meaning one-click setup for custom folder structures + git initialization and so on
+* [ ] Cloud saving assets, files and settings
+* [ ] Export as file or copy to clipboard
+* [x] Embedded colorpicker
+* [x] Embedded icon picker
+* [ ] CMS functionalities
 
 This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
 
