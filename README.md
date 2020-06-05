@@ -28,7 +28,7 @@ This collection of ideas also states the roadmap or rather the upcoming updates 
 
 ## What does it look like?
 _"Does it look like a bitch?"_  
-Check out my [Dribbble](https://dribbble.com/freuwoert) for more visuals. 😉  
+Check out my [Dribbble](https://dribbble.com/freuwoert) for more visuals.  
 
 <img src="https://i.imgur.com/LBEzr4m.png" width="100%">
 
@@ -41,6 +41,6 @@ It's mostly german though.
 You can now support this project and even get beta access (once it gets there) through my [Patreon](https://www.patreon.com/freuwoert).  
 
 ## Disclaimer
-This idea stamps from my desire for a tool like this. I'm not working fulltime on VuDesigner nor am I capable of financially supporting it more than I do now. I simply cannot guarantee a set list of features before I haven't decided on making Vudesigner into a commercial product. I will however do my absolute best to keep the promises listed above. And just to mention it: although this project may be openly available I do not support the altering or republishing of it. After all, this is my 'brainchild'. 😅  
+This idea stamps from my desire for a tool like this. I'm not working fulltime on VuDesigner nor am I capable of financially supporting it more than I do now. I simply cannot guarantee a set list of features before I haven't decided on making Vudesigner into a commercial product. I will however do my absolute best to keep the promises listed above. And just to mention it: although this project may be openly available I do not support the altering or republishing of it. After all, this is my brainchild.  
   
 © Maurice Freuwört 2020
