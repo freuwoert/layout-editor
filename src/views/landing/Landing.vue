@@ -174,9 +174,9 @@ export default {
                         &.b1
                             color: #0984E3
                         &.b2
-                            color: #7F1DFF
+                            color: #7158E2
                         &.b3
-                            color:#FF3463
+                            color: #FF3463
 
                         .create-container
                             width: 100%
