@@ -21,7 +21,7 @@ Listed below are some of the upcomming and planned features:
 * [x] Embedded icon picker
 * [ ] CMS functionalities
 
-This collection of ideas also states the roadmap or rather the upcoming updates for this project (although the list is not set in stone and new ideas for additions are very much appreciated).
+(Ideas for additions are very much appreciated)  
 
 ## Releases for this Project in 2020/2021
 <img src="https://i.imgur.com/a0k4NYH.png" width="100%">
