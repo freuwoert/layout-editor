@@ -8,7 +8,8 @@
 </p><br>
 
 ## About this software?
-TL;DR VuDesigner is a software for efficient UI creation and code generation.  
+TL;DR  
+VuDesigner is a software for efficient UI creation and code generation.  
 
 VuDesigner is a software development tool written in electron.js designed for efficient UI creation. I often times describe it as a combination of Adobe XD and Webflow. Much like other tools such as Emmet it strives to make the programming part of the design-development workflow the minimal concern by generating usable, ready-to-copy code.
 Listed below are some of the upcomming and planned features:
