@@ -24,7 +24,7 @@ Listed below are some of the upcomming and planned features:
 
 (Ideas for additions are very much appreciated)  
 
-## Releases for this Project in 2020/2021
+## Releases for this Project in 2020/21
 <img src="https://i.imgur.com/a0k4NYH.png" width="100%">
 
 ## What does it look like?
