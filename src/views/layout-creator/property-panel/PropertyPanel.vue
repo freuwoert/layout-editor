@@ -10,8 +10,8 @@
                 <checkbox></checkbox><drag-unit class="test-2" label="h" :min="0"></drag-unit>
             </div>
 
-            <color-input label="Background Color"></color-input>
-            <color-input label="Color"></color-input>
+            <color-input v-model="test" label="Background Color"></color-input>
+            <color-input v-model="test" label="Color"></color-input>
         </div>
 
         <div class="container" v-if="properties.hasOwnProperty('icon')">
@@ -45,6 +45,7 @@
             return {
                 properties: {},
                 textField: '',
+                test: {checked: true, color: '#7d5fffff'}
             }
         },
         mounted() {

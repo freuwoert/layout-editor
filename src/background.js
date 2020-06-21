@@ -44,8 +44,10 @@ else
             // } catch (error) {
             //     console.error('Vue Devtools failed to install:', error.toString())
             // }
+            BrowserWindow.addDevToolsExtension('node_modules/vue-devtools/vender')
+            require('vue-devtools').install()
+            
         }
-
         createWindow()
     })
     

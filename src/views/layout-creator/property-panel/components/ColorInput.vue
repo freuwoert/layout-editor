@@ -1,6 +1,6 @@
 <template>
     <div class="color-input">
-        <checkbox class="checkbox"></checkbox>
+        <checkbox @click.native="emitChange" v-model="checked" class="checkbox"></checkbox>
 
         <div class="color-toggle">
             <div class="grid"></div>
@@ -11,7 +11,7 @@
 
 
 
-        <!-- <colorpicker class="colorpicker" v-model="color"></colorpicker> -->
+        <colorpicker class="colorpicker" v-model="color"></colorpicker>
     </div>
 </template>
 <script>
@@ -24,17 +24,38 @@
         props: {
             label: {
                 type: String,
-            }
+            },
+            value: {
+                type: Object,
+            },
         },
         computed: {
             ...mapGetters([]),
         },
         methods: {
             ...mapActions([]),
+
+            emitChange() {
+                this.$emit('input', {color: this.color, checked: this.checked})
+            },
+        },
+        mounted() {
+            if( this.value )
+            {
+                this.color = this.value.color
+                this.checked = this.value.checked
+            }
+        },
+        watch: {
+            value() {
+                this.color = this.value.color
+                this.checked = this.value.checked
+            }
         },
         data() {
             return {
-                color: '#0057ffff'
+                checked: false,
+                color: '#0057ffff',
             }
         },
         components: {

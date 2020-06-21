@@ -5,14 +5,31 @@
 </template>
 <script>
     export default {
+        props: {
+            value: {
+                type: Boolean,
+            },
+        },
         data() {
             return {
                 checked: false
             }
         },
+        mounted() {
+            if( this.value )
+            {
+                this.checked = this.value
+            }
+        },
+        watch: {
+            value(){
+                this.checked = this.value
+            }
+        },
         methods: {
             toggle() {
                 this.checked = !this.checked
+                this.$emit('input', this.checked)
             }
         }
     }
