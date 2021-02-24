@@ -24,9 +24,6 @@ Listed below are some of the upcomming and planned features:
 
 (Ideas for additions are very much appreciated)  
 
-## Releases for this Project in 2020/21
-<img src="https://i.imgur.com/a0k4NYH.png" width="100%">
-
 ## What does it look like?
 _"Does it look like a bitch?"_  
 Check out my [Dribbble](https://dribbble.com/freuwoert) for more visuals.  
@@ -36,12 +33,8 @@ Check out my [Dribbble](https://dribbble.com/freuwoert) for more visuals.
 ## See it in action - kinda
 Lately I've been streaming a lot of the progress I'm making with this project.  
 Tune in to my Twitch at [twitch.com/morriis_](https://www.twitch.tv/morriis_)  
-It's mostly german though.  
-
-## Supporting this project
-You can now support this project and even get beta access (once it gets there) through my [Patreon](https://www.patreon.com/freuwoert).  
+It's mostly german though.    
 
 ## Disclaimer
-This idea stamps from my desire for a tool like this. I'm not working fulltime on VuDesigner nor am I capable of financially supporting it more than I do now. I simply cannot guarantee a set list of features before I haven't decided on making Vudesigner into a commercial product. I will however do my absolute best to keep the promises listed above. And just to mention it: although this project may be openly available I do not support the altering or republishing of it. After all, this is my brainchild.  
-  
-© Maurice Freuwört 2020
+This idea stamps from my desire for a tool like this. I'm not working fulltime on VuDesigner nor am I capable of financially supporting it more than I do now. I simply cannot guarantee a set list of features before I haven't decided on making Vudesigner into a commercial product.  
+EDIT: I will not, do whatever you want with it.   
